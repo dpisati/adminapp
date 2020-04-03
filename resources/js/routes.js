@@ -1,0 +1,21 @@
+import Home from "./components/Home";
+import Profile from "./components/Profile";
+import Users from "./components/Users";
+import Projects from "./components/Projects";
+import Cabinets from "./components/Cabinets";
+import Materials from "./components/Materials";
+import Developer from "./components/Developer";
+
+export default {
+    mode: "history",
+
+    routes: [
+        { path: "/home", component: Home },
+        { path: "/profile", component: Profile },
+        { path: "/users", component: Users },
+        { path: "/projects", component: Projects },
+        { path: "/cabinets", component: Cabinets },
+        { path: "/materials", component: Materials },
+        { path: "/developer", component: Developer }
+    ]
+};
