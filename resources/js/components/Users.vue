@@ -183,6 +183,7 @@ export default {
         name: "",
         email: "",
         type: "",
+        photo: "",
         franchise: "",
         password: "",
         remember: false
