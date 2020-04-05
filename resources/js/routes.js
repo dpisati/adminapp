@@ -5,6 +5,7 @@ import Projects from "./components/Projects";
 import Cabinets from "./components/Cabinets";
 import Materials from "./components/Materials";
 import Developer from "./components/Developer";
+import NotFound from "./components/NotFound";
 
 export default {
     mode: "history",
@@ -16,6 +17,7 @@ export default {
         { path: "/projects", component: Projects },
         { path: "/cabinets", component: Cabinets },
         { path: "/materials", component: Materials },
-        { path: "/developer", component: Developer }
+        { path: "/developer", component: Developer },
+        { path: "*", component: NotFound }
     ]
 };

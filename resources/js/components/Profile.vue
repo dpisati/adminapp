@@ -7,18 +7,18 @@
 
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 mt-3">
+        <div class="row justify-content-md-center">
+            <div class="col-md-8 mt-3">
                 <div >
                     <!-- Widget: user widget style 1 -->
                     <div class="card card-widget widget-user">
                         <!-- Add the bg color to the header using any of the bg-* classes -->
                         <div class="widget-user-header bg-white" 
                             style="background-image:url('./images/user-background.jpg')">
-                        <h3 class="widget-user-username">Daniel</h3>
+                        <h3 class="widget-user-username mt-3">{{ this.form.name }}</h3>
                         </div>
                         <div class="widget-user-image">
-                        <img class="img-circle" src="" alt="User Avatar">
+                        <img class="img-circle" :src="getProfilePhoto()" style="width:100px;height:100px;object-fit:cover;margin-left:-5px;" alt="User Avatar">
                         </div>
                         <div class="card-footer">
                         <div class="row">
@@ -30,14 +30,13 @@
                             <!-- /.description-block -->
                             </div>
                             <!-- /.col -->
-                            <div class="col-sm-6 border-right">
+                            <div class="col-sm-6">
                             <div class="description-block">
                                 <h5 class="description-header">44</h5>
                                 <span class="description-text">SOLD</span>
                             </div>
                             <!-- /.description-block -->
                             </div>
-
                             <!-- /.col -->
                         </div>
                         <!-- /.row -->
@@ -49,17 +48,48 @@
                                  <div class="card-header">Settings</div>
                                 <form class="form-horizontal p-3">
                                 <div class="form-group">
-                                    <label for="inputName" class="col-sm-2 control-label">Name</label>
+                                    <label for="inputName" class="col-sm-12 control-label">Name</label>
 
                                     <div class="col-sm-12">
-                                    <input type="email" v-model="form.name" class="form-control" id="inputName" placeholder="Name">
+                                    <input 
+                                        type="email" 
+                                        v-model="form.name" 
+                                        class="form-control" 
+                                        id="inputName" 
+                                        placeholder="Name"
+                                        :class="{'is-invalid': form.errors.has('name')}"
+                                    >
+                                    <has-error :form="form" field="name"></has-error>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail"class="col-sm-2 control-label">Email</label>
+                                    <label for="inputEmail" class="col-sm-12 control-label">Email</label>
 
                                     <div class="col-sm-12">
-                                    <input type="email"  v-model="form.email" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input 
+                                        type="email"  
+                                        v-model="form.email" 
+                                        class="form-control" 
+                                        id="inputEmail" 
+                                        placeholder="Email"
+                                        :class="{'is-invalid': form.errors.has('email')}"
+                                    >
+                                    <has-error :form="form" field="email"></has-error>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword" class="col-sm-12 control-label">Password</label>
+
+                                    <div class="col-sm-12">
+                                    <input 
+                                        type="password" 
+                                        v-model="form.password" 
+                                        class="form-control" 
+                                        id="inputPassword" 
+                                        placeholder="Password"
+                                        :class="{'is-invalid': form.errors.has('password')}"
+                                    >
+                                    <has-error :form="form" field="password"></has-error>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -87,6 +117,7 @@
 export default {
     data() {
         return {
+            currentPhoto: "",
             form: new Form({
                 id: "",
                 name: "",
@@ -103,6 +134,11 @@ export default {
         console.log('Component Mounted')
     },
     methods: {
+        getProfilePhoto(){
+            let profilePhoto = (this.form.photo.match(/\//) ? this.currentPhoto : this.form.photo);
+            this.currentPhoto = profilePhoto;
+            return "images/profile/" + profilePhoto;
+        },
         updatePhoto(e) {
             let file = e.target.files[0];
             let reader = new FileReader();
@@ -122,6 +158,17 @@ export default {
                             icon: "success",
                             title: "User updated"
                         });
+                    axios
+                    .get("api/profile")
+                    .then(({ data }) => {
+                        this.$Progress.finish();
+                        this.currentPhoto = data.photo;
+                        return this.form.fill(data);
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    });
+                    this.getProfilePhoto();
                     this.$Progress.finish();
                 })
                 .catch(() => {
@@ -134,7 +181,17 @@ export default {
         }
     },
     created(){
-        axios.get('api/profile').then( ({ data }) => (this.form.fill(data)));
+        this.$Progress.start();
+        axios
+        .get("api/profile")
+        .then(({ data }) => {
+            this.$Progress.finish();
+            this.currentPhoto = data.photo;
+            return this.form.fill(data);
+        })
+        .catch(() => {
+            this.$Progress.fail();
+        });
     }
 };
 </script>

@@ -8,6 +8,12 @@ import moment from "moment";
 import VueProgressBar from "vue-progressbar";
 import Swal from "sweetalert2";
 
+
+import Gate from './Gate';
+Vue.prototype.$gate = new Gate(window.user);
+
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -40,6 +46,11 @@ Vue.component(
     require("./components/passport/PersonalAccessTokens.vue").default
 );
 
+Vue.component(
+    "not-found",
+    require("./components/NotFound.vue").default
+);
+
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 
@@ -63,6 +74,13 @@ Vue.use(VueProgressBar, {
 
 const app = new Vue({
     el: "#app",
-
-    router: new VueRouter(routes)
+    router: new VueRouter(routes),
+    data: {
+        search: ''
+    },
+    methods: {
+        searchThis: _.debounce(() => {
+            Fire.$emit('searching');
+        },1000)
+    }
 });

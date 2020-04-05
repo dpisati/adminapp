@@ -34,16 +34,16 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    <div class="form-inline ml-3">
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-navbar" @keyup="searchThis" v-model="search" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
+          <button class="btn btn-navbar" @click="searchThis">
             <i class="fas fa-search"></i>
           </button>
         </div>
       </div>
-    </form>
+    </div>
 
     <!-- Right navbar links -->
     <div class="navbar-nav ml-auto">
@@ -80,7 +80,7 @@
         <div class="info w-75">
           <router-link to="/profile" class="d-block">
               {{ Auth::user()->name }}
-              <span class="badge badge-success ml-2">admin</span>
+              <span class="badge badge-{{ Auth::user()->type === 'admin' ? 'success' : 'primary' }} ml-2">{{ Auth::user()->type }}</span>
           </router-link>
         </div>
       </div>
@@ -88,18 +88,21 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          @can('isAdminOrManeger')
             <li class="nav-item">
               <router-link to="/users" class="nav-link">
                 <i class="fas fa-users nav-icon"></i>
                 <p>Users</p>
               </router-link>
             </li>
+            @endcan
             <li class="nav-item">
               <router-link to="/projects" class="nav-link">
                 <i class="fas fa-file-powerpoint nav-icon"></i>
                 <p>Projects</p>
               </router-link>
             </li>
+            @can('isAdmin')
             <li class="nav-item">
               <router-link to="/cabinets" class="nav-link">
                 <i class="fas fa-cube nav-icon"></i>
@@ -118,6 +121,7 @@
                 <p>Developer</p>
               </router-link>
             </li>
+            @endcan
           </ul>
         </li>
       </ul>
@@ -166,7 +170,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    {{-- <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -180,7 +184,7 @@
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
-    </div>
+    </div> --}}
     <!-- /.content-header -->
 
     <!-- Main content -->
@@ -202,8 +206,12 @@
       <p>Sidebar content</p>
     </div>
   </aside>
-
 </div>
+@auth
+<script>
+  window.user = @json(auth()->user())
+</script>
+@endauth
 <script src="/js/app.js"></script>
 </body>
 </html>

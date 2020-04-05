@@ -1,29 +1,20 @@
 <template>
   <div>
-    <div class="container">
-      <div class="row">
+    <div class="container mt-4">
+      <div v-if="!$gate.isAdminOrManeger()">
+        <not-found></not-found>
+      </div>
+      <div class="row" v-if="$gate.isAdminOrManeger()">
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
               <h3 class="card-title mt-2">Users Table</h3>
               <div class="card-tools">
-                <div class="input-group input-group-sm hidden-xs" style="width: 300px;">
+                <div class="input-group input-group-sm hidden-xs">
                   <button class="btn btn-success btn-sm mr-3 m-2" @click="newModal">
                     <i class="fas fa-user-plus mr-2"></i>
                     Add User
                   </button>
-                  <input
-                    type="text"
-                    name="table_search"
-                    class="form-control pull-right mt-2"
-                    placeholder="Search"
-                  />
-
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default mt-1">
-                      <i class="fa fa-search"></i>
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -40,7 +31,7 @@
                     <th>Modify</th>
                   </tr>
 
-                  <tr v-for="user in users" :key="user.id">
+                  <tr v-for="user in users.data" :key="user.id">
                     <td>{{ user.id }}</td>
                     <td>{{ user.name | upText }}</td>
                     <td>{{ user.email }}</td>
@@ -59,6 +50,9 @@
                 </tbody>
               </table>
             </div>
+              <div class="card-footer">
+                <pagination :data="users" @pagination-change-page="getResults"></pagination>
+              </div>
           </div>
         </div>
       </div>
@@ -120,6 +114,7 @@
                   :class="{'is-invalid': form.errors.has('type')}"
                 >
                   <option value disabled selected>- User Type -</option>
+                  <option value="admin">Admin</option>
                   <option value="user">User</option>
                   <option value="maneger">Maneger</option>
                   <option value="owner">Owner</option>
@@ -192,6 +187,12 @@ export default {
   },
 
   methods: {
+      getResults(page = 1) {
+            axios.get('api/user?page=' + page)
+              .then(response => {
+                this.users = response.data;
+				});
+    },
     newModal() {
       this.editmode = false;
       this.form.reset();
@@ -248,11 +249,12 @@ export default {
     },
 
     loadUsers() {
-      this.$Progress.start();
-      axios.get("api/user").then(({ data }) => (this.users = data.data));
-      this.$Progress.finish();
+      if (this.$gate.isAdminOrManeger()) {
+        this.$Progress.start();
+        axios.get("api/user").then(({ data }) => (this.users = data));
+        this.$Progress.finish();
+      }
     },
-
     deleteUser(id) {
       Swal.fire({
         title: "Are you sure?",
@@ -270,15 +272,27 @@ export default {
               Swal.fire("Deleted!", "User has been deleted.", "success");
               Fire.$emit("reloadUsers");
             })
-            .catch(() => {
-              Swal("Failed!", "There was something wrong.", "warning");
+        .catch(() => {
+            this.$Progress.fail();
+            Toast.fire({
+              icon: "error",
+              title: "Unable to delete user"
             });
+        });
         }
       });
     }
   },
 
   created() {
+    Fire.$on('searching', () => {
+      let query = this.$parent.search;
+      axios.get('api/findUser?q=' + query)
+        .then((data) => {
+          this.users = data.data
+        })
+        .catch(() => {})
+    });
     this.loadUsers();
     Fire.$on("reloadUsers", () => {
       this.loadUsers();
