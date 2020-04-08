@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container mt-4">
+    <div class="container mt-5">
       <div v-if="!$gate.isAdminOrManeger()">
         <not-found></not-found>
       </div>

@@ -20,6 +20,11 @@ class User extends Authenticatable
         'name', 'email', 'password', 'franchise', 'type'
     ];
 
+    public function projects()
+    {
+        return $this->hasMany('App\Project');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *
