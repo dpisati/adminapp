@@ -97,9 +97,7 @@
                   type="text"
                   name="name"
                   class="form-control"
-                  :class="{
-                                        'is-invalid': form.errors.has('name')
-                                    }"
+                  :class="{'is-invalid': form.errors.has('name')}"
                 />
                 <has-error :form="form" field="projectname"></has-error>
               </div>
@@ -114,6 +112,18 @@
                   :class="{'is-invalid': form.errors.has('client')}"
                 />
                 <has-error :form="form" field="client"></has-error>
+              </div>
+
+              <div class="form-group">
+                <input
+                  placeholder="Quote"
+                  v-model="form.quote"
+                  type="text"
+                  name="quote"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('quote')}"
+                />
+                <has-error :form="form" field="quote"></has-error>
               </div>
 
               <div class="form-group">
@@ -160,12 +170,11 @@ export default {
       editmode: true,
       projectStatus: 'Active',
 
-      form: new Form({
-        id: "",
-        name: "",
-        code: "",
+      form: new Form({        
+        name: "",        
         client: "",
         quote: "",
+        franchise: "",
         status: ""
       })
     };
@@ -181,6 +190,7 @@ export default {
               this.projects = response.data;
       });
     },
+
     newModal() {
       this.editmode = false;
       this.form.reset();
@@ -193,12 +203,12 @@ export default {
       this.form.fill(project);
     },
 
-    createproject() {
+    createProject() {
       this.form
         .post("api/project")
         .then(() => {
           this.$Progress.start();
-          Fire.$emit("reloadprojects");
+          Fire.$emit("reloadProjects");
           $("#addNew").modal("hide");
           Toast.fire({
             icon: "success",
@@ -214,7 +224,7 @@ export default {
         });
     },
 
-    updateproject() {
+    updateProject() {
       this.$Progress.start();
       this.form
         .put("api/project/" + this.form.id)
@@ -225,7 +235,7 @@ export default {
           });
           $("#addNew").modal("hide");
           this.$Progress.finish();
-          Fire.$emit("reloadprojects");
+          Fire.$emit("reloadProjects");
         })
         .catch(() => {
           this.$Progress.fail();
@@ -240,9 +250,9 @@ export default {
             .then((res) => {
               this.userId = res.data.id;
               this.userType = res.data.type;
+              this.userFranchise = res.data.franchise;
             });
     },
-
 
     filteredProjects(){
       let query = this.projectStatus;
@@ -288,7 +298,7 @@ export default {
             .delete("api/project/" + id)
             .then(() => {
               Swal.fire("Deleted!", "project has been deleted.", "success");
-              Fire.$emit("reloadprojects");
+              Fire.$emit("reloadProjects");
             })
         .catch(() => {
             this.$Progress.fail();
@@ -321,7 +331,7 @@ export default {
     this.getUserId();
     this.filteredProjects();
     Fire.$on("reloadProjects", () => {
-      this.loadprojects();
+      this.filteredProjects();
     });
   }
 };

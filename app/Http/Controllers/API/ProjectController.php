@@ -49,19 +49,21 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $user = auth('api')->user();
         $this->validate($request, [
             'name' => 'required|string|max:191',
-            'number' => 'required|string|email|max:191|unique:users',
-            'client' => 'required|string|min:6',
-            'franchise' => 'required'
+            'client' => 'required|string|max:191',
+            'status' => 'required'
         ]);
 
-        return User::create([
+        return Project::create([
+            'franchise' => $user->franchise,
             'name' => $request['name'],
-            'email' => $request['email'],
-            'type' => $request['type'],
-            'franchise' => $request['franchise'],
-            'password' => Hash::make($request['password']),
+            'client' => $request['client'],
+            'code' => $user->id . $request['client'] . $request['name'],
+            'status' => $request['status'],
+            'quote' => 0,
+            'user_id' => $user->id
         ]);
     }
 
@@ -76,12 +78,12 @@ class ProjectController extends Controller
         //
     }
  
-    public function profile()
+    public function user()
     {
         return auth('api')->user();  
     }
  
-    public function updateProfile(Request $request)
+    public function updateProject(Request $request)
     {
         $user = auth('api')->user();
         $this->validate($request, [

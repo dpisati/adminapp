@@ -96,8 +96,8 @@ class UserController extends Controller
             $request->merge(['photo' => $name]);
             $user->photo = $request->photo;
             $userPhoto = public_path('images/profile/').$currentPhoto;
-            if(file_exists($userPhoto)) {
-                @unlink($userPhoto);
+            if(file_exists($userPhoto) && $userPhoto != public_path('images/profile/profile.png')) {
+                    @unlink($userPhoto);
             }
         }
         $user->update($request->all());

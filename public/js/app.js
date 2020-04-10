@@ -2443,6 +2443,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2452,11 +2462,10 @@ __webpack_require__.r(__webpack_exports__);
       editmode: true,
       projectStatus: 'Active',
       form: new Form({
-        id: "",
         name: "",
-        code: "",
         client: "",
         quote: "",
+        franchise: "",
         status: ""
       })
     };
@@ -2484,13 +2493,13 @@ __webpack_require__.r(__webpack_exports__);
       $("#addNew").modal("show");
       this.form.fill(project);
     },
-    createproject: function createproject() {
+    createProject: function createProject() {
       var _this2 = this;
 
       this.form.post("api/project").then(function () {
         _this2.$Progress.start();
 
-        Fire.$emit("reloadprojects");
+        Fire.$emit("reloadProjects");
         $("#addNew").modal("hide");
         Toast.fire({
           icon: "success",
@@ -2505,7 +2514,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    updateproject: function updateproject() {
+    updateProject: function updateProject() {
       var _this3 = this;
 
       this.$Progress.start();
@@ -2518,7 +2527,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this3.$Progress.finish();
 
-        Fire.$emit("reloadprojects");
+        Fire.$emit("reloadProjects");
       })["catch"](function () {
         _this3.$Progress.fail();
 
@@ -2534,6 +2543,7 @@ __webpack_require__.r(__webpack_exports__);
       var userId = axios.get('api/profile').then(function (res) {
         _this4.userId = res.data.id;
         _this4.userType = res.data.type;
+        _this4.userFranchise = res.data.franchise;
       });
     },
     filteredProjects: function filteredProjects() {
@@ -2593,7 +2603,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           _this7.form["delete"]("api/project/" + id).then(function () {
             Swal.fire("Deleted!", "project has been deleted.", "success");
-            Fire.$emit("reloadprojects");
+            Fire.$emit("reloadProjects");
           })["catch"](function () {
             _this7.$Progress.fail();
 
@@ -2629,7 +2639,7 @@ __webpack_require__.r(__webpack_exports__);
     this.getUserId();
     this.filteredProjects();
     Fire.$on("reloadProjects", function () {
-      _this8.loadprojects();
+      _this8.filteredProjects();
     });
   }
 });
@@ -63412,9 +63422,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          class: {
-                            "is-invalid": _vm.form.errors.has("name")
-                          },
+                          class: { "is-invalid": _vm.form.errors.has("name") },
                           attrs: {
                             placeholder: "Project Name",
                             type: "text",
@@ -63473,6 +63481,44 @@ var render = function() {
                         _vm._v(" "),
                         _c("has-error", {
                           attrs: { form: _vm.form, field: "client" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.quote,
+                              expression: "form.quote"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("quote") },
+                          attrs: {
+                            placeholder: "Quote",
+                            type: "text",
+                            name: "quote"
+                          },
+                          domProps: { value: _vm.form.quote },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "quote", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "quote" }
                         })
                       ],
                       1
