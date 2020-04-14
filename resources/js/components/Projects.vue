@@ -43,13 +43,14 @@
 
 
                         <tr v-for="project in projects" :key="project.id">
-                            <td>{{ project.id }}</td>
-                            <td>{{ project.user_id }}</td>
-                            <td>{{ project.status }}</td>
-                            <td>{{ project.name | upText }}</td>
-                            <td>{{ project.code }}</td>
-                            <td>{{ project.client }}</td>
-                            <td>{{ project.quote }}</td>
+                            
+                              <td>{{ project.id }}</td>
+                              <td>{{ project.user_id }}</td>
+                              <td><router-link :to="'/projects/' + project.id"> {{ project.name | upText }} </router-link></td>
+                              <td>{{ project.code }}</td>
+                              <td>{{ project.client }}</td>
+                              <td>{{ project.quote }}</td>
+                            
                             <td>
                             <a href="#" @click="editModal(project)">
                                 <i class="fa fa-edit mr-2"></i>
@@ -171,7 +172,8 @@ export default {
       projectStatus: 'Active',
 
       form: new Form({        
-        name: "",        
+        id: "",
+        name: "",
         client: "",
         quote: "",
         franchise: "",

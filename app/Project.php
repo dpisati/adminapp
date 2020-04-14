@@ -17,7 +17,7 @@ class Project extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'code', 'type', 'client', 'quote', 'franchise', 'user_id'
+        'name', 'code', 'type', 'client', 'quote', 'franchise', 'user_id', 'status'
     ];
     public function user() {
         return $this->belongsTo(User::class);

@@ -75,7 +75,8 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        return Project::find($id);
+        // return response()->json($project);
     }
  
     public function user()
@@ -85,29 +86,14 @@ class ProjectController extends Controller
  
     public function updateProject(Request $request)
     {
-        $user = auth('api')->user();
         $this->validate($request, [
             'name' => 'required|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
-            'password' => 'sometimes|required|string|min:6'
+            'client' => 'required|string|max:191',
+            'status' => 'required'
         ]);
-        if(!empty($request->password)) {
-            $request->merge(['password' => Hash::make($request['password'])]);
-        }
 
-        $currentPhoto = $user->photo;
-        if($request->photo != $currentPhoto) {
-            $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
-            \Image::make($request->photo)->save(public_path('images/profile/').$name);
-            $request->merge(['photo' => $name]);
-            $user->photo = $request->photo;
-            $userPhoto = public_path('images/profile/').$currentPhoto;
-            if(file_exists($userPhoto)) {
-                @unlink($userPhoto);
-            }
-        }
-        $user->update($request->all());
-        return ['message', 'User updated successfully' . $user->password];
+        $project->update($request->all());
+        return ['message', 'Project updated successfully'];
     }
 
     /**
@@ -119,20 +105,16 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $project = Project::findOrFail($id);
 
         $this->validate($request, [
             'name' => 'required|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
-            'password' => 'sometimes|min:6',
-            'type' => 'required',
-            'franchise' => 'required'
+            'client' => 'required|string|max:191',
+            'status' => 'required'
         ]);
-        if(!empty($request->password)) {
-            $request->merge(['password' => Hash::make($request['password'])]);
-        }        
-        $user->update($request->all());
-        return ['message' => 'User updated', $user];
+
+        $project->update($request->all());
+        return ['message' => 'Project updated', $project];
     }
 
     /**
@@ -144,8 +126,8 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         $this->authorize('isAdmin');
-        $user = User::findOrFail($id);
-        $user->delete();
+        $project = Project::findOrFail($id);
+        $project->delete();
 
         return ['message' => 'User Deleted'];
     }
