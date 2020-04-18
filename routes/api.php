@@ -13,7 +13,10 @@ Route::get('profile', 'API\UserController@profile');
 Route::put('profile', 'API\UserController@updateProfile');
 
 Route::apiResources(['project' => 'API\ProjectController']);
+Route::apiResources(['room' => 'API\RoomController']);
 Route::get('findProject', 'API\ProjectController@search');
+Route::post('addCabinet', 'API\RoomController@addCabinet');
+Route::get('showCabinets', 'API\RoomController@showCabinets');
 
 
 

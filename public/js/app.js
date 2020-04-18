@@ -2396,24 +2396,323 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       id: this.$route.params.id,
-      project: {}
+      editmode: true,
+      project: {},
+      rooms: {},
+      cabinets: {},
+      form: new Form({
+        id: "",
+        quantity: "",
+        name: "",
+        width: "",
+        height: "",
+        depth: "",
+        project_id: "",
+        room_id: ""
+      })
     };
   },
+  methods: {
+    addCabinetModal: function addCabinetModal(room) {
+      this.editmode = false;
+      this.form.reset();
+      this.form.room_id = room.id;
+      $("#addNewCabinet").modal("show");
+    },
+    addCabinet: function addCabinet() {
+      var _this = this;
+
+      this.form.post("/api/addCabinet").then(function () {
+        _this.$Progress.start();
+
+        Fire.$emit("reloadProjects");
+        $("#addNewCabinet").modal("hide");
+        Toast.fire({
+          icon: "success",
+          title: "Cabinet added successfully"
+        });
+
+        _this.$Progress.finish();
+
+        _this.loadRooms();
+
+        _this.loadCabinets();
+      })["catch"](function () {
+        Toast.fire({
+          icon: "error",
+          title: "Unable to add cabinet"
+        });
+      });
+    },
+    newModal: function newModal() {
+      this.editmode = false;
+      this.form.reset();
+      $("#addNew").modal("show");
+    },
+    createRoom: function createRoom() {
+      var _this2 = this;
+
+      this.form.project_id = this.id;
+      this.form.post("/api/room").then(function () {
+        _this2.$Progress.start();
+
+        Fire.$emit("reloadProjects");
+        $("#addNew").modal("hide");
+        Toast.fire({
+          icon: "success",
+          title: "Room created successfully"
+        });
+
+        _this2.$Progress.finish();
+
+        _this2.loadRooms();
+      })["catch"](function () {
+        Toast.fire({
+          icon: "error",
+          title: "Unable to create room"
+        });
+      });
+    },
+    editModal: function editModal(room) {
+      this.editmode = true;
+      this.form.reset();
+      $("#addNew").modal("show");
+      this.form.fill(room);
+      this.form.project_id = this.project_id;
+    },
+    updateRoom: function updateRoom(room) {
+      var _this3 = this;
+
+      this.form.put("/api/room/" + this.form.id).then(function () {
+        _this3.$Progress.start();
+
+        Fire.$emit("reloadRooms");
+        $("#addNew").modal("hide");
+        Toast.fire({
+          icon: "success",
+          title: "Room created successfully"
+        });
+
+        _this3.$Progress.finish();
+
+        _this3.loadRooms();
+      })["catch"](function () {
+        Toast.fire({
+          icon: "error",
+          title: "Unable to create room"
+        });
+      });
+    },
+    deleteRoom: function deleteRoom(id) {
+      var _this4 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          _this4.form["delete"]("/api/room/" + id).then(function () {
+            Swal.fire("Deleted!", "Room has been deleted.", "success");
+            Fire.$emit("realoadRooms");
+          })["catch"](function () {
+            _this4.$Progress.fail();
+
+            Toast.fire({
+              icon: "error",
+              title: "Unable to delete room"
+            });
+          });
+        }
+      });
+    },
+    loadRooms: function loadRooms() {
+      var _this5 = this;
+
+      this.$Progress.start();
+      axios.get("/api/project/" + this.id).then(function (_ref) {
+        var data = _ref.data;
+        _this5.project = data;
+        _this5.form.project_id = _this5.id;
+
+        _this5.$Progress.finish();
+      })["catch"](function () {
+        _this5.$Progress.fail();
+      });
+      axios.get("/api/room/" + this.id).then(function (_ref2) {
+        var data = _ref2.data;
+        _this5.rooms = data;
+
+        _this5.$Progress.finish();
+      })["catch"](function () {
+        _this5.$Progress.fail();
+      });
+    },
+    loadCabinets: function loadCabinets() {
+      var _this6 = this;
+
+      this.$Progress.start();
+      axios.get("/api/showCabinets/" + this.id).then(function (_ref3) {
+        var data = _ref3.data;
+        _this6.cabinets = data;
+
+        _this6.$Progress.finish();
+      })["catch"](function () {
+        _this6.$Progress.fail();
+      });
+    }
+  },
   created: function created() {
-    var _this = this;
+    var _this7 = this;
 
-    this.$Progress.start();
-    axios.get("/api/project/" + this.id).then(function (_ref) {
-      var data = _ref.data;
-      _this.project = data;
+    this.loadRooms();
+    Fire.$on("realoadRooms", function () {
+      _this7.loadRooms();
 
-      _this.$Progress.finish();
-    })["catch"](function () {
-      _this.$Progress.fail();
+      _this7.loadCabinets();
     });
   }
 });
@@ -63374,147 +63673,507 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-md-center" }, [
       _c("div", { staticClass: "col-md-12 mt-3" }, [
-        _c("div", [
-          _c("div", { staticClass: "card card-widget widget-user" }, [
-            _c("div", { staticClass: "widget-user-header bg-white" }, [
-              _c("h3", { staticClass: "widget-user-username mt-3" }, [
-                _vm._v(_vm._s(this.project.name))
-              ])
+        _c(
+          "div",
+          [
+            _c("div", { staticClass: "card card-widget widget-user" }, [
+              _c("div", { staticClass: "widget-user-header bg-white" }, [
+                _c("h3", { staticClass: "widget-user-username mt-3" }, [
+                  _vm._v(_vm._s(this.project.name))
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(0)
             ]),
             _vm._v(" "),
-            _vm._m(0)
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "m-3" }, [
-            _c("div", { staticClass: "input-group input-group-sm hidden-xs" }, [
+            _c("div", { staticClass: "mb-3" }, [
               _c(
-                "button",
-                {
-                  staticClass: "btn btn-success btn-sm mr-3 m-2",
-                  on: { click: _vm.newModal }
-                },
+                "div",
+                { staticClass: "input-group input-group-sm hidden-xs" },
                 [
-                  _c("i", {
-                    staticClass: "fas fa-file-powerpoint nav-icon mr-2"
-                  }),
-                  _vm._v(
-                    "\n                            Add Room\n                        "
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success mr-3 m-2",
+                      on: { click: _vm.newModal }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-house-user nav-icon mr-2"
+                      }),
+                      _vm._v(
+                        "\n                            Add Room\n                        "
+                      )
+                    ]
                   )
                 ]
               )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c("h3", { staticClass: "card-title mt-2" }, [_vm._v("Kitchen")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-tools" }, [
-                _c(
-                  "div",
-                  { staticClass: "input-group input-group-sm hidden-xs" },
-                  [
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.rooms, function(room) {
+              return _c("div", { key: room.id, staticClass: "card" }, [
+                _c("div", { staticClass: "card-header" }, [
+                  _c("h3", { staticClass: "card-title mt-2" }, [
+                    _vm._v(_vm._s(room.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-tools" }, [
                     _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-success btn-sm mr-3 m-2",
-                        on: { click: _vm.newModal }
-                      },
+                      "div",
+                      { staticClass: "input-group input-group-sm hidden-xs" },
                       [
-                        _c("i", {
-                          staticClass: "fas fa-file-powerpoint nav-icon mr-2"
-                        }),
-                        _vm._v(
-                          "\n                            Add Cabinet\n                        "
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success btn-sm mr-3 m-2",
+                            on: {
+                              click: function($event) {
+                                return _vm.addCabinetModal(room)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fas fa-inbox nav-icon mr-2"
+                            }),
+                            _vm._v(
+                              "\n                                    Add Cabinet\n                            "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-secondary btn-sm mr-3 m-2",
+                            on: {
+                              click: function($event) {
+                                return _vm.editModal(room)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fas fa-edit nav-icon mr-2"
+                            }),
+                            _vm._v(
+                              "\n                                    Update Room\n                               "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-sm mr-3 m-2",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteRoom(room.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fas fa-trash nav-icon mr-2"
+                            }),
+                            _vm._v(
+                              "\n                                    Delete Room\n                               "
+                            )
+                          ]
                         )
                       ]
                     )
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(1, true)
+              ])
+            })
+          ],
+          2
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "addNew",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "addNewLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  { staticClass: "modal-title", attrs: { id: "addNewLabel" } },
+                  [
+                    _vm._v(
+                      _vm._s(_vm.editmode ? "Edit Room" : "Create New Room")
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(2)
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "form",
+                  {
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        _vm.editmode ? _vm.updateRoom() : _vm.createRoom()
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.name,
+                              expression: "form.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("name") },
+                          attrs: {
+                            placeholder: "Room Name",
+                            type: "text",
+                            name: "name"
+                          },
+                          domProps: { value: _vm.form.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "name", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "roomname" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-footer" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: {
+                            "data-dismiss": "modal",
+                            disabled: _vm.form.busy,
+                            type: "submit"
+                          }
+                        },
+                        [_vm._v("Close")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v(_vm._s(_vm.editmode ? "Save" : "Create"))]
+                      )
+                    ])
                   ]
                 )
               ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "card-body table-responsive no-padding" },
-              [
-                _c("table", { staticClass: "table table-hover" }, [
-                  _c(
-                    "tbody",
-                    [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _vm._l(_vm.projects, function(project) {
-                        return _c("tr", { key: project.id }, [
-                          _c("td", [_vm._v(_vm._s(project.id))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(project.user_id))]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
-                              _c(
-                                "router-link",
-                                { attrs: { to: "/projects/" + project.id } },
-                                [
-                                  _vm._v(
-                                    " " +
-                                      _vm._s(_vm._f("upText")(project.name)) +
-                                      " "
-                                  )
-                                ]
-                              )
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "addNewCabinet",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "addNewLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  { staticClass: "modal-title", attrs: { id: "addNewLabel" } },
+                  [
+                    _vm._v(
+                      _vm._s(_vm.editmode ? "Edit Cabinet" : "Add New Cabinet")
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(3)
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "form",
+                  {
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        _vm.editmode ? _vm.updateCabinet() : _vm.addCabinet()
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "form-row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-md-4" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.quantity,
+                                expression: "form.quantity"
+                              }
                             ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(project.code))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(project.client))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(project.quote))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.editModal(project)
-                                  }
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("quantity")
+                            },
+                            attrs: {
+                              placeholder: "Quantity",
+                              type: "text",
+                              name: "quantity"
+                            },
+                            domProps: { value: _vm.form.quantity },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
                                 }
-                              },
-                              [_c("i", { staticClass: "fa fa-edit mr-2" })]
-                            ),
-                            _vm._v(
-                              "\n                        /\n                        "
-                            ),
-                            _c(
-                              "a",
+                                _vm.$set(
+                                  _vm.form,
+                                  "quantity",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "cabinetquantity" }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-md-8" },
+                        [
+                          _c("input", {
+                            directives: [
                               {
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteproject(project.id)
-                                  }
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.name,
+                                expression: "form.name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("name")
+                            },
+                            attrs: {
+                              placeholder: "Cabinet Name",
+                              type: "text",
+                              name: "name"
+                            },
+                            domProps: { value: _vm.form.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
                                 }
-                              },
-                              [_c("i", { staticClass: "fa fa-trash-alt ml-2" })]
-                            )
-                          ])
-                        ])
-                      })
-                    ],
-                    2
-                  )
-                ])
-              ]
-            )
-          ])
-        ])
-      ])
-    ])
+                                _vm.$set(_vm.form, "name", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "cabinetname" }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-row mb-1" }, [
+                      _c("div", { staticClass: "form-group col-md-4" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.width,
+                              expression: "form.width"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "Width" },
+                          domProps: { value: _vm.form.width },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "width", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-4" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.height,
+                              expression: "form.height"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "Height" },
+                          domProps: { value: _vm.form.height },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "height", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-4" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.depth,
+                              expression: "form.depth"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "Depth" },
+                          domProps: { value: _vm.form.depth },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "depth", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-4" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.id,
+                              expression: "form.id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "id" },
+                          domProps: { value: _vm.form.id },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "id", $event.target.value)
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-footer" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: {
+                            "data-dismiss": "modal",
+                            disabled: _vm.form.busy,
+                            type: "submit"
+                          }
+                        },
+                        [_vm._v("Close")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v(_vm._s(_vm.editmode ? "Save" : "Create"))]
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -63529,7 +64188,7 @@ var staticRenderFns = [
             _c("h5", { staticClass: "description-header" }, [_vm._v("32")]),
             _vm._v(" "),
             _c("span", { staticClass: "description-text" }, [
-              _vm._v("PROJECTS")
+              _vm._v("CABINETS")
             ])
           ])
         ]),
@@ -63538,7 +64197,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "description-block" }, [
             _c("h5", { staticClass: "description-header" }, [_vm._v("44")]),
             _vm._v(" "),
-            _c("span", { staticClass: "description-text" }, [_vm._v("SOLD")])
+            _c("span", { staticClass: "description-text" }, [_vm._v("PANELS")])
           ])
         ])
       ])
@@ -63548,21 +64207,61 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Number")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Quantity")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Width")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Height")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Depth")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Comment")])
+    return _c("div", { staticClass: "card-body table-responsive no-padding" }, [
+      _c("table", { staticClass: "table table-hover" }, [
+        _c("tbody", [
+          _c("tr", [
+            _c("th", [_vm._v("Number")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Quantity")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Name")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Width")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Height")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Depth")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Comment")])
+          ])
+        ])
+      ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true

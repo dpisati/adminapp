@@ -21,7 +21,7 @@
                                 <div class="col-sm-6 border-right">
                                     <div class="description-block">
                                         <h5 class="description-header">32</h5>
-                                        <span class="description-text">PROJECTS</span>
+                                        <span class="description-text">CABINETS</span>
                                     </div>
                                 <!-- /.description-block -->
                                 </div>
@@ -29,7 +29,7 @@
                                 <div class="col-sm-6">
                                     <div class="description-block">
                                         <h5 class="description-header">44</h5>
-                                        <span class="description-text">SOLD</span>
+                                        <span class="description-text">PANELS</span>
                                     </div>
                             <!-- /.description-block -->
                                 </div>
@@ -38,26 +38,34 @@
                         <!-- /.row -->
                         </div>                                           
                     </div>
-                        <div class="m-3">
+                        <div class="mb-3">
                             <div class="input-group input-group-sm hidden-xs">
-                            <button class="btn btn-success btn-sm mr-3 m-2" @click="newModal">
-                                <i class="fas fa-file-powerpoint nav-icon mr-2"></i>
+                            <button class="btn btn-success mr-3 m-2" @click="newModal">
+                                <i class="fas fa-house-user nav-icon mr-2"></i>
                                 Add Room
                             </button>
                             </div>
                         </div>           
-                                                <!-- /.card-header -->
-                <div class="card">
+                <!-- /.card-header -->
+                <div class="card" v-for="room in rooms" :key="room.id">
                     <div class="card-header">
-                        <h3 class="card-title mt-2">Kitchen</h3>
-                                                <div class="card-tools">
-                            <div class="input-group input-group-sm hidden-xs">
-                            <button class="btn btn-success btn-sm mr-3 m-2" @click="newModal">
-                                <i class="fas fa-file-powerpoint nav-icon mr-2"></i>
-                                Add Cabinet
-                            </button>
+                        <h3 class="card-title mt-2">{{ room.name }}</h3>
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm hidden-xs">
+                                <button class="btn btn-success btn-sm mr-3 m-2" @click="addCabinetModal(room)">
+                                    <i class="fas fa-inbox nav-icon mr-2"></i>
+                                        Add Cabinet
+                                </button>
+                                    <button class="btn btn-secondary btn-sm mr-3 m-2" @click="editModal(room)">
+                                    <i class="fas fa-edit nav-icon mr-2"></i>
+                                        Update Room
+                                   </button>
+                                    <button class="btn btn-danger btn-sm mr-3 m-2" @click="deleteRoom(room.id)">
+                                    <i class="fas fa-trash nav-icon mr-2"></i>
+                                        Delete Room
+                                   </button>
+                                </div>
                             </div>
-                        </div>
                     </div>
                     <div class="card-body table-responsive no-padding">
                     <table class="table table-hover">
@@ -71,28 +79,25 @@
                             <th>Depth</th>
                             <th>Comment</th>
                         </tr>
-
-
-                        <tr v-for="project in projects" :key="project.id">
+                        <!-- <tr v-for="cabinet in cabinet" :key="cabinet.id">
                             
-                              <td>{{ project.id }}</td>
-                              <td>{{ project.user_id }}</td>
-                              <td><router-link :to="'/projects/' + project.id"> {{ project.name | upText }} </router-link></td>
-                              <td>{{ project.code }}</td>
-                              <td>{{ project.client }}</td>
-                              <td>{{ project.quote }}</td>
+                              <td>{{ cabinet.id }}</td>
+                              <td>{{ cabinet.user_id }}</td>
+                              <td><router-link :to="'/cabinets/' + cabinet.id"> {{ cabinet.name | upText }} </router-link></td>
+                              <td>{{ cabinet.code }}</td>
+                              <td>{{ cabinet.client }}</td>
+                              <td>{{ cabinet.quote }}</td>
                             
                             <td>
-                            <a href="#" @click="editModal(project)">
+                            <a href="#" @click="editModal(cabinet)">
                                 <i class="fa fa-edit mr-2"></i>
                             </a>
                             /
-                            <a href="#" @click="deleteproject(project.id)">
+                            <a href="#" @click="deleteCabinet(cabinet.id)">
                                 <i class="fa fa-trash-alt ml-2"></i>
                             </a>
                             </td>
-                        </tr>
-                            
+                        </tr> -->                            
                         </tbody>
                     </table>
                     </div>
@@ -100,6 +105,136 @@
                 </div>
             </div>
         </div>
+
+        <!-- Room Modal -->
+        <div
+          class="modal fade"
+          id="addNew"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="addNewLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5
+                  class="modal-title"
+                  id="addNewLabel"
+                >{{ editmode ? "Edit Room" : "Create New Room" }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form @submit.prevent="editmode ? updateRoom() : createRoom()">
+                  <div class="form-group">
+                    <input
+                      placeholder="Room Name"
+                      v-model="form.name"
+                      type="text"
+                      name="name"
+                      class="form-control"
+                      :class="{'is-invalid': form.errors.has('name')}"
+                    />
+                    <has-error :form="form" field="roomname"></has-error>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                      :disabled="form.busy"
+                      type="submit"
+                    >Close</button>
+                    <button type="submit" class="btn btn-success">{{ editmode ? "Save" : "Create" }}</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    <!-- Room Modal -->
+    <!-- Cabinet Modal -->
+        <div
+          class="modal fade"
+          id="addNewCabinet"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="addNewLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5
+                  class="modal-title"
+                  id="addNewLabel"
+                >{{ editmode ? "Edit Cabinet" : "Add New Cabinet" }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form @submit.prevent="editmode ? updateCabinet() : addCabinet()">
+                  <div class="form-row">
+                      <div class="form-group col-md-4">                          
+                            <input
+                            placeholder="Quantity"
+                            v-model="form.quantity"
+                            type="text"
+                            name="quantity"
+                            class="form-control"
+                            :class="{'is-invalid': form.errors.has('quantity')}"
+                            />
+                            <has-error :form="form" field="cabinetquantity"></has-error>
+                  </div>
+                    <div class="form-group col-md-8">
+                        <input
+                        placeholder="Cabinet Name"
+                        v-model="form.name"
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        :class="{'is-invalid': form.errors.has('name')}"
+                        />
+                        <has-error :form="form" field="cabinetname"></has-error>
+                    </div>
+                  </div>
+
+                    <div class="form-row mb-1">
+                        <div class="form-group col-md-4">
+                            <input type="text" class="form-control" placeholder="Width" v-model="form.width">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="text" class="form-control" placeholder="Height" v-model="form.height">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="text" class="form-control" placeholder="Depth" v-model="form.depth">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="text" class="form-control" placeholder="id" v-model="form.id">
+                        </div>
+                    </div>
+
+
+                  <div class="modal-footer">
+                    <button
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                      :disabled="form.busy"
+                      type="submit"
+                    >Close</button>
+                    <button type="submit" class="btn btn-success">{{ editmode ? "Save" : "Create" }}</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- Room Modal -->
+
+
     </div>
 </template>
 
@@ -108,19 +243,175 @@ export default {
     data() {
         return {
             id: this.$route.params.id,
-            project: {}
+            editmode: true,
+            project: {},
+            rooms: {},
+            cabinets: {},
+            form: new Form({        
+                id: "",
+                quantity: "",
+                name: "",
+                width: "",
+                height: "",
+                depth: "",
+                project_id: "",
+                room_id: ""
+            })
         }
     },
+    methods: {
+        addCabinetModal(room) {
+            this.editmode = false;
+            this.form.reset();
+            this.form.room_id = room.id;
+            $("#addNewCabinet").modal("show");
+        },
+        addCabinet(){
+            this.form
+                .post("/api/addCabinet")
+                .then(() => {
+                    this.$Progress.start();
+                    Fire.$emit("reloadProjects");
+                    $("#addNewCabinet").modal("hide");
+                    Toast.fire({
+                        icon: "success",
+                        title: "Cabinet added successfully"
+                    });
+                    this.$Progress.finish();
+                    this.loadRooms();
+                    this.loadCabinets();
+                })
+                .catch(() => {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Unable to add cabinet"
+                    });
+                });
+        },
+
+        newModal() {
+            this.editmode = false;
+            this.form.reset();
+            $("#addNew").modal("show");
+        },
+        createRoom() {
+            this.form.project_id = this.id
+            this.form
+                .post("/api/room")
+                .then(() => {
+                    this.$Progress.start();
+                    Fire.$emit("reloadProjects");
+                    $("#addNew").modal("hide");
+                    Toast.fire({
+                        icon: "success",
+                        title: "Room created successfully"
+                    });
+                    this.$Progress.finish();
+                    this.loadRooms();
+                })
+                .catch(() => {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Unable to create room"
+                    });
+                });
+            },
+        editModal(room) {
+            this.editmode = true;
+            this.form.reset();
+            $("#addNew").modal("show");
+            this.form.fill(room);
+            this.form.project_id = this.project_id;
+        },
+        updateRoom(room) {
+            this.form
+                .put("/api/room/" + this.form.id)
+                .then(() => {
+                    this.$Progress.start();
+                    Fire.$emit("reloadRooms");
+                    $("#addNew").modal("hide");
+                    Toast.fire({
+                        icon: "success",
+                        title: "Room created successfully"
+                    });
+                    this.$Progress.finish();
+                    this.loadRooms();
+                })
+                .catch(() => {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Unable to create room"
+                    });
+                });
+            },
+            deleteRoom(id) {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then(result => {
+                    if (result.value) {
+                    this.form
+                        .delete("/api/room/" + id)
+                        .then(() => {
+                        Swal.fire("Deleted!", "Room has been deleted.", "success");
+                        Fire.$emit("realoadRooms");
+                        })
+                    .catch(() => {
+                        this.$Progress.fail();
+                        Toast.fire({
+                        icon: "error",
+                        title: "Unable to delete room"
+                        });
+                    });
+                    }
+                });
+                },
+
+            loadRooms() {
+                    this.$Progress.start();
+                    axios
+                    .get("/api/project/" + this.id)
+                    .then(({ data }) => {
+                        this.project = data;
+                        this.form.project_id = this.id
+                        this.$Progress.finish();
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    });
+                    axios
+                    .get("/api/room/" + this.id)
+                    .then(({ data }) => {
+                        this.rooms = data;
+                        this.$Progress.finish();
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    });
+            },
+            loadCabinets() {
+                    this.$Progress.start();
+                    axios
+                    .get("/api/showCabinets/" + this.id)
+                    .then(({ data }) => {
+                        this.cabinets = data;
+                        this.$Progress.finish();
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    });
+            }
+    },
     created() {
-        this.$Progress.start();
-        axios
-        .get("/api/project/" + this.id)
-        .then(({ data }) => {
-            this.project = data;
-            this.$Progress.finish();
-        })
-        .catch(() => {
-            this.$Progress.fail();
+        this.loadRooms();
+        Fire.$on("realoadRooms", () => {
+        this.loadRooms();
+        this.loadCabinets();
         });
     }
 };
