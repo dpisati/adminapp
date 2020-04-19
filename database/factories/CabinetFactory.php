@@ -1,14 +1,16 @@
 <?php
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Cabinet;
+use App\Library;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Cabinet::class, function (Faker $faker) {
     return [
-        'category' => $faker->randomElement(['Base', 'On-Bench', 'Tall', 'Wall']),
-        'subcategory' => $faker->randomElement(['Opening', 'Corner', 'Accessories']),
-        'measure_type' => $faker->randomElement(['Single', 'Parametric', 'Multiple']),
-        'name' => $faker->name
+        'cabinet_id' => Library::all()->random()->id,
+        'quantity' => $faker->randomDigitNotNull,
+        'width' => $faker->randomDigitNotNull,
+        'height' => $faker->randomDigitNotNull ,
+        'depth' => $faker->randomDigitNotNull 
     ];
 });

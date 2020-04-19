@@ -15,14 +15,19 @@ class CreateCabinetsTable extends Migration
     {
         Schema::create('cabinets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('category');
-            $table->string('subcategory');
-            $table->string('name');
-            $table->string('measure_type')->nullable();
-            $table->integer('width')->nullable();
-            $table->integer('height')->nullable();
-            $table->integer('depth')->nullable();
+            $table->unsignedBigInteger('room_id');
+            $table->unsignedBigInteger('cabinet_id');
+            $table->unsignedBigInteger('quantity');
+            $table->unsignedBigInteger('width');
+            $table->unsignedBigInteger('height');
+            $table->unsignedBigInteger('depth');
+            $table->string('comment')->nullable();
             $table->timestamps();
+
+            $table->foreign('room_id')
+            ->references('id')
+            ->on('rooms')        
+            ->onDelete('cascade');
         });
     }
 

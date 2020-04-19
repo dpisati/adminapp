@@ -6,6 +6,7 @@ use App\User;
 use App\Project;
 use App\Room;
 use App\Cabinet;
+use App\Library;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -58,7 +59,7 @@ class RoomController extends Controller
      */
     public function show($id)
     {       
-        return Room::where('project_id', $id)->get();
+        return Room::where('project_id', $id)->with('cabinets')->get();
     }
  
     public function user()
@@ -116,19 +117,20 @@ class RoomController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function addCabinet(Request $request)
-    {
-        $cabinet = Cabinet::findOrFail($request['id']);
+    {     
         $room = Room::findOrFail($request['room_id']);
-
-        $room->cabinets()->attach($cabinet, [
+        $cabinet = Cabinet::create([
+            'cabinet_id' => $request['id'],
+            'room_id' => $request['room_id'],
             'quantity' => $request['quantity'],
             'width' => $request['width'],
             'height' => $request['height'],
-            'depth' => $request['depth'],
-            'comment' => $request['comment'],
-            ]);
+            'depth' => $request['depth']
+        ]);
+        $room->cabinets()->attach($cabinet);
 
-        return ['message' => 'Cabinet Added'];
+
+        return ['message' => 'Room Controller'];
     }
         /**
      * Display the specified resource.
@@ -138,8 +140,6 @@ class RoomController extends Controller
      */
     public function showCabinets($id)
     {
-        $room = Room::where('id', $id)->first();
-        $cabinets = $room->cabinets; 
-        return $cabinets;
+        return Room::with('cabinets')->get();
     }
 }

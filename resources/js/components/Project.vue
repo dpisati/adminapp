@@ -71,23 +71,21 @@
                     <table class="table table-hover">
                         <tbody>
                         <tr>
-                            <th>Number</th>
+                            <th>ID</th>
                             <th>Quantity</th>
-                            <th>Name</th>
+                            <!-- <th>Name</th> -->
                             <th>Width</th>
                             <th>Height</th>
                             <th>Depth</th>
-                            <th>Comment</th>
+                            <!-- <th>Comment</th> -->
                         </tr>
-                        <!-- <tr v-for="cabinet in cabinet" :key="cabinet.id">
-                            
+                        <tr v-for="cabinet in room.cabinets" :key="cabinet.id">
                               <td>{{ cabinet.id }}</td>
-                              <td>{{ cabinet.user_id }}</td>
-                              <td><router-link :to="'/cabinets/' + cabinet.id"> {{ cabinet.name | upText }} </router-link></td>
-                              <td>{{ cabinet.code }}</td>
-                              <td>{{ cabinet.client }}</td>
-                              <td>{{ cabinet.quote }}</td>
-                            
+                              <td>{{ cabinet.quantity }}</td>
+                              <!-- <td><router-link :to="'/cabinets/' + cabinet.id"> {{ cabinet.name | upText }} </router-link></td> -->
+                              <td>{{ cabinet.width }}</td>
+                              <td>{{ cabinet.height }}</td>
+                              <td>{{ cabinet.depth }}</td>                            
                             <td>
                             <a href="#" @click="editModal(cabinet)">
                                 <i class="fa fa-edit mr-2"></i>
@@ -97,7 +95,7 @@
                                 <i class="fa fa-trash-alt ml-2"></i>
                             </a>
                             </td>
-                        </tr> -->                            
+                        </tr>                  
                         </tbody>
                     </table>
                     </div>
@@ -164,7 +162,7 @@
           aria-labelledby="addNewLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5
@@ -279,7 +277,7 @@ export default {
                     });
                     this.$Progress.finish();
                     this.loadRooms();
-                    this.loadCabinets();
+                    // this.loadCabinets();
                 })
                 .catch(() => {
                     Toast.fire({
@@ -393,25 +391,25 @@ export default {
                     .catch(() => {
                         this.$Progress.fail();
                     });
-            },
-            loadCabinets() {
-                    this.$Progress.start();
-                    axios
-                    .get("/api/showCabinets/" + this.id)
-                    .then(({ data }) => {
-                        this.cabinets = data;
-                        this.$Progress.finish();
-                    })
-                    .catch(() => {
-                        this.$Progress.fail();
-                    });
             }
+            // loadCabinets() {
+            //         this.$Progress.start();
+            //         axios
+            //         .get("/api/showCabinets/" + this.id)
+            //         .then(({ data }) => {
+            //             this.rooms = data;
+            //             this.$Progress.finish();
+            //         })
+            //         .catch(() => {
+            //             this.$Progress.fail();
+            //         });
+            // }
     },
     created() {
         this.loadRooms();
         Fire.$on("realoadRooms", () => {
         this.loadRooms();
-        this.loadCabinets();
+        // this.loadCabinets();
         });
     }
 };

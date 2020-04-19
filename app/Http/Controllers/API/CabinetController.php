@@ -47,19 +47,16 @@ class CabinetController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $this->validate($request, [
-            'name' => 'required|string|max:191',
+            'id' => 'required',
             'quantity' => 'required',
             'width' => 'required',
             'height' => 'required',
             'depth' => 'required'
         ]);
-
         return Cabinet::create([
-            'category' => $request['category'],
-            'subcategory' => $request['subcategory'],
-            'name' => $request['name'],
+            'cabinet_id' => $request['id'],
+            'quantity' => $request['quantity'],
             'width' => $request['width'],
             'height' => $request['height'],
             'depth' => $request['depth']

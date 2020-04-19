@@ -2529,8 +2529,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2573,9 +2571,8 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.$Progress.finish();
 
-        _this.loadRooms();
+        _this.loadRooms(); // this.loadCabinets();
 
-        _this.loadCabinets();
       })["catch"](function () {
         Toast.fire({
           icon: "error",
@@ -2690,29 +2687,27 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function () {
         _this5.$Progress.fail();
       });
-    },
-    loadCabinets: function loadCabinets() {
-      var _this6 = this;
+    } // loadCabinets() {
+    //         this.$Progress.start();
+    //         axios
+    //         .get("/api/showCabinets/" + this.id)
+    //         .then(({ data }) => {
+    //             this.rooms = data;
+    //             this.$Progress.finish();
+    //         })
+    //         .catch(() => {
+    //             this.$Progress.fail();
+    //         });
+    // }
 
-      this.$Progress.start();
-      axios.get("/api/showCabinets/" + this.id).then(function (_ref3) {
-        var data = _ref3.data;
-        _this6.cabinets = data;
-
-        _this6.$Progress.finish();
-      })["catch"](function () {
-        _this6.$Progress.fail();
-      });
-    }
   },
   created: function created() {
-    var _this7 = this;
+    var _this6 = this;
 
     this.loadRooms();
     Fire.$on("realoadRooms", function () {
-      _this7.loadRooms();
+      _this6.loadRooms(); // this.loadCabinets();
 
-      _this7.loadCabinets();
     });
   }
 });
@@ -63786,7 +63781,69 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(1, true)
+                _c(
+                  "div",
+                  { staticClass: "card-body table-responsive no-padding" },
+                  [
+                    _c("table", { staticClass: "table table-hover" }, [
+                      _c(
+                        "tbody",
+                        [
+                          _vm._m(1, true),
+                          _vm._v(" "),
+                          _vm._l(room.cabinets, function(cabinet) {
+                            return _c("tr", { key: cabinet.id }, [
+                              _c("td", [_vm._v(_vm._s(cabinet.id))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(cabinet.quantity))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(cabinet.width))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(cabinet.height))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(cabinet.depth))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.editModal(cabinet)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-edit mr-2" })]
+                                ),
+                                _vm._v(
+                                  "\n                        /\n                        "
+                                ),
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteCabinet(cabinet.id)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fa fa-trash-alt ml-2"
+                                    })
+                                  ]
+                                )
+                              ])
+                            ])
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]
+                )
               ])
             })
           ],
@@ -63928,7 +63985,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "modal-dialog modal-dialog-centered",
+            staticClass: "modal-dialog modal-lg modal-dialog-centered",
             attrs: { role: "document" }
           },
           [
@@ -64207,26 +64264,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body table-responsive no-padding" }, [
-      _c("table", { staticClass: "table table-hover" }, [
-        _c("tbody", [
-          _c("tr", [
-            _c("th", [_vm._v("Number")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Quantity")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Name")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Width")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Height")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Depth")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Comment")])
-          ])
-        ])
-      ])
+    return _c("tr", [
+      _c("th", [_vm._v("ID")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Quantity")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Width")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Height")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Depth")])
     ])
   },
   function() {

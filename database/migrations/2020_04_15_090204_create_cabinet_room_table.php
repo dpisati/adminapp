@@ -17,11 +17,6 @@ class CreateCabinetRoomTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('cabinet_id');
             $table->unsignedBigInteger('room_id');
-            $table->unsignedBigInteger('quantity');
-            $table->unsignedBigInteger('width');
-            $table->unsignedBigInteger('height');
-            $table->unsignedBigInteger('depth');
-            $table->string('comment')->nullable();
             $table->timestamps();
 
             $table->foreign('cabinet_id')
