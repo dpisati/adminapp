@@ -73,21 +73,24 @@
                         <tr>
                             <th>ID</th>
                             <th>Quantity</th>
-                            <!-- <th>Name</th> -->
+                            <th>Name</th>
                             <th>Width</th>
                             <th>Height</th>
                             <th>Depth</th>
-                            <!-- <th>Comment</th> -->
+                            <th>Comment</th>
+                            <th>Modify</th>
                         </tr>
                         <tr v-for="cabinet in room.cabinets" :key="cabinet.id">
                               <td>{{ cabinet.id }}</td>
                               <td>{{ cabinet.quantity }}</td>
-                              <!-- <td><router-link :to="'/cabinets/' + cabinet.id"> {{ cabinet.name | upText }} </router-link></td> -->
+                              <td><router-link :to="'/cabinets/' + cabinet.cabinet_id"> {{ cabinet.name | upText }} </router-link></td>
                               <td>{{ cabinet.width }}</td>
                               <td>{{ cabinet.height }}</td>
-                              <td>{{ cabinet.depth }}</td>                            
+                              <td>{{ cabinet.depth }}</td>
+                              <td v-if="cabinet.comment">{{ cabinet.comment }}</td>
+                              <td v-else>-</td>
                             <td>
-                            <a href="#" @click="editModal(cabinet)">
+                            <a href="#" @click="editModalCabinet(cabinet)">
                                 <i class="fa fa-edit mr-2"></i>
                             </a>
                             /
@@ -176,7 +179,10 @@
               <div class="modal-body">
                 <form @submit.prevent="editmode ? updateCabinet() : addCabinet()">
                   <div class="form-row">
-                      <div class="form-group col-md-4">                          
+                    <div class="form-group col-md-2">
+                        <input type="text" class="form-control" placeholder="id" v-model="form.id">
+                    </div>
+                      <div class="form-group col-md-2">                          
                             <input
                             placeholder="Quantity"
                             v-model="form.quantity"
@@ -210,8 +216,8 @@
                         <div class="form-group col-md-4">
                             <input type="text" class="form-control" placeholder="Depth" v-model="form.depth">
                         </div>
-                        <div class="form-group col-md-4">
-                            <input type="text" class="form-control" placeholder="id" v-model="form.id">
+                        <div class="form-group col-md-12">
+                             <textarea class="form-control" id="comment" rows="1" placeholder="Comment..." v-model="form.comment"></textarea>
                         </div>
                     </div>
 
@@ -252,6 +258,7 @@ export default {
                 width: "",
                 height: "",
                 depth: "",
+                comment: "",
                 project_id: "",
                 room_id: ""
             })
@@ -269,15 +276,13 @@ export default {
                 .post("/api/addCabinet")
                 .then(() => {
                     this.$Progress.start();
-                    Fire.$emit("reloadProjects");
+                    Fire.$emit("reloadRooms");
                     $("#addNewCabinet").modal("hide");
                     Toast.fire({
                         icon: "success",
                         title: "Cabinet added successfully"
                     });
                     this.$Progress.finish();
-                    this.loadRooms();
-                    // this.loadCabinets();
                 })
                 .catch(() => {
                     Toast.fire({
@@ -286,6 +291,28 @@ export default {
                     });
                 });
         },
+
+    updateCabinet() {
+      this.$Progress.start();
+      this.form
+        .put("/api/cabinet/" + this.form.id)
+        .then(() => {
+          Toast.fire({
+            icon: "success",
+            title: "Cabinet updated"
+          });
+          $("#addNewCabinet").modal("hide");
+          this.$Progress.finish();
+          Fire.$emit("reloadRooms");
+        })
+        .catch(() => {
+          this.$Progress.fail();
+          Toast.fire({
+            icon: "error",
+            title: "Unable to update cabinet"
+          });
+        });
+    },
 
         newModal() {
             this.editmode = false;
@@ -298,14 +325,13 @@ export default {
                 .post("/api/room")
                 .then(() => {
                     this.$Progress.start();
-                    Fire.$emit("reloadProjects");
+                    Fire.$emit("reloadRooms");
                     $("#addNew").modal("hide");
                     Toast.fire({
                         icon: "success",
                         title: "Room created successfully"
                     });
                     this.$Progress.finish();
-                    this.loadRooms();
                 })
                 .catch(() => {
                     Toast.fire({
@@ -321,19 +347,25 @@ export default {
             this.form.fill(room);
             this.form.project_id = this.project_id;
         },
+        editModalCabinet(cabinet) {
+            this.editmode = true;
+            this.form.reset();
+            $("#addNewCabinet").modal("show");
+            this.form.fill(cabinet);
+            this.form.project_id = this.project_id;
+        },
         updateRoom(room) {
             this.form
                 .put("/api/room/" + this.form.id)
                 .then(() => {
                     this.$Progress.start();
-                    Fire.$emit("reloadRooms");
                     $("#addNew").modal("hide");
                     Toast.fire({
                         icon: "success",
                         title: "Room created successfully"
                     });
+                    Fire.$emit("reloadRooms");
                     this.$Progress.finish();
-                    this.loadRooms();
                 })
                 .catch(() => {
                     Toast.fire({
@@ -342,33 +374,61 @@ export default {
                     });
                 });
             },
-            deleteRoom(id) {
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, delete it!"
-                }).then(result => {
-                    if (result.value) {
-                    this.form
-                        .delete("/api/room/" + id)
-                        .then(() => {
-                        Swal.fire("Deleted!", "Room has been deleted.", "success");
-                        Fire.$emit("realoadRooms");
-                        })
-                    .catch(() => {
-                        this.$Progress.fail();
-                        Toast.fire({
-                        icon: "error",
-                        title: "Unable to delete room"
-                        });
+        deleteRoom(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then(result => {
+                if (result.value) {
+                this.form
+                    .delete("/api/room/" + id)
+                    .then(() => {
+                    Swal.fire("Deleted!", "Room has been deleted.", "success");
+                    Fire.$emit("reloadRooms");
+                    })
+                .catch(() => {
+                    this.$Progress.fail();
+                    Toast.fire({
+                    icon: "error",
+                    title: "Unable to delete room"
                     });
-                    }
                 });
-                },
+                }
+            });
+        },
+
+        deleteCabinet(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then(result => {
+                if (result.value) {
+                this.form
+                    .delete("/api/cabinet/" + id)
+                    .then(() => {
+                    Swal.fire("Deleted!", "Cabinet has been deleted.", "success");
+                    Fire.$emit("reloadRooms");
+                    })
+                .catch(() => {
+                    this.$Progress.fail();
+                    Toast.fire({
+                    icon: "error",
+                    title: "Unable to delete cabinet"
+                    });
+                });
+                }
+            });
+            },
 
             loadRooms() {
                     this.$Progress.start();
@@ -392,24 +452,11 @@ export default {
                         this.$Progress.fail();
                     });
             }
-            // loadCabinets() {
-            //         this.$Progress.start();
-            //         axios
-            //         .get("/api/showCabinets/" + this.id)
-            //         .then(({ data }) => {
-            //             this.rooms = data;
-            //             this.$Progress.finish();
-            //         })
-            //         .catch(() => {
-            //             this.$Progress.fail();
-            //         });
-            // }
     },
     created() {
         this.loadRooms();
-        Fire.$on("realoadRooms", () => {
-        this.loadRooms();
-        // this.loadCabinets();
+        Fire.$on("reloadRooms", () => {
+            this.loadRooms();
         });
     }
 };

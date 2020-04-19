@@ -11,12 +11,14 @@ class CreateCabinetsTable extends Migration
      *
      * @return void
      */
+    
     public function up()
     {
         Schema::create('cabinets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('room_id');
             $table->unsignedBigInteger('cabinet_id');
+            $table->string('name');
             $table->unsignedBigInteger('quantity');
             $table->unsignedBigInteger('width');
             $table->unsignedBigInteger('height');

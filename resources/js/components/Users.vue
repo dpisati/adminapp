@@ -114,10 +114,10 @@
                   :class="{'is-invalid': form.errors.has('type')}"
                 >
                   <option value disabled selected>- User Type -</option>
-                  <option value="admin">Admin</option>
+                  <option v-if="user.type === 'admin'" value="admin">Admin</option>
                   <option value="user">User</option>
                   <option value="maneger">Maneger</option>
-                  <option value="owner">Owner</option>
+                  <option v-if="user.type === 'admin'" value="owner">Owner</option>
                 </select>
                 <has-error :form="form" field="type"></has-error>
               </div>
@@ -170,6 +170,7 @@
 export default {
   data() {
     return {
+      user: {},
       users: {},
       editmode: true,
 
@@ -281,10 +282,17 @@ export default {
         });
         }
       });
-    }
+    },
+    getUser(){
+        let user = axios.get('api/profile')
+            .then((res) => {
+              this.user = res.data;
+            });
+    },
   },
 
   created() {
+    this.getUser();
     Fire.$on('searching', () => {
       let query = this.$parent.search;
       axios.get('api/findUser?q=' + query)

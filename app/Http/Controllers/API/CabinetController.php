@@ -88,12 +88,21 @@ class CabinetController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cabinet  $cabinet
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cabinet $cabinet)
+    public function update(Request $request, $id)
     {
-        //
+        $cabinet = Cabinet::findOrFail($id);
+        $this->validate($request, [
+            'id' => 'required',
+            'quantity' => 'required',
+            'width' => 'required',
+            'height' => 'required',
+            'depth' => 'required'
+        ]); 
+        $cabinet->update($request->all());
+        return ['message' => 'User updated'];
     }
 
     /**
@@ -102,8 +111,11 @@ class CabinetController extends Controller
      * @param  \App\Cabinet  $cabinet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cabinet $cabinet)
+    public function destroy($id)
     {
-        //
+        $cabinet = Cabinet::findOrFail($id);
+        $cabinet->delete();
+
+        return ['message' => 'cabinet Deleted'];
     }
 }

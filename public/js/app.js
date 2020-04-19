@@ -2529,6 +2529,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2544,6 +2550,7 @@ __webpack_require__.r(__webpack_exports__);
         width: "",
         height: "",
         depth: "",
+        comment: "",
         project_id: "",
         room_id: ""
       })
@@ -2562,7 +2569,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.post("/api/addCabinet").then(function () {
         _this.$Progress.start();
 
-        Fire.$emit("reloadProjects");
+        Fire.$emit("reloadRooms");
         $("#addNewCabinet").modal("hide");
         Toast.fire({
           icon: "success",
@@ -2570,13 +2577,33 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         _this.$Progress.finish();
-
-        _this.loadRooms(); // this.loadCabinets();
-
       })["catch"](function () {
         Toast.fire({
           icon: "error",
           title: "Unable to add cabinet"
+        });
+      });
+    },
+    updateCabinet: function updateCabinet() {
+      var _this2 = this;
+
+      this.$Progress.start();
+      this.form.put("/api/cabinet/" + this.form.id).then(function () {
+        Toast.fire({
+          icon: "success",
+          title: "Cabinet updated"
+        });
+        $("#addNewCabinet").modal("hide");
+
+        _this2.$Progress.finish();
+
+        Fire.$emit("reloadRooms");
+      })["catch"](function () {
+        _this2.$Progress.fail();
+
+        Toast.fire({
+          icon: "error",
+          title: "Unable to update cabinet"
         });
       });
     },
@@ -2586,22 +2613,20 @@ __webpack_require__.r(__webpack_exports__);
       $("#addNew").modal("show");
     },
     createRoom: function createRoom() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.form.project_id = this.id;
       this.form.post("/api/room").then(function () {
-        _this2.$Progress.start();
+        _this3.$Progress.start();
 
-        Fire.$emit("reloadProjects");
+        Fire.$emit("reloadRooms");
         $("#addNew").modal("hide");
         Toast.fire({
           icon: "success",
           title: "Room created successfully"
         });
 
-        _this2.$Progress.finish();
-
-        _this2.loadRooms();
+        _this3.$Progress.finish();
       })["catch"](function () {
         Toast.fire({
           icon: "error",
@@ -2616,22 +2641,27 @@ __webpack_require__.r(__webpack_exports__);
       this.form.fill(room);
       this.form.project_id = this.project_id;
     },
+    editModalCabinet: function editModalCabinet(cabinet) {
+      this.editmode = true;
+      this.form.reset();
+      $("#addNewCabinet").modal("show");
+      this.form.fill(cabinet);
+      this.form.project_id = this.project_id;
+    },
     updateRoom: function updateRoom(room) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.put("/api/room/" + this.form.id).then(function () {
-        _this3.$Progress.start();
+        _this4.$Progress.start();
 
-        Fire.$emit("reloadRooms");
         $("#addNew").modal("hide");
         Toast.fire({
           icon: "success",
           title: "Room created successfully"
         });
+        Fire.$emit("reloadRooms");
 
-        _this3.$Progress.finish();
-
-        _this3.loadRooms();
+        _this4.$Progress.finish();
       })["catch"](function () {
         Toast.fire({
           icon: "error",
@@ -2640,7 +2670,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteRoom: function deleteRoom(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       Swal.fire({
         title: "Are you sure?",
@@ -2652,11 +2682,11 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Yes, delete it!"
       }).then(function (result) {
         if (result.value) {
-          _this4.form["delete"]("/api/room/" + id).then(function () {
+          _this5.form["delete"]("/api/room/" + id).then(function () {
             Swal.fire("Deleted!", "Room has been deleted.", "success");
-            Fire.$emit("realoadRooms");
+            Fire.$emit("reloadRooms");
           })["catch"](function () {
-            _this4.$Progress.fail();
+            _this5.$Progress.fail();
 
             Toast.fire({
               icon: "error",
@@ -2666,48 +2696,62 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    deleteCabinet: function deleteCabinet(id) {
+      var _this6 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          _this6.form["delete"]("/api/cabinet/" + id).then(function () {
+            Swal.fire("Deleted!", "Cabinet has been deleted.", "success");
+            Fire.$emit("reloadRooms");
+          })["catch"](function () {
+            _this6.$Progress.fail();
+
+            Toast.fire({
+              icon: "error",
+              title: "Unable to delete cabinet"
+            });
+          });
+        }
+      });
+    },
     loadRooms: function loadRooms() {
-      var _this5 = this;
+      var _this7 = this;
 
       this.$Progress.start();
       axios.get("/api/project/" + this.id).then(function (_ref) {
         var data = _ref.data;
-        _this5.project = data;
-        _this5.form.project_id = _this5.id;
+        _this7.project = data;
+        _this7.form.project_id = _this7.id;
 
-        _this5.$Progress.finish();
+        _this7.$Progress.finish();
       })["catch"](function () {
-        _this5.$Progress.fail();
+        _this7.$Progress.fail();
       });
       axios.get("/api/room/" + this.id).then(function (_ref2) {
         var data = _ref2.data;
-        _this5.rooms = data;
+        _this7.rooms = data;
 
-        _this5.$Progress.finish();
+        _this7.$Progress.finish();
       })["catch"](function () {
-        _this5.$Progress.fail();
+        _this7.$Progress.fail();
       });
-    } // loadCabinets() {
-    //         this.$Progress.start();
-    //         axios
-    //         .get("/api/showCabinets/" + this.id)
-    //         .then(({ data }) => {
-    //             this.rooms = data;
-    //             this.$Progress.finish();
-    //         })
-    //         .catch(() => {
-    //             this.$Progress.fail();
-    //         });
-    // }
-
+    }
   },
   created: function created() {
-    var _this6 = this;
+    var _this8 = this;
 
     this.loadRooms();
-    Fire.$on("realoadRooms", function () {
-      _this6.loadRooms(); // this.loadCabinets();
-
+    Fire.$on("reloadRooms", function () {
+      _this8.loadRooms();
     });
   }
 });
@@ -2891,6 +2935,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       userId: '',
       userType: '',
+      userFranchise: '',
       projects: {},
       editmode: true,
       projectStatus: 'Active',
@@ -2993,6 +3038,14 @@ __webpack_require__.r(__webpack_exports__);
           });
 
           _this5.projects = projectsFilter;
+        } else if (_this5.userType == 'maneger') {
+          var _projects = data.data.data;
+
+          var _projectsFilter = _.filter(_projects, {
+            'franchise': _this5.userFranchise
+          });
+
+          _this5.projects = _projectsFilter;
         } else {
           _this5.projects = data.data.data;
         }
@@ -3064,6 +3117,14 @@ __webpack_require__.r(__webpack_exports__);
           });
 
           _this8.projects = projectsFilter;
+        } else if (_this8.userType == 'maneger') {
+          var _projects2 = data.data.data;
+
+          var _projectsFilter2 = _.filter(_projects2, {
+            'franchise': _this8.userFranchise
+          });
+
+          _this8.projects = _projectsFilter2;
         } else {
           _this8.projects = data.data.data;
         }
@@ -3260,6 +3321,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      user: {},
       users: {},
       editmode: true,
       form: new Form({
@@ -3376,20 +3438,28 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    },
+    getUser: function getUser() {
+      var _this6 = this;
+
+      var user = axios.get('api/profile').then(function (res) {
+        _this6.user = res.data;
+      });
     }
   },
   created: function created() {
-    var _this6 = this;
+    var _this7 = this;
 
+    this.getUser();
     Fire.$on('searching', function () {
-      var query = _this6.$parent.search;
+      var query = _this7.$parent.search;
       axios.get('api/findUser?q=' + query).then(function (data) {
-        _this6.users = data.data;
+        _this7.users = data.data;
       })["catch"](function () {});
     });
     this.loadUsers();
     Fire.$on("reloadUsers", function () {
-      _this6.loadUsers();
+      _this7.loadUsers();
     });
   }
 });
@@ -63797,11 +63867,39 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(cabinet.quantity))]),
                               _vm._v(" "),
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      attrs: {
+                                        to: "/cabinets/" + cabinet.cabinet_id
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(
+                                            _vm._f("upText")(cabinet.name)
+                                          ) +
+                                          " "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(cabinet.width))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(cabinet.height))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(cabinet.depth))]),
+                              _vm._v(" "),
+                              cabinet.comment
+                                ? _c("td", [_vm._v(_vm._s(cabinet.comment))])
+                                : _c("td", [_vm._v("-")]),
                               _vm._v(" "),
                               _c("td", [
                                 _c(
@@ -63810,7 +63908,7 @@ var render = function() {
                                     attrs: { href: "#" },
                                     on: {
                                       click: function($event) {
-                                        return _vm.editModal(cabinet)
+                                        return _vm.editModalCabinet(cabinet)
                                       }
                                     }
                                   },
@@ -64017,9 +64115,33 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "form-row" }, [
+                      _c("div", { staticClass: "form-group col-md-2" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.id,
+                              expression: "form.id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "id" },
+                          domProps: { value: _vm.form.id },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "id", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
                       _c(
                         "div",
-                        { staticClass: "form-group col-md-4" },
+                        { staticClass: "form-group col-md-2" },
                         [
                           _c("input", {
                             directives: [
@@ -64175,25 +64297,29 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "form-group col-md-4" }, [
-                        _c("input", {
+                      _c("div", { staticClass: "form-group col-md-12" }, [
+                        _c("textarea", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.id,
-                              expression: "form.id"
+                              value: _vm.form.comment,
+                              expression: "form.comment"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "id" },
-                          domProps: { value: _vm.form.id },
+                          attrs: {
+                            id: "comment",
+                            rows: "1",
+                            placeholder: "Comment..."
+                          },
+                          domProps: { value: _vm.form.comment },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.form, "id", $event.target.value)
+                              _vm.$set(_vm.form, "comment", $event.target.value)
                             }
                           }
                         })
@@ -64269,11 +64395,17 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Quantity")]),
       _vm._v(" "),
+      _c("th", [_vm._v("Name")]),
+      _vm._v(" "),
       _c("th", [_vm._v("Width")]),
       _vm._v(" "),
       _c("th", [_vm._v("Height")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Depth")])
+      _c("th", [_vm._v("Depth")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Comment")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Modify")])
     ])
   },
   function() {
@@ -65146,9 +65278,11 @@ var render = function() {
                               [_vm._v("- User Type -")]
                             ),
                             _vm._v(" "),
-                            _c("option", { attrs: { value: "admin" } }, [
-                              _vm._v("Admin")
-                            ]),
+                            _vm.user.type === "admin"
+                              ? _c("option", { attrs: { value: "admin" } }, [
+                                  _vm._v("Admin")
+                                ])
+                              : _vm._e(),
                             _vm._v(" "),
                             _c("option", { attrs: { value: "user" } }, [
                               _vm._v("User")
@@ -65158,9 +65292,11 @@ var render = function() {
                               _vm._v("Maneger")
                             ]),
                             _vm._v(" "),
-                            _c("option", { attrs: { value: "owner" } }, [
-                              _vm._v("Owner")
-                            ])
+                            _vm.user.type === "admin"
+                              ? _c("option", { attrs: { value: "owner" } }, [
+                                  _vm._v("Owner")
+                                ])
+                              : _vm._e()
                           ]
                         ),
                         _vm._v(" "),

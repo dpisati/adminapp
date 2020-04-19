@@ -167,6 +167,7 @@ export default {
     return {
       userId: '',
       userType: '',
+      userFranchise: '',
       projects: {},
       editmode: true,
       projectStatus: 'Active',
@@ -264,6 +265,10 @@ export default {
                 let projects = data.data.data
                 let projectsFilter = _.filter(projects, { 'user_id': this.userId });
                 this.projects = projectsFilter;
+              } else if (this.userType == 'maneger') {
+                let projects = data.data.data
+                let projectsFilter = _.filter(projects, { 'franchise': this.userFranchise });
+                this.projects = projectsFilter;
               } else {
                 this.projects = data.data.data;   
               }          
@@ -320,11 +325,15 @@ export default {
       axios.get('api/findProject?q=' + query)
         .then((data) => {
               if(this.userType == 'user') {
-                let projects = data.data.data
-                let projectsFilter = _.filter(projects, { 'user_id': this.userId });
-                this.projects = projectsFilter;
+                  let projects = data.data.data
+                  let projectsFilter = _.filter(projects, { 'user_id': this.userId });
+                  this.projects = projectsFilter;
+              } else if(this.userType == 'maneger') {
+                  let projects = data.data.data
+                  let projectsFilter = _.filter(projects, { 'franchise': this.userFranchise });
+                  this.projects = projectsFilter;
               } else {
-                this.projects = data.data.data;   
+                  this.projects = data.data.data;   
               } 
         })
         .catch(() => {})

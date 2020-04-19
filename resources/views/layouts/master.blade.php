@@ -88,7 +88,8 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          @can('isAdmin', 'isManeger')
+          {{-- @can('isAdmin', 'isManeger') --}}
+          @can('isAdminOrManeger')
             <li class="nav-item">
               <router-link to="/users" class="nav-link">
                 <i class="fas fa-users nav-icon"></i>
