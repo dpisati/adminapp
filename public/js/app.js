@@ -3016,8 +3016,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3118,18 +3116,16 @@ __webpack_require__.r(__webpack_exports__);
 
       var query = this.projectStatus;
       axios.get('api/findProject?q=' + query).then(function (data) {
-        if (_this5.userType == 'user') {
-          var projects = data.data.data;
+        var projects = data.data.data;
 
+        if (_this5.userType == 'user') {
           var projectsFilter = _.filter(projects, {
             'user_id': _this5.userId
           });
 
           _this5.projects = projectsFilter;
-        } else if (_this5.userType == 'maneger') {
-          var _projects = data.data.data;
-
-          var _projectsFilter = _.filter(_projects, {
+        } else if (_this5.userType == 'maneger' || _this5.userType == 'owner') {
+          var _projectsFilter = _.filter(projects, {
             'franchise': _this5.userFranchise
           });
 
@@ -3139,32 +3135,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function () {});
     },
-    loadprojects: function loadprojects() {
-      var _this6 = this;
-
-      // if (this.$gate.isAdminOrManeger()) {
-      this.$Progress.start();
-      axios.get("api/project").then(function (_ref) {
-        var data = _ref.data;
-        return _this6.projects = data;
-      });
-
-      if (this.userType == 'user') {
-        var projects = this.projects;
-
-        var projectsFilter = _.filter(projects, {
-          'user_id': this.userId
-        });
-
-        this.projects = projectsFilter;
-      } else {
-        this.projects = data.data.data;
-      }
-
-      this.$Progress.finish(); // }
-    },
     deleteproject: function deleteproject(id) {
-      var _this7 = this;
+      var _this6 = this;
 
       Swal.fire({
         title: "Are you sure?",
@@ -3176,11 +3148,11 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Yes, delete it!"
       }).then(function (result) {
         if (result.value) {
-          _this7.form["delete"]("api/project/" + id).then(function () {
+          _this6.form["delete"]("api/project/" + id).then(function () {
             Swal.fire("Deleted!", "project has been deleted.", "success");
             Fire.$emit("reloadProjects");
           })["catch"](function () {
-            _this7.$Progress.fail();
+            _this6.$Progress.fail();
 
             Toast.fire({
               icon: "error",
@@ -3192,36 +3164,34 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this8 = this;
+    var _this7 = this;
 
+    this.getUserId();
+    this.filteredProjects();
     Fire.$on('searching', function () {
-      var query = _this8.$parent.search;
+      var query = _this7.$parent.search;
       axios.get('api/findProject?q=' + query).then(function (data) {
-        if (_this8.userType == 'user') {
-          var projects = data.data.data;
+        var projects = data.data.data;
 
+        if (_this7.userType == 'user') {
           var projectsFilter = _.filter(projects, {
-            'user_id': _this8.userId
+            'user_id': _this7.userId
           });
 
-          _this8.projects = projectsFilter;
-        } else if (_this8.userType == 'maneger') {
-          var _projects2 = data.data.data;
-
-          var _projectsFilter2 = _.filter(_projects2, {
-            'franchise': _this8.userFranchise
+          _this7.projects = projectsFilter;
+        } else if (_this7.userType == 'maneger' || _this7.userType == 'owner') {
+          var _projectsFilter2 = _.filter(projects, {
+            'franchise': _this7.userFranchise
           });
 
-          _this8.projects = _projectsFilter2;
+          _this7.projects = _projectsFilter2;
         } else {
-          _this8.projects = data.data.data;
+          _this7.projects = data.data.data;
         }
       })["catch"](function () {});
     });
-    this.getUserId();
-    this.filteredProjects();
     Fire.$on("reloadProjects", function () {
-      _this8.filteredProjects();
+      _this7.filteredProjects();
     });
   }
 });

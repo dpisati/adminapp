@@ -156,9 +156,7 @@
         </div>
       </div>
     </div>
-  <!-- Modal -->
-
-    </div>
+  </div>
 </template>
 
 <script>
@@ -261,34 +259,18 @@ export default {
       let query = this.projectStatus;
           axios.get('api/findProject?q=' + query)
             .then((data) => {
+              let projects = data.data.data
               if(this.userType == 'user') {
-                let projects = data.data.data
-                let projectsFilter = _.filter(projects, { 'user_id': this.userId });
-                this.projects = projectsFilter;
-              } else if (this.userType == 'maneger') {
-                let projects = data.data.data
-                let projectsFilter = _.filter(projects, { 'franchise': this.userFranchise });
-                this.projects = projectsFilter;
+                  let projectsFilter = _.filter(projects, { 'user_id': this.userId });
+                  this.projects = projectsFilter;
+              } else if (this.userType == 'maneger' || this.userType == 'owner') {
+                  let projectsFilter = _.filter(projects, { 'franchise': this.userFranchise });
+                  this.projects = projectsFilter;
               } else {
-                this.projects = data.data.data;   
+                  this.projects = data.data.data;   
               }          
             })
         .catch(() => {});
-    },
-
-    loadprojects() {
-      // if (this.$gate.isAdminOrManeger()) {
-        this.$Progress.start();
-        axios.get("api/project").then(({ data }) => (this.projects = data));
-              if(this.userType == 'user') {
-                let projects = this.projects
-                let projectsFilter = _.filter(projects, { 'user_id': this.userId });
-                this.projects = projectsFilter;
-              } else {
-                this.projects = data.data.data;
-              }  
-        this.$Progress.finish();        
-      // }
     },
     deleteproject(id) {
       Swal.fire({
@@ -319,31 +301,29 @@ export default {
     }
   },
 
-  created() {    
+  created() {
+    this.getUserId();
+    this.filteredProjects();
     Fire.$on('searching', () => {
       let query = this.$parent.search;
       axios.get('api/findProject?q=' + query)
         .then((data) => {
+          let projects = data.data.data
               if(this.userType == 'user') {
-                  let projects = data.data.data
                   let projectsFilter = _.filter(projects, { 'user_id': this.userId });
                   this.projects = projectsFilter;
-              } else if(this.userType == 'maneger') {
-                  let projects = data.data.data
+              } else if (this.userType == 'maneger' || this.userType == 'owner') {
                   let projectsFilter = _.filter(projects, { 'franchise': this.userFranchise });
                   this.projects = projectsFilter;
               } else {
-                  this.projects = data.data.data;   
-              } 
+                  this.projects = data.data.data;
+              }
         })
         .catch(() => {})
-    });
-
-    this.getUserId();
-    this.filteredProjects();
-    Fire.$on("reloadProjects", () => {
-      this.filteredProjects();
-    });
+      });
+      Fire.$on("reloadProjects", () => {
+        this.filteredProjects();
+      });
   }
-};
+}
 </script>

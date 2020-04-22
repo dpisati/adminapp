@@ -29,11 +29,11 @@ class ProjectController extends Controller
     {
         // $this->authorize('isAdmin');
         if(\Gate::allows('isAdmin')) {
-            return Project::latest()->paginate(10);
+            return Project::latest()->paginate();
         }
         if(\Gate::allows('isManeger')) {
             $user = auth('api')->user();
-            return Project::where('franchise', $user->franchise)->latest()->paginate(10);
+            return Project::where('franchise', $user->franchise)->latest()->paginate();
         }
         if(\Gate::allows('isUser')) {
             $user = auth('api')->user();
@@ -125,7 +125,7 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('isAdmin');
+        // $this->authorize('isAdmin');
         $project = Project::findOrFail($id);
         $project->delete();
 
@@ -148,9 +148,9 @@ class ProjectController extends Controller
                     ->orWhere('user_id','LIKE',"%$search%")
                     ->orWhere('franchise','LIKE',"%$search%")
                     ->orWhere('code','LIKE',"%$search%");
-            })->paginate(20);
+            })->paginate();
         } else {
-            $projects = Project::latest()->paginate(10);
+            $projects = Project::latest()->paginate();
         }
         return $projects;
     }
