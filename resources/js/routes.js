@@ -10,7 +10,6 @@ import NotFound from "./components/NotFound";
 
 export default {
     mode: "history",
-
     routes: [
         { path: "/home", component: Home },
         { path: "/profile", component: Profile },

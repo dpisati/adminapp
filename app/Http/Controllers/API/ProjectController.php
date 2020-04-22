@@ -145,6 +145,8 @@ class ProjectController extends Controller
                 $query->where('name', 'LIKE', "%$search%")
                     ->orWhere('client','LIKE',"%$search%")
                     ->orWhere('status','LIKE',"%$search%")
+                    ->orWhere('user_id','LIKE',"%$search%")
+                    ->orWhere('franchise','LIKE',"%$search%")
                     ->orWhere('code','LIKE',"%$search%");
             })->paginate(20);
         } else {

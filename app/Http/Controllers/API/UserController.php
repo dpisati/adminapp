@@ -34,6 +34,10 @@ class UserController extends Controller
             $user = auth('api')->user();
             return User::where('franchise', $user->franchise)->latest()->paginate(10);
         }
+        if(\Gate::allows('isOwner')) {
+            $user = auth('api')->user();
+            return User::where('franchise', $user->franchise)->latest()->paginate(10);
+        }
     }
 
     /**

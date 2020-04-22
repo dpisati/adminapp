@@ -118,6 +118,8 @@ export default {
     data() {
         return {
             userId: "",
+            userType: "",
+            userFranchise: "",
             totalProjects: 0,
             totalSold: 0,
             currentPhoto: "",
@@ -150,17 +152,31 @@ export default {
             let userId = axios.get('api/profile')
                 .then((res) => {
                 this.userId = res.data.id;
-                });
-            axios.get('api/project')
-            .then((data) => {
-                let projects = data.data.data
-                let projectsFilter = _.filter(projects, { 'user_id': this.userId });
-                this.projects = projectsFilter;
-                 this.projectsCount();
-            })
-            .catch(() => {});
+                this.userType = res.data.type;
+                this.userFranchise = res.data.franchise;
+                this.loadProjects();
+                });          
         },
-
+        loadProjects() {
+            if(this.userType == 'admin') {
+                axios.get('api/project').then((data) => {
+                    this.projects = data.data.data;
+                    this.projectsCount();
+                })
+            } else if(this.userType == 'user') {
+                this.loadProjectsFilter(this.userId)
+            } else {
+                this.loadProjectsFilter(this.userFranchise)
+            }
+            var parsedobj = JSON.parse(JSON.stringify(this.projects))
+        },
+        loadProjectsFilter(search) {
+            axios.get('api/findProject?q=' + search)
+            .then((data) => {
+                this.projects = data.data.data;   
+                this.projectsCount();
+            })  
+        },
         getProfilePhoto(){
             let profilePhoto = (this.form.photo.match(/\//) ? this.currentPhoto : this.form.photo);
             this.currentPhoto = profilePhoto;

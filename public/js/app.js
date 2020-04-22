@@ -2192,6 +2192,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       userId: "",
+      userType: "",
+      userFranchise: "",
       totalProjects: 0,
       totalSold: 0,
       currentPhoto: "",
@@ -2229,18 +2231,37 @@ __webpack_require__.r(__webpack_exports__);
 
       var userId = axios.get('api/profile').then(function (res) {
         _this2.userId = res.data.id;
+        _this2.userType = res.data.type;
+        _this2.userFranchise = res.data.franchise;
+
+        _this2.loadProjects();
       });
-      axios.get('api/project').then(function (data) {
-        var projects = data.data.data;
+    },
+    loadProjects: function loadProjects() {
+      var _this3 = this;
 
-        var projectsFilter = _.filter(projects, {
-          'user_id': _this2.userId
+      if (this.userType == 'admin') {
+        axios.get('api/project').then(function (data) {
+          _this3.projects = data.data.data;
+
+          _this3.projectsCount();
         });
+      } else if (this.userType == 'user') {
+        this.loadProjectsFilter(this.userId);
+      } else {
+        this.loadProjectsFilter(this.userFranchise);
+      }
 
-        _this2.projects = projectsFilter;
+      var parsedobj = JSON.parse(JSON.stringify(this.projects));
+    },
+    loadProjectsFilter: function loadProjectsFilter(search) {
+      var _this4 = this;
 
-        _this2.projectsCount();
-      })["catch"](function () {});
+      axios.get('api/findProject?q=' + search).then(function (data) {
+        _this4.projects = data.data.data;
+
+        _this4.projectsCount();
+      });
     },
     getProfilePhoto: function getProfilePhoto() {
       var profilePhoto = this.form.photo.match(/\//) ? this.currentPhoto : this.form.photo;
@@ -2248,14 +2269,14 @@ __webpack_require__.r(__webpack_exports__);
       return "images/profile/" + profilePhoto;
     },
     updatePhoto: function updatePhoto(e) {
-      var _this3 = this;
+      var _this5 = this;
 
       var file = e.target.files[0];
       var reader = new FileReader();
 
       if (file['size'] < 2111775) {
         reader.onloadend = function (file) {
-          _this3.form.photo = reader.result;
+          _this5.form.photo = reader.result;
         };
 
         reader.readAsDataURL(file);
@@ -2265,7 +2286,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     updateUser: function updateUser() {
-      var _this4 = this;
+      var _this6 = this;
 
       this.$Progress.start();
       this.form.put('api/profile').then(function () {
@@ -2276,19 +2297,19 @@ __webpack_require__.r(__webpack_exports__);
         axios.get("api/profile").then(function (_ref) {
           var data = _ref.data;
 
-          _this4.$Progress.finish();
+          _this6.$Progress.finish();
 
-          _this4.currentPhoto = data.photo;
-          return _this4.form.fill(data);
+          _this6.currentPhoto = data.photo;
+          return _this6.form.fill(data);
         })["catch"](function () {
-          _this4.$Progress.fail();
+          _this6.$Progress.fail();
         });
 
-        _this4.getProfilePhoto();
+        _this6.getProfilePhoto();
 
-        _this4.$Progress.finish();
+        _this6.$Progress.finish();
       })["catch"](function () {
-        _this4.$Progress.fail();
+        _this6.$Progress.fail();
 
         Toast.fire({
           icon: "error",
@@ -2298,19 +2319,19 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this5 = this;
+    var _this7 = this;
 
     this.$Progress.start();
     this.getUserId();
     axios.get("api/profile").then(function (_ref2) {
       var data = _ref2.data;
 
-      _this5.$Progress.finish();
+      _this7.$Progress.finish();
 
-      _this5.currentPhoto = data.photo;
-      return _this5.form.fill(data);
+      _this7.currentPhoto = data.photo;
+      return _this7.form.fill(data);
     })["catch"](function () {
-      _this5.$Progress.fail();
+      _this7.$Progress.fail();
     });
   }
 });
@@ -3196,8 +3217,7 @@ __webpack_require__.r(__webpack_exports__);
           _this8.projects = data.data.data;
         }
       })["catch"](function () {});
-    }); // this.loadprojects();
-
+    });
     this.getUserId();
     this.filteredProjects();
     Fire.$on("reloadProjects", function () {
@@ -3470,7 +3490,7 @@ __webpack_require__.r(__webpack_exports__);
     loadUsers: function loadUsers() {
       var _this4 = this;
 
-      if (this.$gate.isAdminOrManeger()) {
+      if (this.$gate.isAdminOrManegerOrOwner()) {
         this.$Progress.start();
         axios.get("api/user").then(function (_ref) {
           var data = _ref.data;
@@ -65094,11 +65114,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "container mt-5" }, [
-      !_vm.$gate.isAdminOrManeger()
+      !_vm.$gate.isAdminOrManegerOrOwner()
         ? _c("div", [_c("not-found")], 1)
         : _vm._e(),
       _vm._v(" "),
-      _vm.$gate.isAdminOrManeger()
+      _vm.$gate.isAdminOrManegerOrOwner()
         ? _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-12" }, [
               _c("div", { staticClass: "card" }, [
@@ -81887,6 +81907,13 @@ var Gate = /*#__PURE__*/function () {
     key: "isAdminOrManeger",
     value: function isAdminOrManeger() {
       if (this.user.type === 'admin' || this.user.type === 'maneger') {
+        return true;
+      }
+    }
+  }, {
+    key: "isAdminOrManegerOrOwner",
+    value: function isAdminOrManegerOrOwner() {
+      if (this.user.type === 'admin' || this.user.type === 'maneger' || this.user.type === 'owner') {
         return true;
       }
     }

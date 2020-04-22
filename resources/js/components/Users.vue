@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="container mt-5">
-      <div v-if="!$gate.isAdminOrManeger()">
+      <div v-if="!$gate.isAdminOrManegerOrOwner()">
         <not-found></not-found>
       </div>
-      <div class="row" v-if="$gate.isAdminOrManeger()">
+      <div class="row" v-if="$gate.isAdminOrManegerOrOwner()">
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
@@ -248,9 +248,8 @@ export default {
           });
         });
     },
-
     loadUsers() {
-      if (this.$gate.isAdminOrManeger()) {
+      if (this.$gate.isAdminOrManegerOrOwner()) {
         this.$Progress.start();
         axios.get("api/user").then(({ data }) => (this.users = data));
         this.$Progress.finish();
@@ -284,10 +283,10 @@ export default {
       });
     },
     getUser(){
-        let user = axios.get('api/profile')
-            .then((res) => {
-              this.user = res.data;
-            });
+      let user = axios.get('api/profile')
+          .then((res) => {
+            this.user = res.data;
+      });
     },
   },
 

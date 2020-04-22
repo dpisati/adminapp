@@ -338,7 +338,7 @@ export default {
         })
         .catch(() => {})
     });
-    // this.loadprojects();
+
     this.getUserId();
     this.filteredProjects();
     Fire.$on("reloadProjects", () => {

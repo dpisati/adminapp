@@ -19,4 +19,9 @@ export default class Gate {
             return true;
         }       
     }
+    isAdminOrManegerOrOwner() {
+        if(this.user.type === 'admin' || this.user.type === 'maneger' || this.user.type === 'owner') {
+            return true;
+        }       
+    }
 }
