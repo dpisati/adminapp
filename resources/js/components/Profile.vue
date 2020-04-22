@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="col-sm-6 border-right">
                             <div class="description-block">
-                                <h5 class="description-header">32</h5>
+                                <h5 class="description-header">{{totalProjects}}</h5>
                                 <span class="description-text">PROJECTS</span>
                             </div>
                             <!-- /.description-block -->
@@ -32,7 +32,7 @@
                             <!-- /.col -->
                             <div class="col-sm-6">
                             <div class="description-block">
-                                <h5 class="description-header">44</h5>
+                                <h5 class="description-header">{{totalSold}}</h5>
                                 <span class="description-text">SOLD</span>
                             </div>
                             <!-- /.description-block -->
@@ -117,7 +117,11 @@
 export default {
     data() {
         return {
+            userId: "",
+            totalProjects: 0,
+            totalSold: 0,
             currentPhoto: "",
+            projects: {},
             form: new Form({
                 id: "",
                 name: "",
@@ -130,10 +134,33 @@ export default {
             })
         }
     },
-    mounted(){
-        console.log('Component Mounted')
-    },
     methods: {
+        projectsCount() {
+            this.totalProjects = 0;
+            this.totalSold = 0;
+            this.projects.forEach(project => {
+                if(project.status == "Sold") {
+                    this.totalSold += 1;
+                } else {
+                    this.totalProjects += 1;
+                };
+            });
+        },
+        getUserId(){
+            let userId = axios.get('api/profile')
+                .then((res) => {
+                this.userId = res.data.id;
+                });
+            axios.get('api/project')
+            .then((data) => {
+                let projects = data.data.data
+                let projectsFilter = _.filter(projects, { 'user_id': this.userId });
+                this.projects = projectsFilter;
+                 this.projectsCount();
+            })
+            .catch(() => {});
+        },
+
         getProfilePhoto(){
             let profilePhoto = (this.form.photo.match(/\//) ? this.currentPhoto : this.form.photo);
             this.currentPhoto = profilePhoto;
@@ -182,6 +209,7 @@ export default {
     },
     created(){
         this.$Progress.start();
+        this.getUserId();
         axios
         .get("api/profile")
         .then(({ data }) => {

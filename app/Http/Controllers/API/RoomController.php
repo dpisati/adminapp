@@ -120,7 +120,7 @@ class RoomController extends Controller
     {     
         $room = Room::findOrFail($request['room_id']);
         $cabinet = Cabinet::create([
-            'cabinet_id' => $request['id'],
+            'cabinet_id' => 1,
             'room_id' => $request['room_id'],
             'quantity' => $request['quantity'],
             'name' => $request['name'],

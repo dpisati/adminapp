@@ -2191,7 +2191,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      userId: "",
+      totalProjects: 0,
+      totalSold: 0,
       currentPhoto: "",
+      projects: {},
       form: new Form({
         id: "",
         name: "",
@@ -2204,24 +2208,54 @@ __webpack_require__.r(__webpack_exports__);
       })
     };
   },
-  mounted: function mounted() {
-    console.log('Component Mounted');
-  },
   methods: {
+    projectsCount: function projectsCount() {
+      var _this = this;
+
+      this.totalProjects = 0;
+      this.totalSold = 0;
+      this.projects.forEach(function (project) {
+        if (project.status == "Sold") {
+          _this.totalSold += 1;
+        } else {
+          _this.totalProjects += 1;
+        }
+
+        ;
+      });
+    },
+    getUserId: function getUserId() {
+      var _this2 = this;
+
+      var userId = axios.get('api/profile').then(function (res) {
+        _this2.userId = res.data.id;
+      });
+      axios.get('api/project').then(function (data) {
+        var projects = data.data.data;
+
+        var projectsFilter = _.filter(projects, {
+          'user_id': _this2.userId
+        });
+
+        _this2.projects = projectsFilter;
+
+        _this2.projectsCount();
+      })["catch"](function () {});
+    },
     getProfilePhoto: function getProfilePhoto() {
       var profilePhoto = this.form.photo.match(/\//) ? this.currentPhoto : this.form.photo;
       this.currentPhoto = profilePhoto;
       return "images/profile/" + profilePhoto;
     },
     updatePhoto: function updatePhoto(e) {
-      var _this = this;
+      var _this3 = this;
 
       var file = e.target.files[0];
       var reader = new FileReader();
 
       if (file['size'] < 2111775) {
         reader.onloadend = function (file) {
-          _this.form.photo = reader.result;
+          _this3.form.photo = reader.result;
         };
 
         reader.readAsDataURL(file);
@@ -2231,7 +2265,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     updateUser: function updateUser() {
-      var _this2 = this;
+      var _this4 = this;
 
       this.$Progress.start();
       this.form.put('api/profile').then(function () {
@@ -2242,19 +2276,19 @@ __webpack_require__.r(__webpack_exports__);
         axios.get("api/profile").then(function (_ref) {
           var data = _ref.data;
 
-          _this2.$Progress.finish();
+          _this4.$Progress.finish();
 
-          _this2.currentPhoto = data.photo;
-          return _this2.form.fill(data);
+          _this4.currentPhoto = data.photo;
+          return _this4.form.fill(data);
         })["catch"](function () {
-          _this2.$Progress.fail();
+          _this4.$Progress.fail();
         });
 
-        _this2.getProfilePhoto();
+        _this4.getProfilePhoto();
 
-        _this2.$Progress.finish();
+        _this4.$Progress.finish();
       })["catch"](function () {
-        _this2.$Progress.fail();
+        _this4.$Progress.fail();
 
         Toast.fire({
           icon: "error",
@@ -2264,18 +2298,19 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this5 = this;
 
     this.$Progress.start();
+    this.getUserId();
     axios.get("api/profile").then(function (_ref2) {
       var data = _ref2.data;
 
-      _this3.$Progress.finish();
+      _this5.$Progress.finish();
 
-      _this3.currentPhoto = data.photo;
-      return _this3.form.fill(data);
+      _this5.currentPhoto = data.photo;
+      return _this5.form.fill(data);
     })["catch"](function () {
-      _this3.$Progress.fail();
+      _this5.$Progress.fail();
     });
   }
 });
@@ -63504,7 +63539,33 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", { staticClass: "card-footer" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-6 border-right" }, [
+                  _c("div", { staticClass: "description-block" }, [
+                    _c("h5", { staticClass: "description-header" }, [
+                      _vm._v(_vm._s(_vm.totalProjects))
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "description-text" }, [
+                      _vm._v("PROJECTS")
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-6" }, [
+                  _c("div", { staticClass: "description-block" }, [
+                    _c("h5", { staticClass: "description-header" }, [
+                      _vm._v(_vm._s(_vm.totalSold))
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "description-text" }, [
+                      _vm._v("SOLD")
+                    ])
+                  ])
+                ])
+              ])
+            ])
           ]),
           _vm._v(" "),
           _c(
@@ -63718,34 +63779,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-6 border-right" }, [
-          _c("div", { staticClass: "description-block" }, [
-            _c("h5", { staticClass: "description-header" }, [_vm._v("32")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "description-text" }, [
-              _vm._v("PROJECTS")
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-6" }, [
-          _c("div", { staticClass: "description-block" }, [
-            _c("h5", { staticClass: "description-header" }, [_vm._v("44")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "description-text" }, [_vm._v("SOLD")])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -63928,8 +63962,6 @@ var render = function() {
                           _vm._v(" "),
                           _vm._l(room.cabinets, function(cabinet) {
                             return _c("tr", { key: cabinet.id }, [
-                              _c("td", [_vm._v(_vm._s(cabinet.id))]),
-                              _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(cabinet.quantity))]),
                               _vm._v(" "),
                               _c(
@@ -64180,33 +64212,9 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "form-row" }, [
-                      _c("div", { staticClass: "form-group col-md-2" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.id,
-                              expression: "form.id"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "id" },
-                          domProps: { value: _vm.form.id },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.form, "id", $event.target.value)
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
                       _c(
                         "div",
-                        { staticClass: "form-group col-md-2" },
+                        { staticClass: "form-group col-md-4" },
                         [
                           _c("input", {
                             directives: [
@@ -64496,8 +64504,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("th", [_vm._v("ID")]),
-      _vm._v(" "),
       _c("th", [_vm._v("Quantity")]),
       _vm._v(" "),
       _c("th", [_vm._v("Name")]),

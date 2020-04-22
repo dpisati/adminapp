@@ -71,7 +71,7 @@
                     <table class="table table-hover">
                         <tbody>
                         <tr>
-                            <th>ID</th>
+                            <!-- <th>ID</th> -->
                             <th>Quantity</th>
                             <th>Name</th>
                             <th>Width</th>
@@ -81,7 +81,7 @@
                             <th>Modify</th>
                         </tr>
                         <tr v-for="cabinet in room.cabinets" :key="cabinet.id">
-                              <td>{{ cabinet.id }}</td>
+                              <!-- <td>{{ cabinet.id }}</td> -->
                               <td>{{ cabinet.quantity }}</td>
                               <td><router-link :to="'/cabinets/' + cabinet.cabinet_id"> {{ cabinet.name | upText }} </router-link></td>
                               <td>{{ cabinet.width }}</td>
@@ -179,10 +179,10 @@
               <div class="modal-body">
                 <form @submit.prevent="editmode ? updateCabinet() : addCabinet()">
                   <div class="form-row">
-                    <div class="form-group col-md-2">
+                    <!-- <div class="form-group col-md-2">
                         <input type="text" class="form-control" placeholder="id" v-model="form.id">
-                    </div>
-                      <div class="form-group col-md-2">                          
+                    </div> -->
+                      <div class="form-group col-md-4">                          
                             <input
                             placeholder="Quantity"
                             v-model="form.quantity"
@@ -319,29 +319,27 @@ export default {
                     });
                 });
         },
-
-    updateCabinet() {
-      this.$Progress.start();
-      this.form
-        .put("/api/cabinet/" + this.form.id)
-        .then(() => {
-          Toast.fire({
-            icon: "success",
-            title: "Cabinet updated"
-          });
-          $("#addNewCabinet").modal("hide");
-          this.$Progress.finish();
-          Fire.$emit("reloadRooms");
-        })
-        .catch(() => {
-          this.$Progress.fail();
-          Toast.fire({
-            icon: "error",
-            title: "Unable to update cabinet"
-          });
-        });
-    },
-
+        updateCabinet() {
+            this.$Progress.start();
+            this.form
+                .put("/api/cabinet/" + this.form.id)
+                .then(() => {
+                Toast.fire({
+                    icon: "success",
+                    title: "Cabinet updated"
+                });
+                $("#addNewCabinet").modal("hide");
+                this.$Progress.finish();
+                Fire.$emit("reloadRooms");
+                })
+                .catch(() => {
+                this.$Progress.fail();
+                Toast.fire({
+                    icon: "error",
+                    title: "Unable to update cabinet"
+                });
+            });
+        },
         newModal() {
             this.editmode = false;
             this.form.reset();
@@ -429,7 +427,6 @@ export default {
                 }
             });
         },
-
         deleteCabinet(id) {
             Swal.fire({
                 title: "Are you sure?",
@@ -457,7 +454,6 @@ export default {
                 }
             });
             },
-
             loadRooms() {
                     this.$Progress.start();
                     axios
