@@ -13,14 +13,14 @@
                     <!-- Widget: user widget style 1 -->
                     <div class="card card-widget widget-user">
                         <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-white">
-                            <h3 class="widget-user-username mt-3">{{ this.project.name }}</h3>                        
+                        <div class="d-flex widget-user-header bg-white justify-content-center align-items-center">
+                            <h3 class="widget-user-username">{{ this.project.name }}</h3>                        
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer pt-3">
                         <div class="row">
                                 <div class="col-sm-6 border-right">
                                     <div class="description-block">
-                                        <h5 class="description-header">32</h5>
+                                        <h5 class="description-header">{{ totalCabinets }}</h5>
                                         <span class="description-text">CABINETS</span>
                                     </div>
                                 <!-- /.description-block -->
@@ -28,7 +28,7 @@
                             <!-- /.col -->
                                 <div class="col-sm-6">
                                     <div class="description-block">
-                                        <h5 class="description-header">44</h5>
+                                        <h5 class="description-header">{{ totalPanels }}</h5>
                                         <span class="description-text">PANELS</span>
                                     </div>
                             <!-- /.description-block -->
@@ -220,6 +220,19 @@
                              <textarea class="form-control" id="comment" rows="1" placeholder="Comment..." v-model="form.comment"></textarea>
                         </div>
                     </div>
+                                  <div class="form-group">
+                <select
+                  v-model="form.type"
+                  name="type"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('type')}"
+                >
+                  <option value disabled selected>- Unit Type -</option>
+                  <option value="Cabinet">Cabinet</option>
+                  <option value="Panel">Panel</option>
+                </select>
+                <has-error :form="form" field="type"></has-error>
+              </div>
 
 
                   <div class="modal-footer">
@@ -248,9 +261,10 @@ export default {
         return {
             id: this.$route.params.id,
             editmode: true,
+            totalCabinets: 0,
+            totalPanels: 0,
             project: {},
             rooms: {},
-            cabinets: {},
             form: new Form({        
                 id: "",
                 quantity: "",
@@ -259,12 +273,26 @@ export default {
                 height: "",
                 depth: "",
                 comment: "",
+                type: "",
                 project_id: "",
                 room_id: ""
             })
         }
     },
     methods: {
+        cabinetTypeCount() {
+            this.totalPanels = 0;
+            this.totalCabinets = 0;
+            this.rooms.forEach(room => {
+                room.cabinets.forEach(cabinet => {
+                    if(cabinet.type == 'Cabinet') {
+                        this.totalCabinets += cabinet.quantity;
+                    } else {
+                        this.totalPanels += cabinet.quantity;
+                    }
+                })
+            });
+        },
         addCabinetModal(room) {
             this.editmode = false;
             this.form.reset();
@@ -447,6 +475,7 @@ export default {
                     .then(({ data }) => {
                         this.rooms = data;
                         this.$Progress.finish();
+                        this.cabinetTypeCount();
                     })
                     .catch(() => {
                         this.$Progress.fail();
@@ -454,7 +483,7 @@ export default {
             }
     },
     created() {
-        this.loadRooms();
+        this.loadRooms();        
         Fire.$on("reloadRooms", () => {
             this.loadRooms();
         });

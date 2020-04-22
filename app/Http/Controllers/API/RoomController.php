@@ -127,7 +127,8 @@ class RoomController extends Controller
             'width' => $request['width'],
             'height' => $request['height'],
             'depth' => $request['depth'],
-            'comment' => $request['comment']
+            'comment' => $request['comment'],
+            'type' => $request['type']
         ]);
         $room->cabinets()->attach($cabinet);
 

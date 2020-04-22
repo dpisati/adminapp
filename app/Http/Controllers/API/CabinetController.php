@@ -99,7 +99,8 @@ class CabinetController extends Controller
             'quantity' => 'required',
             'width' => 'required',
             'height' => 'required',
-            'depth' => 'required'
+            'depth' => 'required',
+            'type' => 'required'
         ]); 
         $cabinet->update($request->all());
         return ['message' => 'User updated'];

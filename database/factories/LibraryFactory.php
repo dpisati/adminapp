@@ -9,6 +9,7 @@ $factory->define(Library::class, function (Faker $faker) {
         'category' => $faker->randomElement(['Base', 'On-Bench', 'Tall', 'Wall']),
         'subcategory' => $faker->randomElement(['Opening', 'Corner', 'Accessories']),
         'measure_type' => $faker->randomElement(['Single', 'Parametric', 'Multiple']),
-        'name' => $faker->name
+        'name' => $faker->name,
+        'type' => $faker->randomElement(['Cabinet', 'Panel'])
     ];
 });

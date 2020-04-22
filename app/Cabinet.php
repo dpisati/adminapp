@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cabinet extends Model
 {
     protected $fillable = [
-        'category', 'subcategory', 'quantity', 'width', 'height', 'depth', 'comment', 'cabinet_id', 'room_id', 'name'
+        'category', 'subcategory', 'quantity', 'width', 'height', 'depth', 'comment', 'cabinet_id', 'room_id', 'name', 'type'
     ];
     public function rooms() {
         return $this->belongsToMany(Room::class);

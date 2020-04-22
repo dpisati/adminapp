@@ -10,7 +10,8 @@ $factory->define(Cabinet::class, function (Faker $faker) {
         'cabinet_id' => Library::all()->random()->id,
         'quantity' => $faker->randomDigitNotNull,
         'width' => $faker->randomDigitNotNull,
-        'height' => $faker->randomDigitNotNull ,
-        'depth' => $faker->randomDigitNotNull 
+        'height' => $faker->randomDigitNotNull,
+        'depth' => $faker->randomDigitNotNull,
+        'type' => $faker->randomElement(['Cabinet', 'Panel'])
     ];
 });

@@ -2535,14 +2535,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       id: this.$route.params.id,
       editmode: true,
+      totalCabinets: 0,
+      totalPanels: 0,
       project: {},
       rooms: {},
-      cabinets: {},
       form: new Form({
         id: "",
         quantity: "",
@@ -2551,12 +2565,28 @@ __webpack_require__.r(__webpack_exports__);
         height: "",
         depth: "",
         comment: "",
+        type: "",
         project_id: "",
         room_id: ""
       })
     };
   },
   methods: {
+    cabinetTypeCount: function cabinetTypeCount() {
+      var _this = this;
+
+      this.totalPanels = 0;
+      this.totalCabinets = 0;
+      this.rooms.forEach(function (room) {
+        room.cabinets.forEach(function (cabinet) {
+          if (cabinet.type == 'Cabinet') {
+            _this.totalCabinets += cabinet.quantity;
+          } else {
+            _this.totalPanels += cabinet.quantity;
+          }
+        });
+      });
+    },
     addCabinetModal: function addCabinetModal(room) {
       this.editmode = false;
       this.form.reset();
@@ -2564,10 +2594,10 @@ __webpack_require__.r(__webpack_exports__);
       $("#addNewCabinet").modal("show");
     },
     addCabinet: function addCabinet() {
-      var _this = this;
+      var _this2 = this;
 
       this.form.post("/api/addCabinet").then(function () {
-        _this.$Progress.start();
+        _this2.$Progress.start();
 
         Fire.$emit("reloadRooms");
         $("#addNewCabinet").modal("hide");
@@ -2576,7 +2606,7 @@ __webpack_require__.r(__webpack_exports__);
           title: "Cabinet added successfully"
         });
 
-        _this.$Progress.finish();
+        _this2.$Progress.finish();
       })["catch"](function () {
         Toast.fire({
           icon: "error",
@@ -2585,7 +2615,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     updateCabinet: function updateCabinet() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$Progress.start();
       this.form.put("/api/cabinet/" + this.form.id).then(function () {
@@ -2595,11 +2625,11 @@ __webpack_require__.r(__webpack_exports__);
         });
         $("#addNewCabinet").modal("hide");
 
-        _this2.$Progress.finish();
+        _this3.$Progress.finish();
 
         Fire.$emit("reloadRooms");
       })["catch"](function () {
-        _this2.$Progress.fail();
+        _this3.$Progress.fail();
 
         Toast.fire({
           icon: "error",
@@ -2613,11 +2643,11 @@ __webpack_require__.r(__webpack_exports__);
       $("#addNew").modal("show");
     },
     createRoom: function createRoom() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.form.project_id = this.id;
       this.form.post("/api/room").then(function () {
-        _this3.$Progress.start();
+        _this4.$Progress.start();
 
         Fire.$emit("reloadRooms");
         $("#addNew").modal("hide");
@@ -2626,7 +2656,7 @@ __webpack_require__.r(__webpack_exports__);
           title: "Room created successfully"
         });
 
-        _this3.$Progress.finish();
+        _this4.$Progress.finish();
       })["catch"](function () {
         Toast.fire({
           icon: "error",
@@ -2649,10 +2679,10 @@ __webpack_require__.r(__webpack_exports__);
       this.form.project_id = this.project_id;
     },
     updateRoom: function updateRoom(room) {
-      var _this4 = this;
+      var _this5 = this;
 
       this.form.put("/api/room/" + this.form.id).then(function () {
-        _this4.$Progress.start();
+        _this5.$Progress.start();
 
         $("#addNew").modal("hide");
         Toast.fire({
@@ -2661,7 +2691,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         Fire.$emit("reloadRooms");
 
-        _this4.$Progress.finish();
+        _this5.$Progress.finish();
       })["catch"](function () {
         Toast.fire({
           icon: "error",
@@ -2670,33 +2700,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteRoom: function deleteRoom(id) {
-      var _this5 = this;
-
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then(function (result) {
-        if (result.value) {
-          _this5.form["delete"]("/api/room/" + id).then(function () {
-            Swal.fire("Deleted!", "Room has been deleted.", "success");
-            Fire.$emit("reloadRooms");
-          })["catch"](function () {
-            _this5.$Progress.fail();
-
-            Toast.fire({
-              icon: "error",
-              title: "Unable to delete room"
-            });
-          });
-        }
-      });
-    },
-    deleteCabinet: function deleteCabinet(id) {
       var _this6 = this;
 
       Swal.fire({
@@ -2709,11 +2712,38 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Yes, delete it!"
       }).then(function (result) {
         if (result.value) {
-          _this6.form["delete"]("/api/cabinet/" + id).then(function () {
-            Swal.fire("Deleted!", "Cabinet has been deleted.", "success");
+          _this6.form["delete"]("/api/room/" + id).then(function () {
+            Swal.fire("Deleted!", "Room has been deleted.", "success");
             Fire.$emit("reloadRooms");
           })["catch"](function () {
             _this6.$Progress.fail();
+
+            Toast.fire({
+              icon: "error",
+              title: "Unable to delete room"
+            });
+          });
+        }
+      });
+    },
+    deleteCabinet: function deleteCabinet(id) {
+      var _this7 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          _this7.form["delete"]("/api/cabinet/" + id).then(function () {
+            Swal.fire("Deleted!", "Cabinet has been deleted.", "success");
+            Fire.$emit("reloadRooms");
+          })["catch"](function () {
+            _this7.$Progress.fail();
 
             Toast.fire({
               icon: "error",
@@ -2724,34 +2754,36 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     loadRooms: function loadRooms() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.$Progress.start();
       axios.get("/api/project/" + this.id).then(function (_ref) {
         var data = _ref.data;
-        _this7.project = data;
-        _this7.form.project_id = _this7.id;
+        _this8.project = data;
+        _this8.form.project_id = _this8.id;
 
-        _this7.$Progress.finish();
+        _this8.$Progress.finish();
       })["catch"](function () {
-        _this7.$Progress.fail();
+        _this8.$Progress.fail();
       });
       axios.get("/api/room/" + this.id).then(function (_ref2) {
         var data = _ref2.data;
-        _this7.rooms = data;
+        _this8.rooms = data;
 
-        _this7.$Progress.finish();
+        _this8.$Progress.finish();
+
+        _this8.cabinetTypeCount();
       })["catch"](function () {
-        _this7.$Progress.fail();
+        _this8.$Progress.fail();
       });
     }
   },
   created: function created() {
-    var _this8 = this;
+    var _this9 = this;
 
     this.loadRooms();
     Fire.$on("reloadRooms", function () {
-      _this8.loadRooms();
+      _this9.loadRooms();
     });
   }
 });
@@ -62857,7 +62889,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
+    return _c("div", { staticClass: "container mt-5" }, [
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-md-8" }, [
           _c("div", { staticClass: "card" }, [
@@ -63742,13 +63774,46 @@ var render = function() {
           "div",
           [
             _c("div", { staticClass: "card card-widget widget-user" }, [
-              _c("div", { staticClass: "widget-user-header bg-white" }, [
-                _c("h3", { staticClass: "widget-user-username mt-3" }, [
-                  _vm._v(_vm._s(this.project.name))
-                ])
-              ]),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "d-flex widget-user-header bg-white justify-content-center align-items-center"
+                },
+                [
+                  _c("h3", { staticClass: "widget-user-username" }, [
+                    _vm._v(_vm._s(this.project.name))
+                  ])
+                ]
+              ),
               _vm._v(" "),
-              _vm._m(0)
+              _c("div", { staticClass: "card-footer pt-3" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-sm-6 border-right" }, [
+                    _c("div", { staticClass: "description-block" }, [
+                      _c("h5", { staticClass: "description-header" }, [
+                        _vm._v(_vm._s(_vm.totalCabinets))
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "description-text" }, [
+                        _vm._v("CABINETS")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-6" }, [
+                    _c("div", { staticClass: "description-block" }, [
+                      _c("h5", { staticClass: "description-header" }, [
+                        _vm._v(_vm._s(_vm.totalPanels))
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "description-text" }, [
+                        _vm._v("PANELS")
+                      ])
+                    ])
+                  ])
+                ])
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "mb-3" }, [
@@ -63859,7 +63924,7 @@ var render = function() {
                       _c(
                         "tbody",
                         [
-                          _vm._m(1, true),
+                          _vm._m(0, true),
                           _vm._v(" "),
                           _vm._l(room.cabinets, function(cabinet) {
                             return _c("tr", { key: cabinet.id }, [
@@ -63982,7 +64047,7 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(2)
+                _vm._m(1)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
@@ -64099,7 +64164,7 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(2)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
@@ -64326,6 +64391,72 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.type,
+                                expression: "form.type"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("type")
+                            },
+                            attrs: { name: "type" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "type",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { value: "", disabled: "", selected: "" }
+                              },
+                              [_vm._v("- Unit Type -")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Cabinet" } }, [
+                              _vm._v("Cabinet")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Panel" } }, [
+                              _vm._v("Panel")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "type" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
                     _c("div", { staticClass: "modal-footer" }, [
                       _c(
                         "button",
@@ -64360,32 +64491,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-6 border-right" }, [
-          _c("div", { staticClass: "description-block" }, [
-            _c("h5", { staticClass: "description-header" }, [_vm._v("32")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "description-text" }, [
-              _vm._v("CABINETS")
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-6" }, [
-          _c("div", { staticClass: "description-block" }, [
-            _c("h5", { staticClass: "description-header" }, [_vm._v("44")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "description-text" }, [_vm._v("PANELS")])
-          ])
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
