@@ -38,7 +38,7 @@
                         <!-- /.row -->
                         </div>                                           
                     </div>
-                        <div class="mb-3">
+                        <div class="mb-3" v-if="project.status != 'Sold'">
                             <div class="input-group input-group-sm hidden-xs">
                             <button class="btn btn-success mr-3 m-2" @click="newModal">
                                 <i class="fas fa-house-user nav-icon mr-2"></i>
@@ -50,7 +50,7 @@
                 <div class="card" v-for="room in rooms" :key="room.id">
                     <div class="card-header">
                         <h3 class="card-title mt-2">{{ room.name }}</h3>
-                            <div class="card-tools">
+                            <div class="card-tools" v-if="project.status != 'Sold'">
                                 <div class="input-group input-group-sm hidden-xs">
                                 <button class="btn btn-success btn-sm mr-3 m-2" @click="addCabinetModal(room)">
                                     <i class="fas fa-inbox nav-icon mr-2"></i>
@@ -78,7 +78,7 @@
                             <th>Height</th>
                             <th>Depth</th>
                             <th>Comment</th>
-                            <th>Modify</th>
+                            <th v-if="project.status != 'Sold'">Modify</th>
                         </tr>
                         <tr v-for="cabinet in room.cabinets" :key="cabinet.id">
                               <!-- <td>{{ cabinet.id }}</td> -->
@@ -89,7 +89,7 @@
                               <td>{{ cabinet.depth }}</td>
                               <td v-if="cabinet.comment">{{ cabinet.comment }}</td>
                               <td v-else>-</td>
-                            <td>
+                            <td v-if="project.status != 'Sold'">
                             <a href="#" @click="editModalCabinet(cabinet)">
                                 <i class="fa fa-edit mr-2"></i>
                             </a>

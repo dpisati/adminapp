@@ -102,7 +102,7 @@
                 <p>Projects</p>
               </router-link>
             </li>
-            @can('isAdmin')
+            {{-- @can('isAdmin') --}}
             <li class="nav-item">
               <router-link to="/cabinets" class="nav-link">
                 <i class="fas fa-cube nav-icon"></i>
@@ -121,7 +121,7 @@
                 <p>Developer</p>
               </router-link>
             </li>
-            @endcan
+            {{-- @endcan --}}
           </ul>
         </li>
       </ul>

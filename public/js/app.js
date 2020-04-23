@@ -63840,29 +63840,31 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "mb-3" }, [
-              _c(
-                "div",
-                { staticClass: "input-group input-group-sm hidden-xs" },
-                [
+            _vm.project.status != "Sold"
+              ? _c("div", { staticClass: "mb-3" }, [
                   _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-success mr-3 m-2",
-                      on: { click: _vm.newModal }
-                    },
+                    "div",
+                    { staticClass: "input-group input-group-sm hidden-xs" },
                     [
-                      _c("i", {
-                        staticClass: "fas fa-house-user nav-icon mr-2"
-                      }),
-                      _vm._v(
-                        "\n                            Add Room\n                        "
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success mr-3 m-2",
+                          on: { click: _vm.newModal }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-house-user nav-icon mr-2"
+                          }),
+                          _vm._v(
+                            "\n                            Add Room\n                        "
+                          )
+                        ]
                       )
                     ]
                   )
-                ]
-              )
-            ]),
+                ])
+              : _vm._e(),
             _vm._v(" "),
             _vm._l(_vm.rooms, function(room) {
               return _c("div", { key: room.id, staticClass: "card" }, [
@@ -63871,73 +63873,78 @@ var render = function() {
                     _vm._v(_vm._s(room.name))
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "card-tools" }, [
-                    _c(
-                      "div",
-                      { staticClass: "input-group input-group-sm hidden-xs" },
-                      [
+                  _vm.project.status != "Sold"
+                    ? _c("div", { staticClass: "card-tools" }, [
                         _c(
-                          "button",
+                          "div",
                           {
-                            staticClass: "btn btn-success btn-sm mr-3 m-2",
-                            on: {
-                              click: function($event) {
-                                return _vm.addCabinetModal(room)
-                              }
-                            }
+                            staticClass: "input-group input-group-sm hidden-xs"
                           },
                           [
-                            _c("i", {
-                              staticClass: "fas fa-inbox nav-icon mr-2"
-                            }),
-                            _vm._v(
-                              "\n                                    Add Cabinet\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-secondary btn-sm mr-3 m-2",
-                            on: {
-                              click: function($event) {
-                                return _vm.editModal(room)
-                              }
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "fas fa-edit nav-icon mr-2"
-                            }),
-                            _vm._v(
-                              "\n                                    Update Room\n                               "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger btn-sm mr-3 m-2",
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteRoom(room.id)
-                              }
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "fas fa-trash nav-icon mr-2"
-                            }),
-                            _vm._v(
-                              "\n                                    Delete Room\n                               "
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success btn-sm mr-3 m-2",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.addCabinetModal(room)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-inbox nav-icon mr-2"
+                                }),
+                                _vm._v(
+                                  "\n                                    Add Cabinet\n                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-secondary btn-sm mr-3 m-2",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editModal(room)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-edit nav-icon mr-2"
+                                }),
+                                _vm._v(
+                                  "\n                                    Update Room\n                               "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger btn-sm mr-3 m-2",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteRoom(room.id)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-trash nav-icon mr-2"
+                                }),
+                                _vm._v(
+                                  "\n                                    Delete Room\n                               "
+                                )
+                              ]
                             )
                           ]
                         )
-                      ]
-                    )
-                  ])
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c(
@@ -63948,7 +63955,23 @@ var render = function() {
                       _c(
                         "tbody",
                         [
-                          _vm._m(0, true),
+                          _c("tr", [
+                            _c("th", [_vm._v("Quantity")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Name")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Width")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Height")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Depth")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Comment")]),
+                            _vm._v(" "),
+                            _vm.project.status != "Sold"
+                              ? _c("th", [_vm._v("Modify")])
+                              : _vm._e()
+                          ]),
                           _vm._v(" "),
                           _vm._l(room.cabinets, function(cabinet) {
                             return _c("tr", { key: cabinet.id }, [
@@ -63988,39 +64011,45 @@ var render = function() {
                                 ? _c("td", [_vm._v(_vm._s(cabinet.comment))])
                                 : _c("td", [_vm._v("-")]),
                               _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: { href: "#" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.editModalCabinet(cabinet)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fa fa-edit mr-2" })]
-                                ),
-                                _vm._v(
-                                  "\n                        /\n                        "
-                                ),
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: { href: "#" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.deleteCabinet(cabinet.id)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fa fa-trash-alt ml-2"
-                                    })
-                                  ]
-                                )
-                              ])
+                              _vm.project.status != "Sold"
+                                ? _c("td", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.editModalCabinet(cabinet)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-edit mr-2"
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(
+                                      "\n                        /\n                        "
+                                    ),
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.deleteCabinet(cabinet.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-trash-alt ml-2"
+                                        })
+                                      ]
+                                    )
+                                  ])
+                                : _vm._e()
                             ])
                           })
                         ],
@@ -64069,7 +64098,7 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(0)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
@@ -64186,7 +64215,7 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(2)
+                _vm._m(1)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
@@ -64489,26 +64518,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Quantity")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Width")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Height")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Depth")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Comment")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Modify")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
