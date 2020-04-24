@@ -81938,10 +81938,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$gate = new _Gate__WEBPACK_IMPORTED_MODULE_7__["default"](window.user);
-window.Fire = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
-window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a;
-window.Toast = Toast;
-window.Form = vform__WEBPACK_IMPORTED_MODULE_3__["Form"];
 var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a.mixin({
   toast: true,
   position: "top-end",
@@ -81972,6 +81968,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("upText", function (text) {
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("myDate", function (date) {
   return moment__WEBPACK_IMPORTED_MODULE_4___default()(date).format("DD/MM/YY - hh:mm:ss a");
 });
+window.Fire = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
+window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a;
+window.Toast = Toast;
+window.Form = vform__WEBPACK_IMPORTED_MODULE_3__["Form"];
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: "#app",
   router: new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"](_routes__WEBPACK_IMPORTED_MODULE_2__["default"]),

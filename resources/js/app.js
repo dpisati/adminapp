@@ -11,10 +11,7 @@ import Gate from './Gate';
 
 
 Vue.prototype.$gate = new Gate(window.user);
-window.Fire = new Vue();
-window.Swal = Swal;
-window.Toast = Toast;
-window.Form = Form;
+
 
 const Toast = Swal.mixin({
     toast: true,
@@ -51,6 +48,10 @@ Vue.filter("upText", function(text) {
 Vue.filter("myDate", function(date) {
     return moment(date).format("DD/MM/YY - hh:mm:ss a");
 });
+window.Fire = new Vue();
+window.Swal = Swal;
+window.Toast = Toast;
+window.Form = Form;
 
 const app = new Vue({
     el: "#app",
