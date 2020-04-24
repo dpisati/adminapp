@@ -12,6 +12,9 @@ import Gate from './Gate';
 
 Vue.prototype.$gate = new Gate(window.user);
 window.Fire = new Vue();
+window.Swal = Swal;
+window.Toast = Toast;
+window.Form = Form;
 
 const Toast = Swal.mixin({
     toast: true,
@@ -25,9 +28,6 @@ const Toast = Swal.mixin({
     }
 });
 
-window.Swal = Swal;
-window.Toast = Toast;
-window.Form = Form;
 
 Vue.use(VueRouter);
 Vue.use(VueProgressBar, {
