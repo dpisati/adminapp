@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Library;
+use App\SubCategory;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
-class LibraryController extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class LibraryController extends Controller
      */
     public function index()
     {
-        //
+        return SubCategory::all();
     }
 
     /**
@@ -35,27 +37,34 @@ class LibraryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'category_id' => 'required'
+        ]);
+        return SubCategory::create([
+            'name' => $request['name'],
+            'category_id' => $request['category_id']
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Library  $library
+     * @param  \App\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(Library $library)
+    public function show($id)
     {
-        //
+        return SubCategory::where('category_id', $id)->get();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Library  $library
+     * @param  \App\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Library $library)
+    public function edit(SubCategory $subCategory)
     {
         //
     }
@@ -64,10 +73,10 @@ class LibraryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Library  $library
+     * @param  \App\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Library $library)
+    public function update(Request $request, SubCategory $subCategory)
     {
         //
     }
@@ -75,10 +84,10 @@ class LibraryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Library  $library
+     * @param  \App\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Library $library)
+    public function destroy(SubCategory $subCategory)
     {
         //
     }

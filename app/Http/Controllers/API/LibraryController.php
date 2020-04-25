@@ -2,25 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\User;
-use App\Cabinet;
-use App\Project;
+use App\Library;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
-class CabinetController extends Controller
+class LibraryController extends Controller
 {
-       /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-        // $this->authorize('isAdmin');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -28,8 +16,9 @@ class CabinetController extends Controller
      */
     public function index()
     {
-        return Cabinet::all();
+        return Library::all();        
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -39,6 +28,7 @@ class CabinetController extends Controller
     {
         //
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -49,37 +39,39 @@ class CabinetController extends Controller
     {
         $this->validate($request, [
             'id' => 'required',
-            'quantity' => 'required',
-            'width' => 'required',
-            'height' => 'required',
-            'depth' => 'required'
+            'subcategory_id' => 'required',
+            'name' => 'required',
+            'measure_type' => 'required'
         ]);
-        return Cabinet::create([
-            'cabinet_id' => $request['id'],
-            'quantity' => $request['quantity'],
+        return Library::create([
+            'subcategory_id' => $request['subcategory'],
+            'name' => $request['name'],
+            'measure_type' => $request['measure_type'],
             'width' => $request['width'],
             'height' => $request['height'],
             'depth' => $request['depth']
         ]);
     }
+
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cabinet  $cabinet
+     * @param  \App\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function show(Cabinet $cabinet)
+    public function show($id)
     {
-        //
+        // return Library::findOrFail($library->id);
+        return Library::where('sub_category_id', $id)->get();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cabinet  $cabinet
+     * @param  \App\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cabinet $cabinet)
+    public function edit(Library $library)
     {
         //
     }
@@ -88,35 +80,41 @@ class CabinetController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Library $library)
     {
-        $cabinet = Cabinet::findOrFail($id);
+        $library = Library::findOrFail($id);
         $this->validate($request, [
             'id' => 'required',
-            'quantity' => 'required',
-            'width' => 'required',
-            'height' => 'required',
-            'depth' => 'required',
-            'type' => 'required'
+            'subcategory_id' => 'required',
+            'name' => 'required',
+            'measure_type' => 'required'
         ]); 
-        $cabinet->update($request->all());
-        return ['message' => 'Cabinet updated'];
+        $library->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cabinet  $cabinet
+     * @param  \App\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Library $library)
     {
-        $cabinet = Cabinet::findOrFail($id);
-        $cabinet->delete();
-
-        return ['message' => 'cabinet Deleted'];
+        $library = Library::findOrFail($id);
+        $library->delete();
+    }
+        /**
+     * Display the specified resource.
+     *
+     * @param  \App\Library  $library
+     * @return \Illuminate\Http\Response
+     */
+    public function findCabinet($id)
+    {
+        // return Library::findOrFail($library->id);
+        return Library::findOrFail($id);
     }
 }

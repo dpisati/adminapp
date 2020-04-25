@@ -182,27 +182,48 @@
                     <!-- <div class="form-group col-md-2">
                         <input type="text" class="form-control" placeholder="id" v-model="form.id">
                     </div> -->
-                      <div class="form-group col-md-4">                          
-                            <input
-                            placeholder="Quantity"
-                            v-model="form.quantity"
-                            type="text"
-                            name="quantity"
-                            class="form-control"
-                            :class="{'is-invalid': form.errors.has('quantity')}"
-                            />
-                            <has-error :form="form" field="cabinetquantity"></has-error>
-                  </div>
-                    <div class="form-group col-md-8">
-                        <input
-                        placeholder="Cabinet Name"
-                        v-model="form.name"
-                        type="text"
-                        name="name"
+
+
+                    <div v-if="!editmode" class="form-group col-md-4">   
+                        <select
+                        @change="loadSubCategories"
+                        v-model="form.category"
+                        name="category"
                         class="form-control"
-                        :class="{'is-invalid': form.errors.has('name')}"
-                        />
-                        <has-error :form="form" field="cabinetname"></has-error>
+                        :class="{'is-invalid': form.errors.has('category')}"
+                        >
+                            <option value disabled selected>- Category -</option>                            
+                            <option v-for="category in categories" :key="category.id" :value="category.id"> {{ category.name }}</option>
+                        </select>
+                        <has-error :form="form" field="category"></has-error>
+                    </div>
+
+                     <div v-if="!editmode" class="form-group col-md-4">   
+                        <select
+                        @change="loadCabinets"
+                        v-model="form.subcategory"
+                        name="subcategory"
+                        class="form-control"
+                        :class="{'is-invalid': form.errors.has('subcategory')}"
+                        >
+                            <option value disabled selected>- Sub Category -</option>                            
+                            <option v-for="subcategory in subcategories" :key="subcategory.id" :value="subcategory.id"> {{ subcategory.name }}</option>
+                        </select>
+                        <has-error :form="form" field="subcategory"></has-error>
+                    </div>
+
+                     <div v-if="!editmode" class="form-group col-md-4">   
+                        <select
+                        @change="loadCabinetInfo"
+                        v-model="form.cabinets"
+                        name="cabinet"
+                        class="form-control"
+                        :class="{'is-invalid': form.errors.has('cabinet')}"
+                        >
+                            <option value disabled selected>- Cabinet -</option>                            
+                            <option v-for="cabinet in cabinets" :key="cabinet.id" :value="cabinet.id"> {{ cabinet.name }}</option>
+                        </select>
+                        <has-error :form="form" field="cabinet"></has-error>
                     </div>
                   </div>
 
@@ -216,24 +237,22 @@
                         <div class="form-group col-md-4">
                             <input type="text" class="form-control" placeholder="Depth" v-model="form.depth">
                         </div>
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-4">                          
+                            <input
+                            placeholder="Quantity"
+                            v-model="form.quantity"
+                            type="text"
+                            name="quantity"
+                            class="form-control"
+                            :class="{'is-invalid': form.errors.has('quantity')}"
+                            />
+                            <has-error :form="form" field="cabinetquantity"></has-error>
+                        </div>
+                        <div class="form-group col-md-8">
                              <textarea class="form-control" id="comment" rows="1" placeholder="Comment..." v-model="form.comment"></textarea>
                         </div>
                     </div>
-                                  <div class="form-group">
-                <select
-                  v-model="form.type"
-                  name="type"
-                  class="form-control"
-                  :class="{'is-invalid': form.errors.has('type')}"
-                >
-                  <option value disabled selected>- Unit Type -</option>
-                  <option value="Cabinet">Cabinet</option>
-                  <option value="Panel">Panel</option>
-                </select>
-                <has-error :form="form" field="type"></has-error>
-              </div>
-
+                
 
                   <div class="modal-footer">
                     <button
@@ -265,6 +284,9 @@ export default {
             totalPanels: 0,
             project: {},
             rooms: {},
+            cabinets: {},
+            categories: {},
+            subcategories: {},
             form: new Form({        
                 id: "",
                 quantity: "",
@@ -275,7 +297,10 @@ export default {
                 comment: "",
                 type: "",
                 project_id: "",
-                room_id: ""
+                room_id: "",
+                category: "",
+                subcategory: "",
+                cabinets: ""
             })
         }
     },
@@ -374,6 +399,7 @@ export default {
             this.form.project_id = this.project_id;
         },
         editModalCabinet(cabinet) {
+            console.log(cabinet);
             this.editmode = true;
             this.form.reset();
             $("#addNewCabinet").modal("show");
@@ -476,10 +502,61 @@ export default {
                     .catch(() => {
                         this.$Progress.fail();
                     });
+            },
+            loadCategories() {
+                    this.$Progress.start();
+                    axios
+                    .get("/api/category")
+                    .then(({ data }) => {
+                        this.categories = data;
+                        this.$Progress.finish();
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    });
+            },
+            loadSubCategories() {
+                    this.$Progress.start();
+                    axios
+                    .get("/api/subcategory/" + this.form.category)
+                    .then(({ data }) => {
+                        this.subcategories = data;
+                        this.$Progress.finish();
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    });
+            },
+            loadCabinets() {
+                    this.$Progress.start();
+                    axios
+                    .get("/api/library/" + this.form.subcategory)
+                    .then(({ data }) => {
+                        this.cabinets = data;
+                        this.$Progress.finish();
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    });
+            },
+            loadCabinetInfo() {
+                    this.$Progress.start();
+                    axios
+                    .get("/api/findCabinet/" + this.form.cabinets)
+                    .then(({ data }) => {
+                        this.form.name = data.name;
+                        this.form.type = data.type;
+                        this.form.id = data.id;
+                        this.$Progress.finish();
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    });
             }
     },
     created() {
         this.loadRooms();        
+        this.loadCategories();        
         Fire.$on("reloadRooms", () => {
             this.loadRooms();
         });

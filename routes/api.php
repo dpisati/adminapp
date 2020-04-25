@@ -15,7 +15,11 @@ Route::put('profile', 'API\UserController@updateProfile');
 Route::apiResources(['project' => 'API\ProjectController']);
 Route::apiResources(['room' => 'API\RoomController']);
 Route::apiResources(['cabinet' => 'API\CabinetController']);
+Route::apiResources(['category' => 'API\CategoryController']);
+Route::apiResources(['subcategory' => 'API\SubCategoryController']);
+Route::apiResources(['library' => 'API\LibraryController']);
 Route::get('findProject', 'API\ProjectController@search');
+Route::get('findCabinet/{id}', 'API\LibraryController@findCabinet');
 Route::post('addCabinet', 'API\RoomController@addCabinet');
 
 
