@@ -1,21 +1,16 @@
-
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-    <title>Admin App</title>
+    <title>Joinery Scene App</title>
       <!-- CSRF Token -->
       <meta name="csrf-token" content="{{ csrf_token() }}">
-
-  <!-- Theme style -->
-  
+  <!-- Theme style -->  
   <link rel="stylesheet" href="/css/app.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -67,7 +62,7 @@
     <a href="home" class="brand-link">
       <img src="./images/logo.png" alt="Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Admin App</span>
+      <span class="brand-text font-weight-light">Joinery Scene App</span>
     </a>
 
     <!-- Sidebar -->

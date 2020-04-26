@@ -15,3 +15,16 @@
     background-color: #494e53;
     color: white;
 }
+.main-page {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 90vh;
+    background-image: url("/images/main-background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.login {
+    padding-top: 10%;
+    height: 85vh;
+}
