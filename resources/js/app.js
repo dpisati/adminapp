@@ -53,6 +53,7 @@ window.Swal = Swal;
 window.Toast = Toast;
 window.Form = Form;
 
+
 const app = new Vue({
     el: "#app",
     router: new VueRouter(routes),

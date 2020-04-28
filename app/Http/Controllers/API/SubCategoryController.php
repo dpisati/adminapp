@@ -16,7 +16,7 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        return SubCategory::all();
+        return SubCategory::with('category')->get();
     }
 
     /**
@@ -78,7 +78,12 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, SubCategory $subCategory)
     {
-        //
+        $subCategory = SubCategory::findOrFail($subCategory->id);
+        $this->validate($request, [
+            'name' => 'required',
+            'category_id' => 'required'
+        ]); 
+        $subCategory->update($request->all());
     }
 
     /**
@@ -87,8 +92,9 @@ class SubCategoryController extends Controller
      * @param  \App\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubCategory $subCategory)
+    public function destroy($id)
     {
-        //
+        $subCategory = SubCategory::findOrFail($id);
+        $subCategory->delete();
     }
 }

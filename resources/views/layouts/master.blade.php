@@ -68,17 +68,17 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <router-link to="/profile">
+      <div class="user-panel d-flex mt-2 pb-2">
         <div class="image">
-          <img src="./images/user.png" class="img-circle elevation-2" alt="User Image">
+          <img src="{{'./images/profile/' . Auth::user()->photo }}" class="img-circle elevation-2" alt="User Image" style="width:35px;height:35px;object-fit:cover;">
         </div>
-        <div class="info w-75">
-          <router-link to="/profile" class="d-block">
+          <div class="info w-100 d-flex justify-content-between align-items-center">
               {{ Auth::user()->name }}
-              <span class="badge badge-{{ Auth::user()->type === 'admin' ? 'success' : 'primary' }} ml-2">{{ Auth::user()->type }}</span>
-          </router-link>
-        </div>
-      </div>
+              <span class="badge badge-{{ Auth::user()->type === 'admin' ? 'success' : 'primary' }}">{{ Auth::user()->type }}</span>
+            </div>
+          </div>
+        </router-link>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -97,27 +97,6 @@
                 <p>Projects</p>
               </router-link>
             </li>
-            {{-- @can('isAdmin') --}}
-            <li class="nav-item">
-              <router-link to="/cabinets" class="nav-link">
-                <i class="fas fa-cube nav-icon"></i>
-                <p>Cabinets</p>
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/materials" class="nav-link">
-                <i class="fas fa-palette nav-icon"></i>
-                <p>Materials</p>
-              </router-link>
-            </li>
-            @can('isAdmin')
-            <li class="nav-item">
-              <router-link to="/developer" class="nav-link">
-                <i class="fas fa-cogs nav-icon"></i>
-                <p>Developer</p>
-              </router-link>
-            </li>
-            {{-- @endcan --}}
           </ul>
         </li>
       </ul>
@@ -128,35 +107,43 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-folder-open"></i>
               <p>
-                Dashboard
+                Library
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              @can('isAdmin')
               <li class="nav-item">
-                <a href="/users" class="nav-link">
-                  <i class="fas fa-users nav-icon"></i>
-                  <p>Link 1</p>
+                <a href="/categories" class="nav-link">
+                  <i class="fas fa-columns nav-icon"></i>
+                  <p>Categories</p>
                 </a>
               </li>
+              @endcan
               <li class="nav-item">
-                <a href="/projects" class="nav-link">
-                  <i class="fas fa-file-powerpoint nav-icon"></i>
-                  <p>Link 2</p>
-                </a>
+                <router-link to="/cabinets" class="nav-link">
+                  <i class="fas fa-cube nav-icon"></i>
+                  <p>Cabinets</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/materials" class="nav-link">
+                  <i class="fas fa-palette nav-icon"></i>
+                  <p>Materials</p>
+                </router-link>
               </li>
             </ul>
           </li>
+
+          @can('isAdmin')
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
+            <router-link to="/developer" class="nav-link">
+              <i class="fas fa-cogs nav-icon"></i>
+              <p>Developer</p>
+            </router-link>
           </li>
           @endcan
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

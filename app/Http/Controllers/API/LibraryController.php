@@ -16,7 +16,7 @@ class LibraryController extends Controller
      */
     public function index()
     {
-        return Library::all();        
+        return Library::with(['subcategory', 'subcategory.category'])->get();
     }
 
     /**

@@ -140,6 +140,7 @@ class ProjectController extends Controller
      */
     public function search()
     {
+        $user = auth('api')->user();
         if ($search = \Request::get('q')) {
             $projects = Project::where(function($query) use ($search) {
                 $query->where('name', 'LIKE', "%$search%")
@@ -148,6 +149,7 @@ class ProjectController extends Controller
                     ->orWhere('user_id','LIKE',"%$search%")
                     ->orWhere('franchise','LIKE',"%$search%")
                     ->orWhere('code','LIKE',"%$search%");
+            // })->where('user_id', '=', $user->id)->paginate();
             })->paginate();
         } else {
             $projects = Project::latest()->paginate();

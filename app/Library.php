@@ -10,6 +10,6 @@ class Library extends Model
         'category', 'subcategory', 'name', 'quantity', 'width', 'height', 'depth', 'comment', 'type', 'subcategory_id'
     ];
     public function subcategory() {
-        return $this->belongsTo(SubCategory::class);
+        return $this->belongsTo('App\SubCategory', 'sub_category_id');
     }
 }

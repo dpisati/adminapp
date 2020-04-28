@@ -212,6 +212,7 @@ export default {
                         this.$Progress.fail();
                     });
                     this.getProfilePhoto();
+                    this.$router.go(0);
                     this.$Progress.finish();
                 })
                 .catch(() => {
