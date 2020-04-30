@@ -1954,8 +1954,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -63628,21 +63626,21 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-md-center" }, [
-      _c("div", { staticClass: "col-md-10 mt-3" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header bg-white" }, [
-            _c("div", { staticClass: "row" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-6" }, [
-                _c("h3", { staticClass: "widget-user-username mt-3" }, [
-                  _vm._v(_vm._s(this.cabinet.name))
-                ]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(this.cabinet.measure_type))])
-              ])
-            ])
+    _c("div", { staticClass: "card text-center mb-3" }, [
+      _c("div", { staticClass: "row no-gutters" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-text" }, [
+              _vm._v(_vm._s(this.cabinet.name))
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "card-text" }, [
+              _vm._v(_vm._s(this.cabinet.measure_type))
+            ]),
+            _vm._v(" "),
+            _vm._m(1)
           ])
         ])
       ])
@@ -63654,15 +63652,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-6" }, [
+    return _c("div", { staticClass: "col-md-4" }, [
       _c("img", {
         attrs: {
           src: "/images/cabinet.jpg",
-          alt: "",
+          alt: "cabinet",
           width: "250",
           height: "250"
         }
       })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "card-text" }, [
+      _c("small", { staticClass: "text-muted" }, [
+        _vm._v("Last updated 3 mins ago")
+      ])
     ])
   }
 ]

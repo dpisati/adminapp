@@ -9,23 +9,21 @@
                 <li v-if="!isLoading" class="breadcrumb-item active">{{ this.cabinet.subcategory.name}}</li>
             </ol>
         </nav>
-        <div class="row justify-content-md-center">
-            <div class="col-md-10 mt-3">             
-                    <div class="card">                         
-                        <div class="card-header bg-white">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <img src="/images/cabinet.jpg" alt="" width="250" height="250">
-                                </div>
-                                <div class="col-lg-6">
-                                    <h3 class="widget-user-username mt-3">{{ this.cabinet.name }}</h3>
-                                    <p >{{ this.cabinet.measure_type }}</p>
-                                </div>
-                            </div>   
-                        </div>                        
-                    </div>
-            </div>
-        </div>
+       
+        <div class="card text-center mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+       <img src="/images/cabinet.jpg" class="" alt="cabinet" width="250" height="250">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-text">{{ this.cabinet.name }}</h5>
+        <p class="card-text">{{ this.cabinet.measure_type }}</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
 </template>
 
