@@ -20,6 +20,7 @@ Route::apiResources(['subcategory' => 'API\SubCategoryController']);
 Route::apiResources(['library' => 'API\LibraryController']);
 Route::get('findProject', 'API\ProjectController@search');
 Route::get('findCabinet/{id}', 'API\LibraryController@findCabinet');
+Route::get('findCabinetBySubCategory/{id}', 'API\LibraryController@findCabinetBySubCategory');
 Route::post('addCabinet', 'API\RoomController@addCabinet');
 
 

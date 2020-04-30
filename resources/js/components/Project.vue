@@ -83,7 +83,7 @@
                         <tr v-for="cabinet in room.cabinets" :key="cabinet.id">
                               <!-- <td>{{ cabinet.id }}</td> -->
                               <td>{{ cabinet.quantity }}</td>
-                              <td><router-link :to="'/cabinets/' + cabinet.cabinet_id"> {{ cabinet.name | upText }} </router-link></td>
+                              <td><router-link :to="'/cabinet/' + cabinet.cabinet_id"> {{ cabinet.name | upText }} </router-link></td>
                               <td>{{ cabinet.width }}</td>
                               <td>{{ cabinet.height }}</td>
                               <td>{{ cabinet.depth }}</td>
@@ -530,7 +530,7 @@ export default {
             loadCabinets() {
                     this.$Progress.start();
                     axios
-                    .get("/api/library/" + this.form.subcategory)
+                    .get("/api/findCabinetBySubCategory/" + this.form.subcategory)
                     .then(({ data }) => {
                         this.cabinets = data;
                         this.$Progress.finish();

@@ -61,8 +61,9 @@ class LibraryController extends Controller
      */
     public function show($id)
     {
-        // return Library::findOrFail($library->id);
-        return Library::where('sub_category_id', $id)->get();
+        // return Library::findOrFail($id);
+        // return Library::where('sub_category_id', $id)->get();
+        return Library::with(['subcategory', 'subcategory.category'])->findOrFail($id);
     }
 
     /**
@@ -116,5 +117,15 @@ class LibraryController extends Controller
     {
         // return Library::findOrFail($library->id);
         return Library::findOrFail($id);
+    }
+        /**
+     * Display the specified resource.
+     *
+     * @param  \App\Library  $library
+     * @return \Illuminate\Http\Response
+     */
+    public function findCabinetBySubCategory($id)
+    {
+        return Library::where('sub_category_id', $id)->get();
     }
 }

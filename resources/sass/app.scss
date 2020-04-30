@@ -28,3 +28,17 @@
     padding-top: 10%;
     height: 85vh;
 }
+
+.spinner {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 80vw;
+    height: 80vh;
+}
+.spinnerLoading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 6;
+}

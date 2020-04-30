@@ -195,6 +195,7 @@
                 />
                 <has-error :form="form" field="categoryname"></has-error>
               </div>
+              
               <div class="modal-footer">
                 <button
                   class="btn btn-secondary"
@@ -229,6 +230,7 @@ export default {
         name: "",
         id: "",
         category_id: "",
+        sub_category_id: "",
       })
     };
   },
@@ -261,6 +263,15 @@ export default {
       this.form.reset();
       $("#addNew").modal("show");
       this.form.fill(category);
+    },
+    editModalSub(subcategory) {
+      this.editmode = true;
+      this.form.reset();
+      $("#addNewSub").modal("show");
+      this.form.category_id = subcategory.category.id;
+      this.form.name = subcategory.name;
+      this.form.sub_category_id = subcategory.id;
+      this.form.id = subcategory.id;
     },
 
     createCategory() {

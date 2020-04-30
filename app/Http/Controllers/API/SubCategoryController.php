@@ -76,12 +76,13 @@ class SubCategoryController extends Controller
      * @param  \App\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubCategory $subCategory)
+    public function update(Request $request, SubCategory $subCategory, $id)
     {
-        $subCategory = SubCategory::findOrFail($subCategory->id);
+        $subCategory = SubCategory::findOrFail($id);
         $this->validate($request, [
             'name' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'sub_category_id' => 'required'
         ]); 
         $subCategory->update($request->all());
     }

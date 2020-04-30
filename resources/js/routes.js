@@ -5,6 +5,7 @@ import Categories from "./components/Categories";
 import Projects from "./components/Projects";
 import Project from "./components/Project";
 import Cabinets from "./components/Cabinets";
+import Cabinet from "./components/Cabinet";
 import Materials from "./components/Materials";
 import Developer from "./components/Developer";
 import NotFound from "./components/NotFound";
@@ -19,6 +20,7 @@ export default {
         { path: "/projects", component: Projects },
         { path: "/projects/:id", component: Project },
         { path: "/cabinets", component: Cabinets },
+        { path: "/cabinet/:id", component: Cabinet },
         { path: "/materials", component: Materials },
         { path: "/developer", component: Developer },
         { path: "*", component: NotFound }
