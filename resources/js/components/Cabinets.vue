@@ -33,7 +33,7 @@
                     <td>{{ cabinet.id }}</td>
                     <td>{{ cabinet.subcategory.category.name }}</td>
                     <td>{{ cabinet.subcategory.name }}</td>
-                    <td>{{ cabinet.name | upText }}</td>
+                    <td><router-link :to="'/cabinet/' + cabinet.id"> {{ cabinet.name | upText }} </router-link></td>
                     <td>
                       <a href="#" @click="editModal(cabinet)">
                         <i class="fa fa-edit mr-2"></i>
@@ -109,6 +109,105 @@
                 />
                 <has-error :form="form" field="categoryname"></has-error>
               </div>
+
+              <div class="form-group">
+                <select
+                  v-model="form.measure_type"
+                  name="measure_type"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('measure_type')}"
+                >
+                  <option value disabled selected>- Measure Type -</option>
+                  <option value="Single">Single</option>
+                  <option value="Multiple">Multiple</option>
+                  <option value="Parametrical">Parametrical</option>
+                </select>
+                <has-error :form="form" field="measure_type"></has-error>
+              </div>
+
+
+            <div class="form-row mb-1">
+              <div class="form-group col-md-6">
+                <input
+                  placeholder="Minimum Width"
+                  v-model="form.min_width"
+                  type="text"
+                  name="min_width"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('min_width')}"
+                />
+                <has-error :form="form" field="min_width"></has-error>
+              </div>
+              <div class="form-group col-md-6">
+                <input
+                  placeholder="Maximum Width"
+                  v-model="form.max_width"
+                  type="text"
+                  name="max_width"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('max_width')}"
+                />
+                <has-error :form="form" field="max_width"></has-error>
+              </div>
+            </div>
+
+            <div class="form-row mb-1">
+              <div class="form-group col-md-6">
+                <input
+                  placeholder="Minimum Height"
+                  v-model="form.min_height"
+                  type="text"
+                  name="min_height"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('min_height')}"
+                />
+                <has-error :form="form" field="min_height"></has-error>
+              </div>
+              <div class="form-group col-md-6">
+                <input
+                  placeholder="Maximum Height"
+                  v-model="form.max_height"
+                  type="text"
+                  name="max_height"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('max_height')}"
+                />
+                <has-error :form="form" field="max_height"></has-error>
+              </div>
+            </div>
+
+            <div class="form-row mb-1">
+              <div class="form-group col-md-6">
+                <input
+                  placeholder="Minimum Depth"
+                  v-model="form.min_depth"
+                  type="text"
+                  name="min_depth"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('min_depth')}"
+                />
+                <has-error :form="form" field="min_depth"></has-error>
+              </div>
+              <div class="form-group col-md-6">
+                <input
+                  placeholder="Maximum Depth"
+                  v-model="form.max_depth"
+                  type="text"
+                  name="max_depth"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('max_depth')}"
+                />
+                <has-error :form="form" field="max_depth"></has-error>
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputExperience">Cabinet Picture</label>
+                <div class="w-100 mt-2">
+                  <input class="" @change="updatePicture" type="file" id="inputFile" name="cabinet_picture" accept="image/png, image/jpeg">
+                </div>
+            </div>
+
               <div class="modal-footer">
                 <button
                   class="btn btn-secondary"
@@ -137,11 +236,18 @@ export default {
         cabinets: {},
         categories: {},
         subcategories: {},
-        editmode: true,
+        editmode: false,
         form: new Form({
             name: "",
+            measure_type: "",
             id: "",
             category_id: "",
+            min_width: "",
+            max_width: "",
+            min_height: "",
+            max_height: "",
+            min_depth: "",
+            max_depth: "",            
             subcategory_id: ""
         })
         };
@@ -168,8 +274,36 @@ export default {
             axios.get('api/subcategory')
             .then(response => {
                 this.subcategories = response.data;
-			});
+			      });
         },
+         updatePicture(){
+            this.$Progress.start();
+            this.form.put('api/cabinet')
+                .then(() => {
+                    Toast.fire({
+                            icon: "success",
+                            title: "User updated"
+                        });
+                    axios
+                    .get("api/cabinet")
+                    .then(({ data }) => {
+                        this.$Progress.finish();
+                        this.currentPhoto = data.picture;
+                        return this.form.fill(data);
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    });                    
+                    this.$Progress.finish();
+                })
+                .catch(() => {
+                     this.$Progress.fail();
+                    Toast.fire({
+                            icon: "error",
+                            title: "User not updated"
+                        });
+                })
+        }
     },
         created() {
             this.getCabinets();

@@ -46,10 +46,14 @@ class LibraryController extends Controller
         return Library::create([
             'subcategory_id' => $request['subcategory'],
             'name' => $request['name'],
+            'picture' => $request['picture'],
             'measure_type' => $request['measure_type'],
-            'width' => $request['width'],
-            'height' => $request['height'],
-            'depth' => $request['depth']
+            'min_width' => $request['min_width'],
+            'max_width' => $request['max_width'],
+            'min_height' => $request['min_height'],
+            'max_height' => $request['max_height'],
+            'min_depth' => $request['min_depth'],
+            'max_depth' => $request['max_depth']
         ]);
     }
 
@@ -127,5 +131,22 @@ class LibraryController extends Controller
     public function findCabinetBySubCategory($id)
     {
         return Library::where('sub_category_id', $id)->get();
+    }
+    public function updateCabinet(Request $request)
+    {
+        $cabinet = Library::findOrFail($id);
+        $currentPicture = $cabinet->picture;
+        if($request->picture != $currentPicture) {
+            $name = time().'.' . explode('/', explode(':', substr($request->picture, 0, strpos($request->picture, ';')))[1])[1];
+            \Image::make($request->picture)->save(public_path('images/cabinets/').$name);
+            $request->merge(['picture' => $name]);
+            $cabinet->picture = $request->picture;
+            $cabinetPhoto = public_path('images/cabinets/').$currentPicture;
+            if(file_exists($cabinetPhoto) && $cabinetPhoto != public_path('images/cabinets/no-preview.png')) {
+                    @unlink($cabinetPhoto);
+            }
+        }
+        $cabinet->update($request->all());
+        return ['message', 'Cabinet updated successfully'];
     }
 }

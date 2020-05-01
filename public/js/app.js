@@ -1954,6 +1954,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2126,17 +2185,123 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       cabinets: {},
       categories: {},
       subcategories: {},
-      editmode: true,
+      editmode: false,
       form: new Form({
         name: "",
+        measure_type: "",
         id: "",
         category_id: "",
+        min_width: "",
+        max_width: "",
+        min_height: "",
+        max_height: "",
+        min_depth: "",
+        max_depth: "",
         subcategory_id: ""
       })
     };
@@ -2167,16 +2332,46 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('api/subcategory').then(function (response) {
         _this3.subcategories = response.data;
       });
+    },
+    updatePicture: function updatePicture() {
+      var _this4 = this;
+
+      this.$Progress.start();
+      this.form.put('api/cabinet').then(function () {
+        Toast.fire({
+          icon: "success",
+          title: "User updated"
+        });
+        axios.get("api/cabinet").then(function (_ref) {
+          var data = _ref.data;
+
+          _this4.$Progress.finish();
+
+          _this4.currentPhoto = data.picture;
+          return _this4.form.fill(data);
+        })["catch"](function () {
+          _this4.$Progress.fail();
+        });
+
+        _this4.$Progress.finish();
+      })["catch"](function () {
+        _this4.$Progress.fail();
+
+        Toast.fire({
+          icon: "error",
+          title: "User not updated"
+        });
+      });
     }
   },
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.getCabinets();
     this.getCategories();
     this.getSubCategories();
     Fire.$on("reloadCabinets", function () {
-      _this4.loadCabinets();
+      _this5.loadCabinets();
     });
   }
 });
@@ -63601,46 +63796,108 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "mt-3" }, [
-    _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
-      _c("ol", { staticClass: "breadcrumb" }, [
-        _c("div", { staticClass: "spinner" }, [
-          _vm.isLoading
-            ? _c("img", {
-                staticClass: "spinnerLoading",
-                attrs: { src: "/images/spinner.gif", alt: "spinner" }
-              })
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        !_vm.isLoading
-          ? _c("li", { staticClass: "breadcrumb-item" }, [
-              _vm._v(_vm._s(this.cabinet.subcategory.category.name))
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        !_vm.isLoading
-          ? _c("li", { staticClass: "breadcrumb-item active" }, [
-              _vm._v(_vm._s(this.cabinet.subcategory.name))
-            ])
-          : _vm._e()
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card text-center mb-3" }, [
-      _c("div", { staticClass: "row no-gutters" }, [
+    _c("div", { staticClass: "card text-center" }, [
+      _c("div", { staticClass: "row no-gutters align-items-center" }, [
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("h5", { staticClass: "card-text" }, [
-              _vm._v(_vm._s(this.cabinet.name))
+          _c("div", { staticClass: "card mb-0" }, [
+            _c("div", { staticClass: "card-header align-items-center" }, [
+              _c("h3", { staticClass: "mb-0" }, [
+                _vm._v(_vm._s(this.cabinet.name))
+              ])
             ]),
             _vm._v(" "),
-            _c("p", { staticClass: "card-text" }, [
-              _vm._v(_vm._s(this.cabinet.measure_type))
-            ]),
-            _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { attrs: { "aria-label": "breadcrumb" } }, [
+                _c("ol", { staticClass: "breadcrumb" }, [
+                  _c("div", { staticClass: "spinner" }, [
+                    _vm.isLoading
+                      ? _c("img", {
+                          staticClass: "spinnerLoading",
+                          attrs: { src: "/images/spinner.gif", alt: "spinner" }
+                        })
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  !_vm.isLoading
+                    ? _c("li", { staticClass: "breadcrumb-item" }, [
+                        _vm._v(_vm._s(this.cabinet.subcategory.category.name))
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.isLoading
+                    ? _c("li", { staticClass: "breadcrumb-item active" }, [
+                        _vm._v(_vm._s(this.cabinet.subcategory.name))
+                      ])
+                    : _vm._e()
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6 pr-2" }, [
+                  _c("div", { staticClass: "card" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("h5", [_vm._v(_vm._s(this.cabinet.type))])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6 pl-2" }, [
+                  _c("div", { staticClass: "card" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("h5", [_vm._v(_vm._s(this.cabinet.measure_type))])
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card mb-0" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("table", { staticClass: "table table-hover" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("tbody", [
+                      _c("tr", [
+                        _c("th", { attrs: { scope: "row" } }, [
+                          _vm._v("Width")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(this.cabinet.min_width))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(this.cabinet.max_width))])
+                      ]),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("th", { attrs: { scope: "row" } }, [
+                          _vm._v("Height")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(this.cabinet.min_height))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(this.cabinet.max_height))])
+                      ]),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("th", { attrs: { scope: "row" } }, [
+                          _vm._v("Depth")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(this.cabinet.min_depth))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(this.cabinet.max_depth))])
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ])
           ])
         ])
       ])
@@ -63654,8 +63911,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-4" }, [
       _c("img", {
+        staticClass: "m-5",
         attrs: {
-          src: "/images/cabinet.jpg",
+          src: "/images/no-preview.png",
           alt: "cabinet",
           width: "250",
           height: "250"
@@ -63667,9 +63925,37 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "card-text" }, [
-      _c("small", { staticClass: "text-muted" }, [
-        _vm._v("Last updated 3 mins ago")
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", [_vm._v("Unit Type")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", [_vm._v("Measure Type")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", [_vm._v("Measures")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Minimum")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Maximum")])
       ])
     ])
   }
@@ -63754,9 +64040,23 @@ var render = function() {
                               _vm._v(_vm._s(cabinet.subcategory.name))
                             ]),
                             _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm._f("upText")(cabinet.name)))
-                            ]),
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "router-link",
+                                  { attrs: { to: "/cabinet/" + cabinet.id } },
+                                  [
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(_vm._f("upText")(cabinet.name)) +
+                                        " "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
                             _vm._v(" "),
                             _c("td", [
                               _c(
@@ -64061,6 +64361,389 @@ var render = function() {
                             ],
                             1
                           ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.measure_type,
+                                      expression: "form.measure_type"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  class: {
+                                    "is-invalid": _vm.form.errors.has(
+                                      "measure_type"
+                                    )
+                                  },
+                                  attrs: { name: "measure_type" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "measure_type",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    {
+                                      attrs: {
+                                        value: "",
+                                        disabled: "",
+                                        selected: ""
+                                      }
+                                    },
+                                    [_vm._v("- Measure Type -")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "Single" } }, [
+                                    _vm._v("Single")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "Multiple" } },
+                                    [_vm._v("Multiple")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "Parametrical" } },
+                                    [_vm._v("Parametrical")]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: { form: _vm.form, field: "measure_type" }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-row mb-1" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group col-md-6" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.min_width,
+                                      expression: "form.min_width"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  class: {
+                                    "is-invalid": _vm.form.errors.has(
+                                      "min_width"
+                                    )
+                                  },
+                                  attrs: {
+                                    placeholder: "Minimum Width",
+                                    type: "text",
+                                    name: "min_width"
+                                  },
+                                  domProps: { value: _vm.form.min_width },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "min_width",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: { form: _vm.form, field: "min_width" }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "form-group col-md-6" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.max_width,
+                                      expression: "form.max_width"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  class: {
+                                    "is-invalid": _vm.form.errors.has(
+                                      "max_width"
+                                    )
+                                  },
+                                  attrs: {
+                                    placeholder: "Maximum Width",
+                                    type: "text",
+                                    name: "max_width"
+                                  },
+                                  domProps: { value: _vm.form.max_width },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "max_width",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: { form: _vm.form, field: "max_width" }
+                                })
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-row mb-1" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group col-md-6" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.min_height,
+                                      expression: "form.min_height"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  class: {
+                                    "is-invalid": _vm.form.errors.has(
+                                      "min_height"
+                                    )
+                                  },
+                                  attrs: {
+                                    placeholder: "Minimum Height",
+                                    type: "text",
+                                    name: "min_height"
+                                  },
+                                  domProps: { value: _vm.form.min_height },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "min_height",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: { form: _vm.form, field: "min_height" }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "form-group col-md-6" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.max_height,
+                                      expression: "form.max_height"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  class: {
+                                    "is-invalid": _vm.form.errors.has(
+                                      "max_height"
+                                    )
+                                  },
+                                  attrs: {
+                                    placeholder: "Maximum Height",
+                                    type: "text",
+                                    name: "max_height"
+                                  },
+                                  domProps: { value: _vm.form.max_height },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "max_height",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: { form: _vm.form, field: "max_height" }
+                                })
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-row mb-1" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group col-md-6" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.min_depth,
+                                      expression: "form.min_depth"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  class: {
+                                    "is-invalid": _vm.form.errors.has(
+                                      "min_depth"
+                                    )
+                                  },
+                                  attrs: {
+                                    placeholder: "Minimum Depth",
+                                    type: "text",
+                                    name: "min_depth"
+                                  },
+                                  domProps: { value: _vm.form.min_depth },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "min_depth",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: { form: _vm.form, field: "min_depth" }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "form-group col-md-6" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.max_depth,
+                                      expression: "form.max_depth"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  class: {
+                                    "is-invalid": _vm.form.errors.has(
+                                      "max_depth"
+                                    )
+                                  },
+                                  attrs: {
+                                    placeholder: "Maximum Depth",
+                                    type: "text",
+                                    name: "max_depth"
+                                  },
+                                  domProps: { value: _vm.form.max_depth },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "max_depth",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: { form: _vm.form, field: "max_depth" }
+                                })
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "inputExperience" } }, [
+                              _vm._v("Cabinet Picture")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "w-100 mt-2" }, [
+                              _c("input", {
+                                attrs: {
+                                  type: "file",
+                                  id: "inputFile",
+                                  name: "cabinet_picture",
+                                  accept: "image/png, image/jpeg"
+                                },
+                                on: { change: _vm.updatePicture }
+                              })
+                            ])
+                          ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "modal-footer" }, [
                             _c(

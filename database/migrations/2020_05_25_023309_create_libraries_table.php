@@ -16,7 +16,6 @@ class CreateLibrariesTable extends Migration
         Schema::create('libraries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sub_category_id');
-            $table->integer('picture')->nullable();
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('measure_type');
@@ -27,6 +26,8 @@ class CreateLibrariesTable extends Migration
             $table->integer('max_height')->nullable();
             $table->integer('min_depth')->nullable();
             $table->integer('max_depth')->nullable();
+            $table->string('picture')->default('no-preview.png')->nullable();
+            $table->string('pdf')->nullable();
             $table->timestamps();
             
             $table->foreign('sub_category_id')
