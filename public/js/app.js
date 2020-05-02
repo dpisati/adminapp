@@ -2013,31 +2013,79 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      currentPhoto: "no-preview.png",
       isLoading: false,
       id: this.$route.params.id,
-      cabinet: {}
+      cabinet: {},
+      editmode: true,
+      form: new Form({
+        sub_category_id: "",
+        name: "",
+        type: "",
+        measure_type: "",
+        min_width: "",
+        max_width: "",
+        min_height: "",
+        max_height: "",
+        min_depth: "",
+        max_depth: "",
+        picture: ""
+      })
     };
   },
-  methods: {},
+  methods: {
+    editModal: function editModal(cabinet) {
+      this.editmode = true;
+      this.form.reset();
+      $("#addNew").modal("show");
+      this.form.fill(cabinet);
+    },
+    updateCabinet: function updateCabinet() {
+      var _this = this;
+
+      this.$Progress.start();
+      this.form.put("api/cabinet/" + this.form.id).then(function () {
+        Toast.fire({
+          icon: "success",
+          title: "User updated"
+        });
+        $("#addNew").modal("hide");
+
+        _this.$Progress.finish();
+      })["catch"](function () {
+        _this.$Progress.fail();
+
+        Toast.fire({
+          icon: "error",
+          title: "Unable to update user"
+        });
+      });
+    },
+    getCabinetPicture: function getCabinetPicture() {
+      return "/images/cabinets/" + this.cabinet.picture;
+    }
+  },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     this.$Progress.start();
     this.isLoading = true;
     axios.get("/api/library/" + this.id).then(function (_ref) {
       var data = _ref.data;
-      _this.cabinet = data;
+      _this2.cabinet = data;
 
-      _this.$Progress.finish();
+      _this2.$Progress.finish();
 
-      _this.isLoading = false;
+      _this2.isLoading = false;
     })["catch"](function () {
-      _this.isLoading = false;
+      _this2.isLoading = false;
 
-      _this.$Progress.fail();
+      _this2.$Progress.fail();
     });
   }
 });
@@ -2284,6 +2332,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2295,6 +2357,7 @@ __webpack_require__.r(__webpack_exports__);
         name: "",
         measure_type: "",
         id: "",
+        picture: "",
         category_id: "",
         min_width: "",
         max_width: "",
@@ -2302,7 +2365,8 @@ __webpack_require__.r(__webpack_exports__);
         max_height: "",
         min_depth: "",
         max_depth: "",
-        subcategory_id: ""
+        sub_category_id: "",
+        type: ""
       })
     };
   },
@@ -2311,6 +2375,12 @@ __webpack_require__.r(__webpack_exports__);
       this.editmode = false;
       this.form.reset();
       $("#addNew").modal("show");
+    },
+    editModal: function editModal(cabinet) {
+      this.editmode = true;
+      this.form.reset();
+      $("#addNew").modal("show");
+      this.form.fill(cabinet);
     },
     getCabinets: function getCabinets() {
       var _this = this;
@@ -2333,45 +2403,103 @@ __webpack_require__.r(__webpack_exports__);
         _this3.subcategories = response.data;
       });
     },
-    updatePicture: function updatePicture() {
+    createCabinet: function createCabinet() {
       var _this4 = this;
 
-      this.$Progress.start();
-      this.form.put('api/cabinet').then(function () {
+      this.form.post("api/library").then(function () {
+        _this4.$Progress.start();
+
+        Fire.$emit("reloadCabinets");
+        $("#addNew").modal("hide");
         Toast.fire({
           icon: "success",
-          title: "User updated"
-        });
-        axios.get("api/cabinet").then(function (_ref) {
-          var data = _ref.data;
-
-          _this4.$Progress.finish();
-
-          _this4.currentPhoto = data.picture;
-          return _this4.form.fill(data);
-        })["catch"](function () {
-          _this4.$Progress.fail();
+          title: "Cabinet created successfully"
         });
 
         _this4.$Progress.finish();
       })["catch"](function () {
-        _this4.$Progress.fail();
+        Toast.fire({
+          icon: "error",
+          title: "Unable to create cabinet"
+        });
+      });
+    },
+    updatePicture: function updatePicture(e) {
+      var _this5 = this;
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+
+      if (file['size'] < 2111775) {
+        reader.onloadend = function (file) {
+          _this5.form.picture = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        Swal.fire("Oops...", "Picture bigger than 2mb", "error");
+        this.form.photo = "no-preview.png";
+      }
+    },
+    updateCabinet: function updateCabinet() {
+      var _this6 = this;
+
+      this.$Progress.start();
+      this.form.put("api/library/" + this.form.id).then(function () {
+        Toast.fire({
+          icon: "success",
+          title: "Cabinet updated"
+        });
+        $("#addNew").modal("hide");
+
+        _this6.$Progress.finish();
+
+        Fire.$emit("reloadCabinets");
+      })["catch"](function () {
+        _this6.$Progress.fail();
 
         Toast.fire({
           icon: "error",
-          title: "User not updated"
+          title: "Unable to update cabinet"
         });
+      });
+    },
+    deleteCabinet: function deleteCabinet(id) {
+      var _this7 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          _this7.form["delete"]("api/library/" + id).then(function () {
+            Swal.fire("Deleted!", "Cabinet has been deleted.", "success");
+            Fire.$emit("reloadCabinets");
+          })["catch"](function () {
+            _this7.$Progress.fail();
+
+            Toast.fire({
+              icon: "error",
+              title: "Unable to delete cabinet"
+            });
+          });
+        }
       });
     }
   },
   created: function created() {
-    var _this5 = this;
+    var _this8 = this;
 
     this.getCabinets();
     this.getCategories();
     this.getSubCategories();
     Fire.$on("reloadCabinets", function () {
-      _this5.loadCabinets();
+      _this8.getCabinets();
     });
   }
 });
@@ -63798,7 +63926,12 @@ var render = function() {
   return _c("div", { staticClass: "mt-3" }, [
     _c("div", { staticClass: "card text-center" }, [
       _c("div", { staticClass: "row no-gutters align-items-center" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("img", {
+            staticStyle: { width: "100%", height: "auto" },
+            attrs: { src: _vm.getCabinetPicture(), alt: "cabinet" }
+          })
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-8" }, [
           _c("div", { staticClass: "card mb-0" }, [
@@ -63837,7 +63970,7 @@ var render = function() {
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-md-6 pr-2" }, [
                   _c("div", { staticClass: "card" }, [
-                    _vm._m(1),
+                    _vm._m(0),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-body" }, [
                       _c("h5", [_vm._v(_vm._s(this.cabinet.type))])
@@ -63847,7 +63980,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-6 pl-2" }, [
                   _c("div", { staticClass: "card" }, [
-                    _vm._m(2),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-body" }, [
                       _c("h5", [_vm._v(_vm._s(this.cabinet.measure_type))])
@@ -63857,11 +63990,11 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card mb-0" }, [
-                _vm._m(3),
+                _vm._m(2),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
                   _c("table", { staticClass: "table table-hover" }, [
-                    _vm._m(4),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c("tbody", [
                       _c("tr", [
@@ -63905,22 +64038,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("img", {
-        staticClass: "m-5",
-        attrs: {
-          src: "/images/no-preview.png",
-          alt: "cabinet",
-          width: "250",
-          height: "250"
-        }
-      })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -64158,84 +64275,91 @@ var render = function() {
                           }
                         },
                         [
-                          _c(
-                            "div",
-                            { staticClass: "form-group" },
-                            [
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.form.category_id,
-                                      expression: "form.category_id"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "is-invalid": _vm.form.errors.has(
-                                      "category"
-                                    )
-                                  },
-                                  attrs: { name: "category" },
-                                  on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.$set(
-                                        _vm.form,
-                                        "category_id",
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      )
-                                    }
-                                  }
-                                },
+                          !_vm.editmode
+                            ? _c(
+                                "div",
+                                { staticClass: "form-group" },
                                 [
                                   _c(
-                                    "option",
+                                    "select",
                                     {
-                                      attrs: {
-                                        value: "",
-                                        disabled: "",
-                                        selected: ""
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.form.category_id,
+                                          expression: "form.category_id"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      class: {
+                                        "is-invalid": _vm.form.errors.has(
+                                          "category"
+                                        )
+                                      },
+                                      attrs: { name: "category" },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.form,
+                                            "category_id",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        }
                                       }
                                     },
-                                    [_vm._v("- Category -")]
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: {
+                                            value: "",
+                                            disabled: "",
+                                            selected: ""
+                                          }
+                                        },
+                                        [_vm._v("- Category -")]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.categories, function(
+                                        category
+                                      ) {
+                                        return _c(
+                                          "option",
+                                          {
+                                            key: category.id,
+                                            domProps: { value: category.id }
+                                          },
+                                          [_vm._v(_vm._s(category.name))]
+                                        )
+                                      })
+                                    ],
+                                    2
                                   ),
                                   _vm._v(" "),
-                                  _vm._l(_vm.categories, function(category) {
-                                    return _c(
-                                      "option",
-                                      {
-                                        key: category.id,
-                                        domProps: { value: category.id }
-                                      },
-                                      [_vm._v(_vm._s(category.name))]
-                                    )
+                                  _c("has-error", {
+                                    attrs: { form: _vm.form, field: "category" }
                                   })
                                 ],
-                                2
-                              ),
-                              _vm._v(" "),
-                              _c("has-error", {
-                                attrs: { form: _vm.form, field: "category" }
-                              })
-                            ],
-                            1
-                          ),
+                                1
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -64248,17 +64372,17 @@ var render = function() {
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: _vm.form.subcategory_id,
-                                      expression: "form.subcategory_id"
+                                      value: _vm.form.sub_category_id,
+                                      expression: "form.sub_category_id"
                                     }
                                   ],
                                   staticClass: "form-control",
                                   class: {
                                     "is-invalid": _vm.form.errors.has(
-                                      "subcategory"
+                                      "sub_category_id"
                                     )
                                   },
-                                  attrs: { name: "subcategory" },
+                                  attrs: { name: "sub_category_id" },
                                   on: {
                                     change: function($event) {
                                       var $$selectedVal = Array.prototype.filter
@@ -64274,7 +64398,7 @@ var render = function() {
                                         })
                                       _vm.$set(
                                         _vm.form,
-                                        "subcategory_id",
+                                        "sub_category_id",
                                         $event.target.multiple
                                           ? $$selectedVal
                                           : $$selectedVal[0]
@@ -64440,6 +64564,81 @@ var render = function() {
                               _vm._v(" "),
                               _c("has-error", {
                                 attrs: { form: _vm.form, field: "measure_type" }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.type,
+                                      expression: "form.type"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  class: {
+                                    "is-invalid": _vm.form.errors.has("type")
+                                  },
+                                  attrs: { name: "type" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "type",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    {
+                                      attrs: {
+                                        value: "",
+                                        disabled: "",
+                                        selected: ""
+                                      }
+                                    },
+                                    [_vm._v("- Cabinet Type -")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "Cabinet" } },
+                                    [_vm._v("Cabinet")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "Panel" } }, [
+                                    _vm._v("Panel")
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: { form: _vm.form, field: "type" }
                               })
                             ],
                             1
@@ -64737,7 +64936,7 @@ var render = function() {
                                 attrs: {
                                   type: "file",
                                   id: "inputFile",
-                                  name: "cabinet_picture",
+                                  name: "picture",
                                   accept: "image/png, image/jpeg"
                                 },
                                 on: { change: _vm.updatePicture }

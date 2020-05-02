@@ -3,7 +3,8 @@
     <div class="card text-center">
         <div class="row no-gutters align-items-center">
             <div class="col-md-4">
-                <img src="/images/no-preview.png" class="m-5" alt="cabinet" width="250" height="250">
+                <img :src="getCabinetPicture()" alt="cabinet" style="width:100%;height:auto">
+                
             </div>
 
         <div class="col-md-8">
@@ -11,6 +12,7 @@
                 <div class="card-header align-items-center">
                     <h3 class="mb-0">{{ this.cabinet.name }}</h3>                
                 </div>
+
             <div class="card-body">
                 <div aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -90,12 +92,56 @@
 export default {
     data() {
         return {
+            currentPhoto: "no-preview.png",
             isLoading: false,
             id: this.$route.params.id,
-            cabinet: {}
+            cabinet: {},
+            editmode: true,
+            form: new Form({
+                sub_category_id: "",
+                name: "",
+                type: "",
+                measure_type: "",
+                min_width: "",
+                max_width: "",
+                min_height: "",
+                max_height: "",
+                min_depth: "",
+                max_depth: "",
+                picture: "",
+            })
         }
     },
     methods: {
+        editModal(cabinet) {
+            this.editmode = true;
+            this.form.reset();
+            $("#addNew").modal("show");
+            this.form.fill(cabinet);
+        },
+        updateCabinet() {
+            this.$Progress.start();
+            this.form
+                .put("api/cabinet/" + this.form.id)
+                .then(() => {
+                Toast.fire({
+                    icon: "success",
+                    title: "User updated"
+                });
+                $("#addNew").modal("hide");
+                this.$Progress.finish();
+                })
+                .catch(() => {
+                this.$Progress.fail();
+                Toast.fire({
+                    icon: "error",
+                    title: "Unable to update user"
+                });
+                });
+            },
+            getCabinetPicture(){
+                return "/images/cabinets/" + this.cabinet.picture;
+            },
     },
     created(){
         this.$Progress.start();

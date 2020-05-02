@@ -38,23 +38,33 @@ class LibraryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id' => 'required',
-            'subcategory_id' => 'required',
+            'sub_category_id' => 'required',
             'name' => 'required',
-            'measure_type' => 'required'
+            'measure_type' => 'required',
+            'type' => 'required'
         ]);
-        return Library::create([
-            'subcategory_id' => $request['subcategory'],
-            'name' => $request['name'],
-            'picture' => $request['picture'],
-            'measure_type' => $request['measure_type'],
-            'min_width' => $request['min_width'],
-            'max_width' => $request['max_width'],
-            'min_height' => $request['min_height'],
-            'max_height' => $request['max_height'],
-            'min_depth' => $request['min_depth'],
-            'max_depth' => $request['max_depth']
-        ]);
+
+        $cabinet = new Library;
+        $cabinet->sub_category_id = $request->sub_category_id;
+        $cabinet->name = $request->name;
+        $cabinet->measure_type = $request->measure_type;
+        $cabinet->type = $request->type;
+        $cabinet->min_width = $request->min_width;
+        $cabinet->max_width = $request->max_width;
+        $cabinet->min_height = $request->min_height;
+        $cabinet->max_height = $request->max_width;
+        $cabinet->min_depth = $request->min_depth;
+        $cabinet->max_depth = $request->max_depth;
+
+        if($request->picture != "") {
+            $name = time().'.' . explode('/', explode(':', substr($request->picture, 0, strpos($request->picture, ';')))[1])[1];
+            \Image::make($request->picture)->save(public_path('images/cabinets/').$name);
+            $cabinet->picture = $name;
+        }
+
+        $cabinet->save();
+
+        return ['message', 'User updated successfully'];
     }
 
     /**
@@ -90,14 +100,24 @@ class LibraryController extends Controller
      */
     public function update(Request $request, Library $library)
     {
-        $library = Library::findOrFail($id);
+        $cabinet = Library::findOrFail($library->id);
         $this->validate($request, [
-            'id' => 'required',
-            'subcategory_id' => 'required',
+            'sub_category_id' => 'required',
             'name' => 'required',
             'measure_type' => 'required'
         ]); 
-        $library->update($request->all());
+        $currentPicture = $cabinet->picture;
+        if($request->picture != $currentPicture) {
+            $name = time().'.' . explode('/', explode(':', substr($request->picture, 0, strpos($request->picture, ';')))[1])[1];
+            \Image::make($request->picture)->save(public_path('images/cabinets/').$name);
+            $request->merge(['picture' => $name]);
+            $cabinet->picture = $request->picture;
+            $cabinetPhoto = public_path('images/cabinets/').$currentPicture;
+            if(file_exists($cabinetPhoto) && $cabinetPhoto != public_path('images/cabinets/no-preview.png')) {
+                    @unlink($cabinetPhoto);
+            }
+        }
+        $cabinet->update($request->all());
     }
 
     /**
@@ -108,8 +128,12 @@ class LibraryController extends Controller
      */
     public function destroy(Library $library)
     {
-        $library = Library::findOrFail($id);
-        $library->delete();
+        $cabinet = Library::findOrFail($library->id);
+        $currentPicture = $cabinet->picture;
+        $cabinetPhoto = public_path('images/cabinets/').$currentPicture;
+        @unlink($cabinetPhoto);
+        
+        $cabinet->delete();
     }
         /**
      * Display the specified resource.
@@ -134,7 +158,7 @@ class LibraryController extends Controller
     }
     public function updateCabinet(Request $request)
     {
-        $cabinet = Library::findOrFail($id);
+        $cabinet = Library::findOrFail($request->id);
         $currentPicture = $cabinet->picture;
         if($request->picture != $currentPicture) {
             $name = time().'.' . explode('/', explode(':', substr($request->picture, 0, strpos($request->picture, ';')))[1])[1];
