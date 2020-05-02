@@ -2346,6 +2346,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2403,11 +2404,24 @@ __webpack_require__.r(__webpack_exports__);
         _this3.subcategories = response.data;
       });
     },
-    createCabinet: function createCabinet() {
+    loadSubCategories: function loadSubCategories() {
       var _this4 = this;
 
+      this.$Progress.start();
+      axios.get("/api/subcategory/" + this.form.category_id).then(function (_ref) {
+        var data = _ref.data;
+        _this4.subcategories = data;
+
+        _this4.$Progress.finish();
+      })["catch"](function () {
+        _this4.$Progress.fail();
+      });
+    },
+    createCabinet: function createCabinet() {
+      var _this5 = this;
+
       this.form.post("api/library").then(function () {
-        _this4.$Progress.start();
+        _this5.$Progress.start();
 
         Fire.$emit("reloadCabinets");
         $("#addNew").modal("hide");
@@ -2416,7 +2430,7 @@ __webpack_require__.r(__webpack_exports__);
           title: "Cabinet created successfully"
         });
 
-        _this4.$Progress.finish();
+        _this5.$Progress.finish();
       })["catch"](function () {
         Toast.fire({
           icon: "error",
@@ -2425,14 +2439,14 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     updatePicture: function updatePicture(e) {
-      var _this5 = this;
+      var _this6 = this;
 
       var file = e.target.files[0];
       var reader = new FileReader();
 
       if (file['size'] < 2111775) {
         reader.onloadend = function (file) {
-          _this5.form.picture = reader.result;
+          _this6.form.picture = reader.result;
         };
 
         reader.readAsDataURL(file);
@@ -2442,7 +2456,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     updateCabinet: function updateCabinet() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.$Progress.start();
       this.form.put("api/library/" + this.form.id).then(function () {
@@ -2452,11 +2466,11 @@ __webpack_require__.r(__webpack_exports__);
         });
         $("#addNew").modal("hide");
 
-        _this6.$Progress.finish();
+        _this7.$Progress.finish();
 
         Fire.$emit("reloadCabinets");
       })["catch"](function () {
-        _this6.$Progress.fail();
+        _this7.$Progress.fail();
 
         Toast.fire({
           icon: "error",
@@ -2465,7 +2479,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteCabinet: function deleteCabinet(id) {
-      var _this7 = this;
+      var _this8 = this;
 
       Swal.fire({
         title: "Are you sure?",
@@ -2477,11 +2491,11 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Yes, delete it!"
       }).then(function (result) {
         if (result.value) {
-          _this7.form["delete"]("api/library/" + id).then(function () {
+          _this8.form["delete"]("api/library/" + id).then(function () {
             Swal.fire("Deleted!", "Cabinet has been deleted.", "success");
             Fire.$emit("reloadCabinets");
           })["catch"](function () {
-            _this7.$Progress.fail();
+            _this8.$Progress.fail();
 
             Toast.fire({
               icon: "error",
@@ -2493,13 +2507,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this8 = this;
+    var _this9 = this;
 
     this.getCabinets();
     this.getCategories();
     this.getSubCategories();
     Fire.$on("reloadCabinets", function () {
-      _this8.getCabinets();
+      _this9.getCabinets();
     });
   }
 });
@@ -64299,29 +64313,32 @@ var render = function() {
                                       },
                                       attrs: { name: "category" },
                                       on: {
-                                        change: function($event) {
-                                          var $$selectedVal = Array.prototype.filter
-                                            .call(
-                                              $event.target.options,
-                                              function(o) {
-                                                return o.selected
-                                              }
+                                        change: [
+                                          function($event) {
+                                            var $$selectedVal = Array.prototype.filter
+                                              .call(
+                                                $event.target.options,
+                                                function(o) {
+                                                  return o.selected
+                                                }
+                                              )
+                                              .map(function(o) {
+                                                var val =
+                                                  "_value" in o
+                                                    ? o._value
+                                                    : o.value
+                                                return val
+                                              })
+                                            _vm.$set(
+                                              _vm.form,
+                                              "category_id",
+                                              $event.target.multiple
+                                                ? $$selectedVal
+                                                : $$selectedVal[0]
                                             )
-                                            .map(function(o) {
-                                              var val =
-                                                "_value" in o
-                                                  ? o._value
-                                                  : o.value
-                                              return val
-                                            })
-                                          _vm.$set(
-                                            _vm.form,
-                                            "category_id",
-                                            $event.target.multiple
-                                              ? $$selectedVal
-                                              : $$selectedVal[0]
-                                          )
-                                        }
+                                          },
+                                          _vm.loadSubCategories
+                                        ]
                                       }
                                     },
                                     [
@@ -64556,8 +64573,8 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "option",
-                                    { attrs: { value: "Parametrical" } },
-                                    [_vm._v("Parametrical")]
+                                    { attrs: { value: "Parametric" } },
+                                    [_vm._v("Parametric")]
                                   )
                                 ]
                               ),

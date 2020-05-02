@@ -74,6 +74,7 @@
 
               <div v-if="!editmode" class="form-group">
                 <select
+                  @change="loadSubCategories"
                   v-model="form.category_id"
                   name="category"
                   class="form-control"
@@ -120,7 +121,7 @@
                   <option value disabled selected>- Measure Type -</option>
                   <option value="Single">Single</option>
                   <option value="Multiple">Multiple</option>
-                  <option value="Parametrical">Parametrical</option>
+                  <option value="Parametric">Parametric</option>
                 </select>
                 <has-error :form="form" field="measure_type"></has-error>
               </div>
@@ -297,6 +298,18 @@ export default {
             .then(response => {
                 this.subcategories = response.data;
 			      });
+        },
+        loadSubCategories() {
+          this.$Progress.start();
+          axios
+          .get("/api/subcategory/" + this.form.category_id)
+          .then(({ data }) => {
+              this.subcategories = data;
+              this.$Progress.finish();
+          })
+          .catch(() => {
+              this.$Progress.fail();
+          });
         },
         createCabinet() {
           this.form
