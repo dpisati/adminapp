@@ -173,4 +173,23 @@ class LibraryController extends Controller
         $cabinet->update($request->all());
         return ['message', 'Cabinet updated successfully'];
     }
+        /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function search()
+    {
+        if ($search = \Request::get('q')) {
+            $cabinet = Library::with(['subcategory', 'subcategory.category'])->where(function($query) use ($search) {
+                $query->where('name', 'LIKE', "%$search%")
+                    ->orWhere('type','LIKE',"%$search%")
+                    ->orWhere('measure_type','LIKE',"%$search%");
+                })->paginate();
+        } else {
+            $cabinet = Library::with(['subcategory', 'subcategory.category'])->latest()->paginate();
+        }
+        return $cabinet;
+    }
 }

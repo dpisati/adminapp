@@ -38,7 +38,7 @@
                             <th>Code</th>
                             <th>Client</th>
                             <th>Quote</th>
-                            <th>Modify</th>
+                            <th v-if="projectStatus != 'Sold' || $gate.isAdminOrManegerOrOwner()">Modify</th>
                         </tr>
 
 
@@ -51,14 +51,14 @@
                               <td>{{ project.client }}</td>
                               <td>{{ project.quote }}</td>
                             
-                            <td>
-                            <a href="#" @click="editModal(project)">
-                                <i class="fa fa-edit mr-2"></i>
-                            </a>
-                            /
-                            <a href="#" @click="deleteproject(project.id)">
-                                <i class="fa fa-trash-alt ml-2"></i>
-                            </a>
+                            <td v-if="projectStatus != 'Sold' || $gate.isAdminOrManegerOrOwner()">
+                                <a href="#" @click="editModal(project)">
+                                    <i class="fa fa-edit mr-2"></i>
+                                </a>
+                                /
+                                <a href="#" @click="deleteproject(project.id)">
+                                    <i class="fa fa-trash-alt ml-2"></i>
+                                </a>
                             </td>
                         </tr>
                             

@@ -2014,7 +2014,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2101,6 +2100,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -2512,6 +2512,12 @@ __webpack_require__.r(__webpack_exports__);
     this.getCabinets();
     this.getCategories();
     this.getSubCategories();
+    Fire.$on('searching', function () {
+      var query = _this9.$parent.search;
+      axios.get('api/findCabinet?q=' + query).then(function (data) {
+        _this9.cabinets = data.data.data;
+      })["catch"](function () {});
+    });
     Fire.$on("reloadCabinets", function () {
       _this9.getCabinets();
     });
@@ -64113,20 +64119,16 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container mt-2" }, [
-    !_vm.$gate.isAdminOrManegerOrOwner()
-      ? _c("div", [_c("not-found")], 1)
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.$gate.isAdminOrManegerOrOwner()
-      ? _c("div", { staticClass: "row d-flex justify-content-center" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-header" }, [
-                _c("h3", { staticClass: "card-title mt-2" }, [
-                  _vm._v("Cabinets Table")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-tools" }, [
+    _c("div", { staticClass: "row d-flex justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title mt-2" }, [
+              _vm._v("Cabinets Table")
+            ]),
+            _vm._v(" "),
+            _vm.$gate.isAdminOrManegerOrOwner()
+              ? _c("div", { staticClass: "card-tools" }, [
                   _c(
                     "div",
                     { staticClass: "input-group input-group-sm hidden-xs" },
@@ -64147,238 +64149,153 @@ var render = function() {
                     ]
                   )
                 ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "card-body table-responsive no-padding " },
-                [
-                  _c("table", { staticClass: "table table-hover" }, [
-                    _c(
-                      "tbody",
-                      [
-                        _vm._m(0),
-                        _vm._v(" "),
-                        _vm._l(_vm.cabinets, function(cabinet) {
-                          return _c("tr", { key: cabinet.id }, [
-                            _c("td", [_vm._v(_vm._s(cabinet.id))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(cabinet.subcategory.category.name))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(cabinet.subcategory.name))
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              [
-                                _c(
-                                  "router-link",
-                                  { attrs: { to: "/cabinet/" + cabinet.id } },
-                                  [
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(_vm._f("upText")(cabinet.name)) +
-                                        " "
-                                    )
-                                  ]
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "a",
-                                {
-                                  attrs: { href: "#" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.editModal(cabinet)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fa fa-edit mr-2" })]
-                              ),
-                              _vm._v(
-                                "\n                      /\n                      "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  attrs: { href: "#" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deleteCabinet(cabinet.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fa fa-trash-alt ml-2"
-                                  })
-                                ]
-                              )
-                            ])
-                          ])
-                        })
-                      ],
-                      2
-                    )
-                  ])
-                ]
-              )
-            ])
+              : _vm._e()
           ]),
           _vm._v(" "),
+          _c("div", { staticClass: "card-body table-responsive no-padding " }, [
+            _c("table", { staticClass: "table table-hover" }, [
+              _c(
+                "tbody",
+                [
+                  _c("tr", [
+                    _c("th", [_vm._v("ID")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Category")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Subcategory")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Name")]),
+                    _vm._v(" "),
+                    _vm.$gate.isAdminOrManegerOrOwner()
+                      ? _c("th", [_vm._v("Modify")])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.cabinets, function(cabinet) {
+                    return _c("tr", { key: cabinet.id }, [
+                      _c("td", [_vm._v(_vm._s(cabinet.id))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(cabinet.subcategory.category.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(cabinet.subcategory.name))]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            { attrs: { to: "/cabinet/" + cabinet.id } },
+                            [
+                              _vm._v(
+                                " " +
+                                  _vm._s(_vm._f("upText")(cabinet.name)) +
+                                  " "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm.$gate.isAdminOrManegerOrOwner()
+                        ? _c("td", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editModal(cabinet)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-edit mr-2" })]
+                            ),
+                            _vm._v(
+                              "\n                      /\n                      "
+                            ),
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteCabinet(cabinet.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash-alt ml-2" })]
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "addNew",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "addNewLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
           _c(
             "div",
             {
-              staticClass: "modal fade",
-              attrs: {
-                id: "addNew",
-                tabindex: "-1",
-                role: "dialog",
-                "aria-labelledby": "addNewLabel",
-                "aria-hidden": "true"
-              }
+              staticClass: "modal-dialog modal-dialog-centered",
+              attrs: { role: "document" }
             },
             [
-              _c(
-                "div",
-                {
-                  staticClass: "modal-dialog modal-dialog-centered",
-                  attrs: { role: "document" }
-                },
-                [
-                  _c("div", { staticClass: "modal-content" }, [
-                    _c("div", { staticClass: "modal-header" }, [
-                      _c(
-                        "h5",
-                        {
-                          staticClass: "modal-title",
-                          attrs: { id: "addNewLabel" }
-                        },
-                        [
-                          _vm._v(
-                            _vm._s(
-                              _vm.editmode
-                                ? "Edit Cabinet"
-                                : "Create New Cabinet"
-                            )
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _vm._m(1)
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "modal-body" }, [
-                      _c(
-                        "form",
-                        {
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              _vm.editmode
-                                ? _vm.updateCabinet()
-                                : _vm.createCabinet()
-                            }
-                          }
-                        },
-                        [
-                          !_vm.editmode
-                            ? _c(
-                                "div",
-                                { staticClass: "form-group" },
-                                [
-                                  _c(
-                                    "select",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.form.category_id,
-                                          expression: "form.category_id"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      class: {
-                                        "is-invalid": _vm.form.errors.has(
-                                          "category"
-                                        )
-                                      },
-                                      attrs: { name: "category" },
-                                      on: {
-                                        change: [
-                                          function($event) {
-                                            var $$selectedVal = Array.prototype.filter
-                                              .call(
-                                                $event.target.options,
-                                                function(o) {
-                                                  return o.selected
-                                                }
-                                              )
-                                              .map(function(o) {
-                                                var val =
-                                                  "_value" in o
-                                                    ? o._value
-                                                    : o.value
-                                                return val
-                                              })
-                                            _vm.$set(
-                                              _vm.form,
-                                              "category_id",
-                                              $event.target.multiple
-                                                ? $$selectedVal
-                                                : $$selectedVal[0]
-                                            )
-                                          },
-                                          _vm.loadSubCategories
-                                        ]
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "option",
-                                        {
-                                          attrs: {
-                                            value: "",
-                                            disabled: "",
-                                            selected: ""
-                                          }
-                                        },
-                                        [_vm._v("- Category -")]
-                                      ),
-                                      _vm._v(" "),
-                                      _vm._l(_vm.categories, function(
-                                        category
-                                      ) {
-                                        return _c(
-                                          "option",
-                                          {
-                                            key: category.id,
-                                            domProps: { value: category.id }
-                                          },
-                                          [_vm._v(_vm._s(category.name))]
-                                        )
-                                      })
-                                    ],
-                                    2
-                                  ),
-                                  _vm._v(" "),
-                                  _c("has-error", {
-                                    attrs: { form: _vm.form, field: "category" }
-                                  })
-                                ],
-                                1
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c(
+              _c("div", { staticClass: "modal-content" }, [
+                _c("div", { staticClass: "modal-header" }, [
+                  _c(
+                    "h5",
+                    {
+                      staticClass: "modal-title",
+                      attrs: { id: "addNewLabel" }
+                    },
+                    [
+                      _vm._v(
+                        _vm._s(
+                          _vm.editmode ? "Edit Cabinet" : "Create New Cabinet"
+                        )
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(0)
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          _vm.editmode
+                            ? _vm.updateCabinet()
+                            : _vm.createCabinet()
+                        }
+                      }
+                    },
+                    [
+                      !_vm.editmode
+                        ? _c(
                             "div",
                             { staticClass: "form-group" },
                             [
@@ -64389,38 +64306,41 @@ var render = function() {
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: _vm.form.sub_category_id,
-                                      expression: "form.sub_category_id"
+                                      value: _vm.form.category_id,
+                                      expression: "form.category_id"
                                     }
                                   ],
                                   staticClass: "form-control",
                                   class: {
                                     "is-invalid": _vm.form.errors.has(
-                                      "sub_category_id"
+                                      "category"
                                     )
                                   },
-                                  attrs: { name: "sub_category_id" },
+                                  attrs: { name: "category" },
                                   on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.$set(
-                                        _vm.form,
-                                        "sub_category_id",
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      )
-                                    }
+                                    change: [
+                                      function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.form,
+                                          "category_id",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      },
+                                      _vm.loadSubCategories
+                                    ]
                                   }
                                 },
                                 [
@@ -64433,19 +64353,17 @@ var render = function() {
                                         selected: ""
                                       }
                                     },
-                                    [_vm._v("- Sub-Category -")]
+                                    [_vm._v("- Category -")]
                                   ),
                                   _vm._v(" "),
-                                  _vm._l(_vm.subcategories, function(
-                                    subcategory
-                                  ) {
+                                  _vm._l(_vm.categories, function(category) {
                                     return _c(
                                       "option",
                                       {
-                                        key: subcategory.id,
-                                        domProps: { value: subcategory.id }
+                                        key: category.id,
+                                        domProps: { value: category.id }
                                       },
-                                      [_vm._v(_vm._s(subcategory.name))]
+                                      [_vm._v(_vm._s(category.name))]
                                     )
                                   })
                                 ],
@@ -64453,566 +64371,601 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("has-error", {
-                                attrs: { form: _vm.form, field: "subcategory" }
+                                attrs: { form: _vm.form, field: "category" }
                               })
                             ],
                             1
-                          ),
-                          _vm._v(" "),
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
                           _c(
-                            "div",
-                            { staticClass: "form-group" },
-                            [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.name,
-                                    expression: "form.name"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                class: {
-                                  "is-invalid": _vm.form.errors.has("name")
-                                },
-                                attrs: {
-                                  placeholder: "Cabinet Name",
-                                  type: "text",
-                                  name: "name"
-                                },
-                                domProps: { value: _vm.form.name },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "name",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("has-error", {
-                                attrs: { form: _vm.form, field: "categoryname" }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "form-group" },
-                            [
-                              _c(
-                                "select",
+                            "select",
+                            {
+                              directives: [
                                 {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.form.measure_type,
-                                      expression: "form.measure_type"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "is-invalid": _vm.form.errors.has(
-                                      "measure_type"
-                                    )
-                                  },
-                                  attrs: { name: "measure_type" },
-                                  on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.$set(
-                                        _vm.form,
-                                        "measure_type",
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "option",
-                                    {
-                                      attrs: {
-                                        value: "",
-                                        disabled: "",
-                                        selected: ""
-                                      }
-                                    },
-                                    [_vm._v("- Measure Type -")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("option", { attrs: { value: "Single" } }, [
-                                    _vm._v("Single")
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "Multiple" } },
-                                    [_vm._v("Multiple")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "Parametric" } },
-                                    [_vm._v("Parametric")]
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.sub_category_id,
+                                  expression: "form.sub_category_id"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has(
+                                  "sub_category_id"
+                                )
+                              },
+                              attrs: { name: "sub_category_id" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "sub_category_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
                                   )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("has-error", {
-                                attrs: { form: _vm.form, field: "measure_type" }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "form-group" },
+                                }
+                              }
+                            },
                             [
                               _c(
-                                "select",
+                                "option",
                                 {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.form.type,
-                                      expression: "form.type"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "is-invalid": _vm.form.errors.has("type")
-                                  },
-                                  attrs: { name: "type" },
-                                  on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.$set(
-                                        _vm.form,
-                                        "type",
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      )
-                                    }
+                                  attrs: {
+                                    value: "",
+                                    disabled: "",
+                                    selected: ""
                                   }
                                 },
-                                [
-                                  _c(
-                                    "option",
-                                    {
-                                      attrs: {
-                                        value: "",
-                                        disabled: "",
-                                        selected: ""
-                                      }
-                                    },
-                                    [_vm._v("- Cabinet Type -")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "Cabinet" } },
-                                    [_vm._v("Cabinet")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("option", { attrs: { value: "Panel" } }, [
-                                    _vm._v("Panel")
-                                  ])
-                                ]
+                                [_vm._v("- Sub-Category -")]
                               ),
                               _vm._v(" "),
-                              _c("has-error", {
-                                attrs: { form: _vm.form, field: "type" }
+                              _vm._l(_vm.subcategories, function(subcategory) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: subcategory.id,
+                                    domProps: { value: subcategory.id }
+                                  },
+                                  [_vm._v(_vm._s(subcategory.name))]
+                                )
                               })
                             ],
-                            1
+                            2
                           ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "form-row mb-1" }, [
-                            _c(
-                              "div",
-                              { staticClass: "form-group col-md-6" },
-                              [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.form.min_width,
-                                      expression: "form.min_width"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "is-invalid": _vm.form.errors.has(
-                                      "min_width"
-                                    )
-                                  },
-                                  attrs: {
-                                    placeholder: "Minimum Width",
-                                    type: "text",
-                                    name: "min_width"
-                                  },
-                                  domProps: { value: _vm.form.min_width },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.form,
-                                        "min_width",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("has-error", {
-                                  attrs: { form: _vm.form, field: "min_width" }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "form-group col-md-6" },
-                              [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.form.max_width,
-                                      expression: "form.max_width"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "is-invalid": _vm.form.errors.has(
-                                      "max_width"
-                                    )
-                                  },
-                                  attrs: {
-                                    placeholder: "Maximum Width",
-                                    type: "text",
-                                    name: "max_width"
-                                  },
-                                  domProps: { value: _vm.form.max_width },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.form,
-                                        "max_width",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("has-error", {
-                                  attrs: { form: _vm.form, field: "max_width" }
-                                })
-                              ],
-                              1
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-row mb-1" }, [
-                            _c(
-                              "div",
-                              { staticClass: "form-group col-md-6" },
-                              [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.form.min_height,
-                                      expression: "form.min_height"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "is-invalid": _vm.form.errors.has(
-                                      "min_height"
-                                    )
-                                  },
-                                  attrs: {
-                                    placeholder: "Minimum Height",
-                                    type: "text",
-                                    name: "min_height"
-                                  },
-                                  domProps: { value: _vm.form.min_height },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.form,
-                                        "min_height",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("has-error", {
-                                  attrs: { form: _vm.form, field: "min_height" }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "form-group col-md-6" },
-                              [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.form.max_height,
-                                      expression: "form.max_height"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "is-invalid": _vm.form.errors.has(
-                                      "max_height"
-                                    )
-                                  },
-                                  attrs: {
-                                    placeholder: "Maximum Height",
-                                    type: "text",
-                                    name: "max_height"
-                                  },
-                                  domProps: { value: _vm.form.max_height },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.form,
-                                        "max_height",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("has-error", {
-                                  attrs: { form: _vm.form, field: "max_height" }
-                                })
-                              ],
-                              1
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-row mb-1" }, [
-                            _c(
-                              "div",
-                              { staticClass: "form-group col-md-6" },
-                              [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.form.min_depth,
-                                      expression: "form.min_depth"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "is-invalid": _vm.form.errors.has(
-                                      "min_depth"
-                                    )
-                                  },
-                                  attrs: {
-                                    placeholder: "Minimum Depth",
-                                    type: "text",
-                                    name: "min_depth"
-                                  },
-                                  domProps: { value: _vm.form.min_depth },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.form,
-                                        "min_depth",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("has-error", {
-                                  attrs: { form: _vm.form, field: "min_depth" }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "form-group col-md-6" },
-                              [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.form.max_depth,
-                                      expression: "form.max_depth"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "is-invalid": _vm.form.errors.has(
-                                      "max_depth"
-                                    )
-                                  },
-                                  attrs: {
-                                    placeholder: "Maximum Depth",
-                                    type: "text",
-                                    name: "max_depth"
-                                  },
-                                  domProps: { value: _vm.form.max_depth },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.form,
-                                        "max_depth",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("has-error", {
-                                  attrs: { form: _vm.form, field: "max_depth" }
-                                })
-                              ],
-                              1
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("label", { attrs: { for: "inputExperience" } }, [
-                              _vm._v("Cabinet Picture")
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "w-100 mt-2" }, [
-                              _c("input", {
-                                attrs: {
-                                  type: "file",
-                                  id: "inputFile",
-                                  name: "picture",
-                                  accept: "image/png, image/jpeg"
-                                },
-                                on: { change: _vm.updatePicture }
-                              })
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "modal-footer" }, [
-                            _c(
-                              "button",
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "subcategory" }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("input", {
+                            directives: [
                               {
-                                staticClass: "btn btn-secondary",
-                                attrs: {
-                                  "data-dismiss": "modal",
-                                  disabled: _vm.form.busy,
-                                  type: "submit"
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.name,
+                                expression: "form.name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("name")
+                            },
+                            attrs: {
+                              placeholder: "Cabinet Name",
+                              type: "text",
+                              name: "name"
+                            },
+                            domProps: { value: _vm.form.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
                                 }
+                                _vm.$set(_vm.form, "name", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "categoryname" }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.measure_type,
+                                  expression: "form.measure_type"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has(
+                                  "measure_type"
+                                )
                               },
-                              [_vm._v("Close")]
-                            ),
+                              attrs: { name: "measure_type" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "measure_type",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                {
+                                  attrs: {
+                                    value: "",
+                                    disabled: "",
+                                    selected: ""
+                                  }
+                                },
+                                [_vm._v("- Measure Type -")]
+                              ),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "Single" } }, [
+                                _vm._v("Single")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "Multiple" } }, [
+                                _vm._v("Multiple")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "Parametric" } }, [
+                                _vm._v("Parametric")
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "measure_type" }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.type,
+                                  expression: "form.type"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("type")
+                              },
+                              attrs: { name: "type" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "type",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                {
+                                  attrs: {
+                                    value: "",
+                                    disabled: "",
+                                    selected: ""
+                                  }
+                                },
+                                [_vm._v("- Cabinet Type -")]
+                              ),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "Cabinet" } }, [
+                                _vm._v("Cabinet")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "Panel" } }, [
+                                _vm._v("Panel")
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "type" }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-row mb-1" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group col-md-6" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.min_width,
+                                  expression: "form.min_width"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("min_width")
+                              },
+                              attrs: {
+                                placeholder: "Minimum Width",
+                                type: "text",
+                                name: "min_width"
+                              },
+                              domProps: { value: _vm.form.min_width },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "min_width",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
                             _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success",
-                                attrs: { type: "submit" }
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "min_width" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-group col-md-6" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.max_width,
+                                  expression: "form.max_width"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("max_width")
                               },
-                              [_vm._v(_vm._s(_vm.editmode ? "Save" : "Create"))]
-                            )
-                          ])
-                        ]
-                      )
-                    ])
-                  ])
-                ]
-              )
+                              attrs: {
+                                placeholder: "Maximum Width",
+                                type: "text",
+                                name: "max_width"
+                              },
+                              domProps: { value: _vm.form.max_width },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "max_width",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "max_width" }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-row mb-1" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group col-md-6" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.min_height,
+                                  expression: "form.min_height"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("min_height")
+                              },
+                              attrs: {
+                                placeholder: "Minimum Height",
+                                type: "text",
+                                name: "min_height"
+                              },
+                              domProps: { value: _vm.form.min_height },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "min_height",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "min_height" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-group col-md-6" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.max_height,
+                                  expression: "form.max_height"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("max_height")
+                              },
+                              attrs: {
+                                placeholder: "Maximum Height",
+                                type: "text",
+                                name: "max_height"
+                              },
+                              domProps: { value: _vm.form.max_height },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "max_height",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "max_height" }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-row mb-1" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group col-md-6" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.min_depth,
+                                  expression: "form.min_depth"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("min_depth")
+                              },
+                              attrs: {
+                                placeholder: "Minimum Depth",
+                                type: "text",
+                                name: "min_depth"
+                              },
+                              domProps: { value: _vm.form.min_depth },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "min_depth",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "min_depth" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-group col-md-6" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.max_depth,
+                                  expression: "form.max_depth"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("max_depth")
+                              },
+                              attrs: {
+                                placeholder: "Maximum Depth",
+                                type: "text",
+                                name: "max_depth"
+                              },
+                              domProps: { value: _vm.form.max_depth },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "max_depth",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "max_depth" }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "inputExperience" } }, [
+                          _vm._v("Cabinet Picture")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-100 mt-2" }, [
+                          _c("input", {
+                            attrs: {
+                              type: "file",
+                              id: "inputFile",
+                              name: "picture",
+                              accept: "image/png, image/jpeg"
+                            },
+                            on: { change: _vm.updatePicture }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-secondary",
+                            attrs: {
+                              "data-dismiss": "modal",
+                              disabled: _vm.form.busy,
+                              type: "submit"
+                            }
+                          },
+                          [_vm._v("Close")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: { type: "submit" }
+                          },
+                          [_vm._v(_vm._s(_vm.editmode ? "Save" : "Create"))]
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              ])
             ]
           )
-        ])
-      : _vm._e()
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("ID")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Category")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Subcategory")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Modify")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -67632,7 +67585,24 @@ var render = function() {
               _c(
                 "tbody",
                 [
-                  _vm._m(0),
+                  _c("tr", [
+                    _c("th", [_vm._v("ID")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Status")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Name")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Code")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Client")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Quote")]),
+                    _vm._v(" "),
+                    _vm.projectStatus != "Sold" ||
+                    _vm.$gate.isAdminOrManegerOrOwner()
+                      ? _c("th", [_vm._v("Modify")])
+                      : _vm._e()
+                  ]),
                   _vm._v(" "),
                   _vm._l(_vm.projects, function(project) {
                     return _c("tr", { key: project.id }, [
@@ -67664,35 +67634,38 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(project.quote))]),
                       _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                return _vm.editModal(project)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-edit mr-2" })]
-                        ),
-                        _vm._v(
-                          "\n                          /\n                          "
-                        ),
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteproject(project.id)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-trash-alt ml-2" })]
-                        )
-                      ])
+                      _vm.projectStatus != "Sold" ||
+                      _vm.$gate.isAdminOrManegerOrOwner()
+                        ? _c("td", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editModal(project)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-edit mr-2" })]
+                            ),
+                            _vm._v(
+                              "\n                              /\n                              "
+                            ),
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteproject(project.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash-alt ml-2" })]
+                            )
+                          ])
+                        : _vm._e()
                     ])
                   })
                 ],
@@ -67738,7 +67711,7 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(0)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
@@ -67973,26 +67946,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("ID")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Status")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Code")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Client")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Quote")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Modify")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

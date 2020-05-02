@@ -3,8 +3,7 @@
     <div class="card text-center">
         <div class="row no-gutters align-items-center">
             <div class="col-md-4">
-                <img :src="getCabinetPicture()" alt="cabinet" style="width:100%;height:auto">
-                
+                <img :src="getCabinetPicture()" alt="cabinet" style="width:100%;height:auto">                
             </div>
 
         <div class="col-md-8">

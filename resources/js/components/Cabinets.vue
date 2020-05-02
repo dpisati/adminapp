@@ -1,14 +1,15 @@
 <template>
   <div class="container mt-2">
-      <div v-if="!$gate.isAdminOrManegerOrOwner()">
+      <!-- <div v-if="!$gate.isAdminOrManegerOrOwner()">
         <not-found></not-found>
       </div>
-      <div class="row d-flex justify-content-center" v-if="$gate.isAdminOrManegerOrOwner()">
+      <div class="row d-flex justify-content-center" v-if="$gate.isAdminOrManegerOrOwner()"> -->
+      <div class="row d-flex justify-content-center">
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
               <h3 class="card-title mt-2">Cabinets Table</h3>
-              <div class="card-tools">
+              <div class="card-tools" v-if="$gate.isAdminOrManegerOrOwner()">
                 <div class="input-group input-group-sm hidden-xs">
                   <button class="btn btn-success btn-sm mr-3 m-2" @click="newModal">
                     <i class="fas fa-cube mr-2"></i>
@@ -26,7 +27,7 @@
                     <th>Category</th>
                     <th>Subcategory</th>
                     <th>Name</th>
-                    <th>Modify</th>
+                    <th v-if="$gate.isAdminOrManegerOrOwner()">Modify</th>
                   </tr>
 
                   <tr v-for="cabinet in cabinets" :key="cabinet.id">
@@ -34,7 +35,7 @@
                     <td>{{ cabinet.subcategory.category.name }}</td>
                     <td>{{ cabinet.subcategory.name }}</td>
                     <td><router-link :to="'/cabinet/' + cabinet.id"> {{ cabinet.name | upText }} </router-link></td>
-                    <td>
+                    <td v-if="$gate.isAdminOrManegerOrOwner()">
                       <a href="#" @click="editModal(cabinet)">
                         <i class="fa fa-edit mr-2"></i>
                       </a>
@@ -394,7 +395,15 @@ export default {
         created() {
             this.getCabinets();
             this.getCategories();  
-            this.getSubCategories();  
+            this.getSubCategories();
+            Fire.$on('searching', () => {
+              let query = this.$parent.search;
+              axios.get('api/findCabinet?q=' + query)
+                .then((data) => {
+                  this.cabinets = data.data.data
+                })
+                .catch(() => {})
+            });
             Fire.$on("reloadCabinets", () => {
                 this.getCabinets();
             });
