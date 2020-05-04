@@ -29,15 +29,15 @@ class ProjectController extends Controller
     {
         // $this->authorize('isAdmin');
         if(\Gate::allows('isAdmin')) {
-            return Project::latest()->paginate();
+            return Project::latest()->paginate(10000000000);
         }
         if(\Gate::allows('isManeger')) {
             $user = auth('api')->user();
             return Project::where('franchise', $user->franchise)->latest()->paginate();
         }
         if(\Gate::allows('isUser')) {
-            $user = auth('api')->user();
-            return Project::where('user_id', $user->id)->latest();
+            $user = auth('api')->user();            
+            return Project::where('user_id', $user->id)->latest()->paginate();
         }
     }
 
@@ -141,19 +141,37 @@ class ProjectController extends Controller
     public function search()
     {
         $user = auth('api')->user();
-        if ($search = \Request::get('q')) {
-            $projects = Project::where(function($query) use ($search) {
-                $query->where('name', 'LIKE', "%$search%")
-                    ->orWhere('client','LIKE',"%$search%")
-                    ->orWhere('status','LIKE',"%$search%")
-                    ->orWhere('user_id','LIKE',"%$search%")
-                    ->orWhere('franchise','LIKE',"%$search%")
-                    ->orWhere('code','LIKE',"%$search%");
-            // })->where('user_id', '=', $user->id)->paginate();
-            })->paginate();
+
+        if($user->type == "user") {
+            if ($search = \Request::get('q')) {
+                $projects = Project::where(function($query) use ($search) {
+                    $query->where('name', 'LIKE', "%$search%")
+                        ->orWhere('client','LIKE',"%$search%")
+                        ->orWhere('status','LIKE',"%$search%")
+                        ->orWhere('user_id','LIKE',"%$search%")
+                        ->orWhere('franchise','LIKE',"%$search%")
+                        ->orWhere('code','LIKE',"%$search%");
+                })->where('user_id', '=', $user->id)->paginate();
+            } else {
+                $projects = Project::where('user_id', '=', $user->id)->get();
+            }
+
         } else {
-            $projects = Project::latest()->paginate();
-        }
+            if ($search = \Request::get('q')) {
+                $projects = Project::where(function($query) use ($search) {
+                    $query->where('name', 'LIKE', "%$search%")
+                        ->orWhere('client','LIKE',"%$search%")
+                        ->orWhere('status','LIKE',"%$search%")
+                        ->orWhere('user_id','LIKE',"%$search%")
+                        ->orWhere('franchise','LIKE',"%$search%")
+                        ->orWhere('code','LIKE',"%$search%");
+                })->paginate();
+            } else {
+                $projects = Project::latest()->paginate(1000000);
+            }
+
+        }                    
+
         return $projects;
     }
 }

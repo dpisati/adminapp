@@ -1,75 +1,98 @@
 <template>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-12">                
-                <div class="card">
-                    <div class="card-header">
-                    <h3 class="card-title mt-2">Projects Table</h3>
-                        <div class="card-tools">
-                            <div class="input-group input-group-sm hidden-xs">
-                            <button class="btn btn-success btn-sm mr-3 m-2" @click="newModal">
-                                <i class="fas fa-file-powerpoint nav-icon mr-2"></i>
-                                Add project
-                            </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true"  @click="projectStatusSet('Active'); filteredProjects()">Active</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false" @click="projectStatusSet('On-Hold'); filteredProjects()">On-Hold</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="contact-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false" @click="projectStatusSet('Sold'); filteredProjects()">Sold</a>
-                        </li>
-                    </ul>
-
-                            <!-- /.card-header -->
-                    <div class="card-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody>
-                        <tr>
-                            <th>ID</th>
-                            <th>Status</th>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th>Client</th>
-                            <th>Quote</th>
-                            <th v-if="projectStatus != 'Sold' || $gate.isAdminOrManegerOrOwner()">Modify</th>
-                        </tr>
-
-
-                        <tr v-for="project in projects" :key="project.id">
-                            
-                              <td>{{ project.id }}</td>
-                              <td>{{ project.user_id }}</td>
-                              <td><router-link :to="'/projects/' + project.id"> {{ project.name | upText }} </router-link></td>
-                              <td>{{ project.code }}</td>
-                              <td>{{ project.client }}</td>
-                              <td>{{ project.quote }}</td>
-                            
-                            <td v-if="projectStatus != 'Sold' || $gate.isAdminOrManegerOrOwner()">
-                                <a href="#" @click="editModal(project)">
-                                    <i class="fa fa-edit mr-2"></i>
-                                </a>
-                                /
-                                <a href="#" @click="deleteproject(project.id)">
-                                    <i class="fa fa-trash-alt ml-2"></i>
-                                </a>
-                            </td>
-                        </tr>
-                            
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title mt-2">Projects Table</h3>
+            <div class="card-tools">
+              <div class="input-group input-group-sm hidden-xs">
+                <button class="btn btn-success btn-sm mr-3 m-2" @click="newModal">
+                  <i class="fas fa-file-powerpoint nav-icon mr-2"></i>
+                  Add project
+                </button>
+              </div>
             </div>
-        </div>
+          </div>
 
-            <!-- Modal -->
+          <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                id="home-tab"
+                data-toggle="tab"
+                role="tab"
+                aria-controls="home"
+                aria-selected="true"
+                @click="projectStatusSet('Active'); filteredProjects()"
+              >Active</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                id="profile-tab"
+                data-toggle="tab"
+                role="tab"
+                aria-controls="profile"
+                aria-selected="false"
+                @click="projectStatusSet('On-Hold'); filteredProjects()"
+              >On-Hold</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                id="contact-tab"
+                data-toggle="tab"
+                role="tab"
+                aria-controls="contact"
+                aria-selected="false"
+                @click="projectStatusSet('Sold'); filteredProjects()"
+              >Sold</a>
+            </li>
+          </ul>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <th>ID</th>
+                  <th>Status</th>
+                  <th>Name</th>
+                  <th>Code</th>
+                  <th>Client</th>
+                  <th>Quote</th>
+                  <th v-if="projectStatus != 'Sold' || $gate.isAdminOrManegerOrOwner()">Modify</th>
+                </tr>
+
+                <tr v-for="project in projects" :key="project.id">
+                  <td>{{ project.id }}</td>
+                  <td>{{ project.user_id }}</td>
+                  <td>
+                    <router-link :to="'/projects/' + project.id">{{ project.name | upText }}</router-link>
+                  </td>
+                  <td>{{ project.code }}</td>
+                  <td>{{ project.client }}</td>
+                  <td>{{ project.quote }}</td>
+
+                  <td v-if="projectStatus != 'Sold' || $gate.isAdminOrManegerOrOwner()">
+                    <a href="#" @click="editModal(project)">
+                      <i class="fa fa-edit mr-2"></i>
+                    </a>
+                    /
+                    <a href="#" @click="deleteproject(project.id)">
+                      <i class="fa fa-trash-alt ml-2"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
     <div
       class="modal fade"
       id="addNew"
@@ -163,14 +186,14 @@
 export default {
   data() {
     return {
-      userId: '',
-      userType: '',
-      userFranchise: '',
+      userId: "",
+      userType: "",
+      userFranchise: "",
       projects: {},
       editmode: true,
-      projectStatus: 'Active',
+      projectStatus: "Active",
 
-      form: new Form({        
+      form: new Form({
         id: "",
         name: "",
         client: "",
@@ -186,9 +209,8 @@ export default {
       this.projectStatus = status;
     },
     getResults(page = 1) {
-          axios.get('api/project?page=' + page)
-            .then(response => {
-              this.projects = response.data;
+      axios.get("api/project?page=" + page).then(response => {
+        this.projects = response.data;
       });
     },
 
@@ -246,30 +268,32 @@ export default {
           });
         });
     },
-    getUserId(){
-        let userId = axios.get('api/profile')
-            .then((res) => {
-              this.userId = res.data.id;
-              this.userType = res.data.type;
-              this.userFranchise = res.data.franchise;
-            });
+    getUserId() {
+      let userId = axios.get("api/profile").then(res => {
+        this.userId = res.data.id;
+        this.userType = res.data.type;
+        this.userFranchise = res.data.franchise;
+      });
     },
 
-    filteredProjects(){
+    filteredProjects() {
       let query = this.projectStatus;
-          axios.get('api/findProject?q=' + query)
-            .then((data) => {
-              let projects = data.data.data
-              if(this.userType == 'user') {
-                  let projectsFilter = _.filter(projects, { 'user_id': this.userId });
-                  this.projects = projectsFilter;
-              } else if (this.userType == 'maneger' || this.userType == 'owner') {
-                  let projectsFilter = _.filter(projects, { 'franchise': this.userFranchise });
-                  this.projects = projectsFilter;
-              } else {
-                  this.projects = data.data.data;   
-              }          
-            })
+      axios
+        .get("api/findProject?q=" + query)
+        .then(data => {
+          let projects = data.data.data;
+          if (this.userType == "user") {
+            let projectsFilter = _.filter(projects, { user_id: this.userId });
+            this.projects = projectsFilter;
+          } else if (this.userType == "maneger" || this.userType == "owner") {
+            let projectsFilter = _.filter(projects, {
+              franchise: this.userFranchise
+            });
+            this.projects = projectsFilter;
+          } else {
+            this.projects = projects;
+          }
+        })
         .catch(() => {});
     },
     deleteproject(id) {
@@ -289,13 +313,13 @@ export default {
               Swal.fire("Deleted!", "project has been deleted.", "success");
               Fire.$emit("reloadProjects");
             })
-        .catch(() => {
-            this.$Progress.fail();
-            Toast.fire({
-              icon: "error",
-              title: "Unable to delete project"
+            .catch(() => {
+              this.$Progress.fail();
+              Toast.fire({
+                icon: "error",
+                title: "Unable to delete project"
+              });
             });
-        });
         }
       });
     }
@@ -304,26 +328,29 @@ export default {
   created() {
     this.getUserId();
     this.filteredProjects();
-    Fire.$on('searching', () => {
+    Fire.$on("searching", () => {
       let query = this.$parent.search;
-      axios.get('api/findProject?q=' + query)
-        .then((data) => {
-          let projects = data.data.data
-              if(this.userType == 'user') {
-                  let projectsFilter = _.filter(projects, { 'user_id': this.userId });
-                  this.projects = projectsFilter;
-              } else if (this.userType == 'maneger' || this.userType == 'owner') {
-                  let projectsFilter = _.filter(projects, { 'franchise': this.userFranchise });
-                  this.projects = projectsFilter;
-              } else {
-                  this.projects = data.data.data;
-              }
+      axios
+        .get("api/findProject?q=" + query)
+        .then(data => {
+          let projects = data.data.data;
+          if (this.userType == "user") {
+            let projectsFilter = _.filter(projects, { user_id: this.userId });
+            this.projects = projectsFilter;
+          } else if (this.userType == "maneger" || this.userType == "owner") {
+            let projectsFilter = _.filter(projects, {
+              franchise: this.userFranchise
+            });
+            this.projects = projectsFilter;
+          } else {
+            this.projects = data.data.data;
+          }
         })
-        .catch(() => {})
-      });
-      Fire.$on("reloadProjects", () => {
-        this.filteredProjects();
-      });
+        .catch(() => {});
+    });
+    Fire.$on("reloadProjects", () => {
+      this.filteredProjects();
+    });
   }
-}
+};
 </script>
