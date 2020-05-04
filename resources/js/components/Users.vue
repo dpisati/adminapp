@@ -5,7 +5,7 @@
         <not-found></not-found>
       </div>
       <div class="row" v-if="$gate.isAdminOrManegerOrOwner()">
-        <div class="col-md-12  mt-5">
+        <div class="col-md-12 mt-5">
           <div class="card">
             <div class="card-header">
               <h3 class="card-title mt-2">Users Table</h3>
@@ -50,9 +50,9 @@
                 </tbody>
               </table>
             </div>
-              <div class="card-footer">
-                <pagination :data="users" @pagination-change-page="getResults"></pagination>
-              </div>
+            <div class="card-footer">
+              <pagination :data="users" @pagination-change-page="getResults"></pagination>
+            </div>
           </div>
         </div>
       </div>
@@ -79,7 +79,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="editmode ? updateUser() : createUser()">
+            <form
+              @submit.prevent="editmode ? updateUser() : createUser()"
+              @keyup.enter.prevent="editmode ? updateUser() : createUser()"
+            >
               <div class="form-group">
                 <input
                   placeholder="Username"
@@ -188,11 +191,10 @@ export default {
   },
 
   methods: {
-      getResults(page = 1) {
-            axios.get('api/user?page=' + page)
-              .then(response => {
-                this.users = response.data;
-				});
+    getResults(page = 1) {
+      axios.get("api/user?page=" + page).then(response => {
+        this.users = response.data;
+      });
     },
     newModal() {
       this.editmode = false;
@@ -272,33 +274,33 @@ export default {
               Swal.fire("Deleted!", "User has been deleted.", "success");
               Fire.$emit("reloadUsers");
             })
-        .catch(() => {
-            this.$Progress.fail();
-            Toast.fire({
-              icon: "error",
-              title: "Unable to delete user"
+            .catch(() => {
+              this.$Progress.fail();
+              Toast.fire({
+                icon: "error",
+                title: "Unable to delete user"
+              });
             });
-        });
         }
       });
     },
-    getUser(){
-      let user = axios.get('api/profile')
-          .then((res) => {
-            this.user = res.data;
+    getUser() {
+      let user = axios.get("api/profile").then(res => {
+        this.user = res.data;
       });
-    },
+    }
   },
 
   created() {
     this.getUser();
-    Fire.$on('searching', () => {
+    Fire.$on("searching", () => {
       let query = this.$parent.search;
-      axios.get('api/findUser?q=' + query)
-        .then((data) => {
-          this.users = data.data
+      axios
+        .get("api/findUser?q=" + query)
+        .then(data => {
+          this.users = data.data;
         })
-        .catch(() => {})
+        .catch(() => {});
     });
     this.loadUsers();
     Fire.$on("reloadUsers", () => {

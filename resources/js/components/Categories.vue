@@ -6,7 +6,7 @@
         <not-found></not-found>
       </div>
       <div class="row d-flex justify-content-center" v-if="$gate.isAdminOrManegerOrOwner()">
-        <div class="col-md-8  mt-5">
+        <div class="col-md-8 mt-5">
           <div class="card">
             <div class="card-header">
               <h3 class="card-title mt-2">Categories Table</h3>
@@ -20,7 +20,7 @@
               </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive no-padding ">
+            <div class="card-body table-responsive no-padding">
               <table class="table table-hover">
                 <tbody>
                   <tr>
@@ -70,7 +70,7 @@
               </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive no-padding ">
+            <div class="card-body table-responsive no-padding">
               <table class="table table-hover">
                 <tbody>
                   <tr>
@@ -123,7 +123,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="editmode ? updateCategory() : createCategory()">
+            <form
+              @submit.prevent="editmode ? updateCategory() : createCategory()"
+              @keyup.enter.prevent="editmode ? updateCategory() : createCategory()"
+            >
               <div class="form-group">
                 <input
                   placeholder="Category Name"
@@ -149,7 +152,7 @@
         </div>
       </div>
     </div>
-<!-- Modal Sub-Category -->
+    <!-- Modal Sub-Category -->
     <div
       class="modal fade"
       id="addNewSub"
@@ -170,8 +173,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="editmode ? updateSubCategory() : createSubCategory()">
-
+            <form
+              @submit.prevent="editmode ? updateSubCategory() : createSubCategory()"
+              @keyup.enter.prevent="editmode ? updateSubCategory() : createSubCategory()"
+            >
               <div class="form-group">
                 <select
                   v-model="form.category_id"
@@ -180,7 +185,11 @@
                   :class="{'is-invalid': form.errors.has('category')}"
                 >
                   <option value disabled selected>- Category -</option>
-                  <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+                  <option
+                    v-for="category in categories"
+                    :key="category.id"
+                    :value="category.id"
+                  >{{ category.name }}</option>
                 </select>
                 <has-error :form="form" field="category"></has-error>
               </div>
@@ -195,7 +204,7 @@
                 />
                 <has-error :form="form" field="categoryname"></has-error>
               </div>
-              
+
               <div class="modal-footer">
                 <button
                   class="btn btn-secondary"
@@ -210,11 +219,7 @@
         </div>
       </div>
     </div>
-<!-- Modal Sub-Category -->
-
-
-
-
+    <!-- Modal Sub-Category -->
   </div>
 </template>
 
@@ -230,23 +235,21 @@ export default {
         name: "",
         id: "",
         category_id: "",
-        sub_category_id: "",
+        sub_category_id: ""
       })
     };
   },
 
   methods: {
     getCategories() {
-            axios.get('api/category')
-              .then(response => {
-                this.categories = response.data;
-				});
+      axios.get("api/category").then(response => {
+        this.categories = response.data;
+      });
     },
     getSubCategories() {
-            axios.get('api/subcategory')
-              .then(response => {
-                this.subcategories = response.data;
-				});
+      axios.get("api/subcategory").then(response => {
+        this.subcategories = response.data;
+      });
     },
     newModal() {
       this.editmode = false;
@@ -358,9 +361,9 @@ export default {
         });
     },
     loadCategories() {
-        this.$Progress.start();
-        axios.get("api/category").then(({ data }) => (this.categories = data));
-        this.$Progress.finish();
+      this.$Progress.start();
+      axios.get("api/category").then(({ data }) => (this.categories = data));
+      this.$Progress.finish();
     },
     deleteCategory(id) {
       Swal.fire({
@@ -379,13 +382,13 @@ export default {
               Swal.fire("Deleted!", "Category has been deleted.", "success");
               Fire.$emit("reloadCategories");
             })
-        .catch(() => {
-            this.$Progress.fail();
-            Toast.fire({
-              icon: "error",
-              title: "Unable to delete category"
+            .catch(() => {
+              this.$Progress.fail();
+              Toast.fire({
+                icon: "error",
+                title: "Unable to delete category"
+              });
             });
-        });
         }
       });
     },
@@ -403,30 +406,33 @@ export default {
           this.form
             .delete("api/subcategory/" + id)
             .then(() => {
-              Swal.fire("Deleted!", "Sub-Category has been deleted.", "success");
+              Swal.fire(
+                "Deleted!",
+                "Sub-Category has been deleted.",
+                "success"
+              );
               Fire.$emit("reloadCategories");
             })
-        .catch(() => {
-            this.$Progress.fail();
-            Toast.fire({
-              icon: "error",
-              title: "Unable to delete sub-category"
+            .catch(() => {
+              this.$Progress.fail();
+              Toast.fire({
+                icon: "error",
+                title: "Unable to delete sub-category"
+              });
             });
-        });
         }
       });
     },
-    getCategory(){
-      axios.get('api/category')
-          .then((res) => {
-            this.categories = res.data;
+    getCategory() {
+      axios.get("api/category").then(res => {
+        this.categories = res.data;
       });
-    },
+    }
   },
 
   created() {
     this.getCategories();
-    this.getSubCategories();    
+    this.getSubCategories();
     Fire.$on("reloadCategories", () => {
       this.loadCategories();
       this.getSubCategories();

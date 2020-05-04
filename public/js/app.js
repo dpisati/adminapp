@@ -2347,6 +2347,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2386,21 +2400,21 @@ __webpack_require__.r(__webpack_exports__);
     getCabinets: function getCabinets() {
       var _this = this;
 
-      axios.get('api/library').then(function (response) {
+      axios.get("api/library").then(function (response) {
         _this.cabinets = response.data;
       });
     },
     getCategories: function getCategories() {
       var _this2 = this;
 
-      axios.get('api/category').then(function (response) {
+      axios.get("api/category").then(function (response) {
         _this2.categories = response.data;
       });
     },
     getSubCategories: function getSubCategories() {
       var _this3 = this;
 
-      axios.get('api/subcategory').then(function (response) {
+      axios.get("api/subcategory").then(function (response) {
         _this3.subcategories = response.data;
       });
     },
@@ -2444,7 +2458,7 @@ __webpack_require__.r(__webpack_exports__);
       var file = e.target.files[0];
       var reader = new FileReader();
 
-      if (file['size'] < 2111775) {
+      if (file["size"] < 2111775) {
         reader.onloadend = function (file) {
           _this6.form.picture = reader.result;
         };
@@ -2512,9 +2526,9 @@ __webpack_require__.r(__webpack_exports__);
     this.getCabinets();
     this.getCategories();
     this.getSubCategories();
-    Fire.$on('searching', function () {
+    Fire.$on("searching", function () {
       var query = _this9.$parent.search;
-      axios.get('api/findCabinet?q=' + query).then(function (data) {
+      axios.get("api/findCabinet?q=" + query).then(function (data) {
         _this9.cabinets = data.data.data;
       })["catch"](function () {});
     });
@@ -2755,6 +2769,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2773,14 +2792,14 @@ __webpack_require__.r(__webpack_exports__);
     getCategories: function getCategories() {
       var _this = this;
 
-      axios.get('api/category').then(function (response) {
+      axios.get("api/category").then(function (response) {
         _this.categories = response.data;
       });
     },
     getSubCategories: function getSubCategories() {
       var _this2 = this;
 
-      axios.get('api/subcategory').then(function (response) {
+      axios.get("api/subcategory").then(function (response) {
         _this2.subcategories = response.data;
       });
     },
@@ -2964,7 +2983,7 @@ __webpack_require__.r(__webpack_exports__);
     getCategory: function getCategory() {
       var _this10 = this;
 
-      axios.get('api/category').then(function (res) {
+      axios.get("api/category").then(function (res) {
         _this10.categories = res.data;
       });
     }
@@ -3431,6 +3450,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3465,14 +3498,12 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           _this.totalProjects += 1;
         }
-
-        ;
       });
     },
     getUserId: function getUserId() {
       var _this2 = this;
 
-      var userId = axios.get('api/profile').then(function (res) {
+      var userId = axios.get("api/profile").then(function (res) {
         _this2.userId = res.data.id;
         _this2.userType = res.data.type;
         _this2.userFranchise = res.data.franchise;
@@ -3483,13 +3514,13 @@ __webpack_require__.r(__webpack_exports__);
     loadProjects: function loadProjects() {
       var _this3 = this;
 
-      if (this.userType == 'admin') {
-        axios.get('api/project').then(function (data) {
+      if (this.userType == "admin") {
+        axios.get("api/project").then(function (data) {
           _this3.projects = data.data.data;
 
           _this3.projectsCount();
         });
-      } else if (this.userType == 'user') {
+      } else if (this.userType == "user") {
         this.loadProjectsFilter(this.userId);
       } else {
         this.loadProjectsFilter(this.userFranchise);
@@ -3500,7 +3531,7 @@ __webpack_require__.r(__webpack_exports__);
     loadProjectsFilter: function loadProjectsFilter(search) {
       var _this4 = this;
 
-      axios.get('api/findProject?q=' + search).then(function (data) {
+      axios.get("api/findProject?q=" + search).then(function (data) {
         _this4.projects = data.data.data;
 
         _this4.projectsCount();
@@ -3517,7 +3548,7 @@ __webpack_require__.r(__webpack_exports__);
       var file = e.target.files[0];
       var reader = new FileReader();
 
-      if (file['size'] < 2111775) {
+      if (file["size"] < 2111775) {
         reader.onloadend = function (file) {
           _this5.form.photo = reader.result;
         };
@@ -3532,7 +3563,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this6 = this;
 
       this.$Progress.start();
-      this.form.put('api/profile').then(function () {
+      this.form.put("api/profile").then(function () {
         Toast.fire({
           icon: "success",
           title: "User updated"
@@ -3868,6 +3899,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3905,7 +3967,7 @@ __webpack_require__.r(__webpack_exports__);
       this.totalCabinets = 0;
       this.rooms.forEach(function (room) {
         room.cabinets.forEach(function (cabinet) {
-          if (cabinet.type == 'Cabinet') {
+          if (cabinet.type == "Cabinet") {
             _this.totalCabinets += cabinet.quantity;
           } else {
             _this.totalPanels += cabinet.quantity;
@@ -4181,6 +4243,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -4724,6 +4789,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4747,7 +4815,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get('api/user?page=' + page).then(function (response) {
+      axios.get("api/user?page=" + page).then(function (response) {
         _this.users = response.data;
       });
     },
@@ -4848,7 +4916,7 @@ __webpack_require__.r(__webpack_exports__);
     getUser: function getUser() {
       var _this6 = this;
 
-      var user = axios.get('api/profile').then(function (res) {
+      var user = axios.get("api/profile").then(function (res) {
         _this6.user = res.data;
       });
     }
@@ -4857,9 +4925,9 @@ __webpack_require__.r(__webpack_exports__);
     var _this7 = this;
 
     this.getUser();
-    Fire.$on('searching', function () {
+    Fire.$on("searching", function () {
       var query = _this7.$parent.search;
-      axios.get('api/findUser?q=' + query).then(function (data) {
+      axios.get("api/findUser?q=" + query).then(function (data) {
         _this7.users = data.data;
       })["catch"](function () {});
     });
@@ -10208,7 +10276,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.widget-user-header {\n    background-position: center center;\n    background-size: cover;\n}\n", ""]);
+exports.push([module.i, "\n.widget-user-header {\r\n  background-position: center center;\r\n  background-size: cover;\n}\r\n", ""]);
 
 // exports
 
@@ -10227,7 +10295,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.widget-user-header {\n    background-position: center center;\n    background-size: cover;\n}\n", ""]);
+exports.push([module.i, "\n.widget-user-header {\r\n  background-position: center center;\r\n  background-size: cover;\n}\r\n", ""]);
 
 // exports
 
@@ -64371,7 +64439,7 @@ var render = function() {
                         [
                           _c("i", { staticClass: "fas fa-cube mr-2" }),
                           _vm._v(
-                            "\n                    Add Cabinet\n                  "
+                            "\n                Add Cabinet\n              "
                           )
                         ]
                       )
@@ -64381,7 +64449,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body table-responsive no-padding " }, [
+          _c("div", { staticClass: "card-body table-responsive no-padding" }, [
             _c("table", { staticClass: "table table-hover" }, [
               _c(
                 "tbody",
@@ -64416,13 +64484,7 @@ var render = function() {
                           _c(
                             "router-link",
                             { attrs: { to: "/cabinet/" + cabinet.id } },
-                            [
-                              _vm._v(
-                                " " +
-                                  _vm._s(_vm._f("upText")(cabinet.name)) +
-                                  " "
-                              )
-                            ]
+                            [_vm._v(_vm._s(_vm._f("upText")(cabinet.name)))]
                           )
                         ],
                         1
@@ -64442,9 +64504,7 @@ var render = function() {
                               },
                               [_c("i", { staticClass: "fa fa-edit mr-2" })]
                             ),
-                            _vm._v(
-                              "\n                      /\n                      "
-                            ),
+                            _vm._v("\n                  /\n                  "),
                             _c(
                               "a",
                               {
@@ -64515,6 +64575,24 @@ var render = function() {
                     {
                       on: {
                         submit: function($event) {
+                          $event.preventDefault()
+                          _vm.editmode
+                            ? _vm.updateCabinet()
+                            : _vm.createCabinet()
+                        },
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
                           $event.preventDefault()
                           _vm.editmode
                             ? _vm.updateCabinet()
@@ -65242,7 +65320,7 @@ var render = function() {
       _vm._v(" "),
       _vm.$gate.isAdminOrManegerOrOwner()
         ? _c("div", { staticClass: "row d-flex justify-content-center" }, [
-            _c("div", { staticClass: "col-md-8  mt-5" }, [
+            _c("div", { staticClass: "col-md-8 mt-5" }, [
               _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-header" }, [
                   _c("h3", { staticClass: "card-title mt-2" }, [
@@ -65263,7 +65341,7 @@ var render = function() {
                           [
                             _c("i", { staticClass: "fas fa-columns mr-2" }),
                             _vm._v(
-                              "\n                    Add Category\n                  "
+                              "\n                  Add Category\n                "
                             )
                           ]
                         )
@@ -65274,7 +65352,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "card-body table-responsive no-padding " },
+                  { staticClass: "card-body table-responsive no-padding" },
                   [
                     _c("table", { staticClass: "table table-hover" }, [
                       _c(
@@ -65304,7 +65382,7 @@ var render = function() {
                                   [_c("i", { staticClass: "fa fa-edit mr-2" })]
                                 ),
                                 _vm._v(
-                                  "\n                      /\n                      "
+                                  "\n                    /\n                    "
                                 ),
                                 _c(
                                   "a",
@@ -65365,7 +65443,7 @@ var render = function() {
                           [
                             _c("i", { staticClass: "fas fa-columns mr-2" }),
                             _vm._v(
-                              "\n                    Add Sub-Category\n                  "
+                              "\n                  Add Sub-Category\n                "
                             )
                           ]
                         )
@@ -65376,7 +65454,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "card-body table-responsive no-padding " },
+                  { staticClass: "card-body table-responsive no-padding" },
                   [
                     _c("table", { staticClass: "table table-hover" }, [
                       _c(
@@ -65412,7 +65490,7 @@ var render = function() {
                                   [_c("i", { staticClass: "fa fa-edit mr-2" })]
                                 ),
                                 _vm._v(
-                                  "\n                      /\n                      "
+                                  "\n                    /\n                    "
                                 ),
                                 _c(
                                   "a",
@@ -65490,6 +65568,24 @@ var render = function() {
                   {
                     on: {
                       submit: function($event) {
+                        $event.preventDefault()
+                        _vm.editmode
+                          ? _vm.updateCategory()
+                          : _vm.createCategory()
+                      },
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
                         $event.preventDefault()
                         _vm.editmode
                           ? _vm.updateCategory()
@@ -65613,6 +65709,24 @@ var render = function() {
                   {
                     on: {
                       submit: function($event) {
+                        $event.preventDefault()
+                        _vm.editmode
+                          ? _vm.updateSubCategory()
+                          : _vm.createSubCategory()
+                      },
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
                         $event.preventDefault()
                         _vm.editmode
                           ? _vm.updateSubCategory()
@@ -66930,9 +67044,7 @@ var render = function() {
                           _c("i", {
                             staticClass: "fas fa-house-user nav-icon mr-2"
                           }),
-                          _vm._v(
-                            "\n                            Add Room\n                        "
-                          )
+                          _vm._v("\n              Add Room\n            ")
                         ]
                       )
                     ]
@@ -66970,7 +67082,7 @@ var render = function() {
                                   staticClass: "fas fa-inbox nav-icon mr-2"
                                 }),
                                 _vm._v(
-                                  "\n                                    Add Cabinet\n                            "
+                                  "\n                  Add Cabinet\n                "
                                 )
                               ]
                             ),
@@ -66991,7 +67103,7 @@ var render = function() {
                                   staticClass: "fas fa-edit nav-icon mr-2"
                                 }),
                                 _vm._v(
-                                  "\n                                    Update Room\n                               "
+                                  "\n                  Update Room\n                "
                                 )
                               ]
                             ),
@@ -67011,7 +67123,7 @@ var render = function() {
                                   staticClass: "fas fa-trash nav-icon mr-2"
                                 }),
                                 _vm._v(
-                                  "\n                                    Delete Room\n                               "
+                                  "\n                  Delete Room\n                "
                                 )
                               ]
                             )
@@ -67063,11 +67175,7 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        " " +
-                                          _vm._s(
-                                            _vm._f("upText")(cabinet.name)
-                                          ) +
-                                          " "
+                                        _vm._s(_vm._f("upText")(cabinet.name))
                                       )
                                     ]
                                   )
@@ -67104,7 +67212,7 @@ var render = function() {
                                       ]
                                     ),
                                     _vm._v(
-                                      "\n                        /\n                        "
+                                      "\n                    /\n                    "
                                     ),
                                     _c(
                                       "a",
@@ -67181,6 +67289,22 @@ var render = function() {
                   {
                     on: {
                       submit: function($event) {
+                        $event.preventDefault()
+                        _vm.editmode ? _vm.updateRoom() : _vm.createRoom()
+                      },
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
                         $event.preventDefault()
                         _vm.editmode ? _vm.updateRoom() : _vm.createRoom()
                       }
@@ -67300,6 +67424,22 @@ var render = function() {
                       submit: function($event) {
                         $event.preventDefault()
                         _vm.editmode ? _vm.updateCabinet() : _vm.addCabinet()
+                      },
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        $event.preventDefault()
+                        _vm.editmode ? _vm.updateCabinet() : _vm.addCabinet()
                       }
                     }
                   },
@@ -67374,7 +67514,7 @@ var render = function() {
                                         key: category.id,
                                         domProps: { value: category.id }
                                       },
-                                      [_vm._v(" " + _vm._s(category.name))]
+                                      [_vm._v(_vm._s(category.name))]
                                     )
                                   })
                                 ],
@@ -67460,7 +67600,7 @@ var render = function() {
                                         key: subcategory.id,
                                         domProps: { value: subcategory.id }
                                       },
-                                      [_vm._v(" " + _vm._s(subcategory.name))]
+                                      [_vm._v(_vm._s(subcategory.name))]
                                     )
                                   })
                                 ],
@@ -67542,7 +67682,7 @@ var render = function() {
                                         key: cabinet.id,
                                         domProps: { value: cabinet.id }
                                       },
-                                      [_vm._v(" " + _vm._s(cabinet.name))]
+                                      [_vm._v(_vm._s(cabinet.name))]
                                     )
                                   })
                                 ],
@@ -67796,7 +67936,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-12  mt-5" }, [
+      _c("div", { staticClass: "col-md-12 mt-5" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
             _c("h3", { staticClass: "card-title mt-2" }, [
@@ -68036,6 +68176,22 @@ var render = function() {
                   {
                     on: {
                       submit: function($event) {
+                        $event.preventDefault()
+                        _vm.editmode ? _vm.updateProject() : _vm.createProject()
+                      },
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
                         $event.preventDefault()
                         _vm.editmode ? _vm.updateProject() : _vm.createProject()
                       }
@@ -68309,7 +68465,7 @@ var render = function() {
       _vm._v(" "),
       _vm.$gate.isAdminOrManegerOrOwner()
         ? _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-12  mt-5" }, [
+            _c("div", { staticClass: "col-md-12 mt-5" }, [
               _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-header" }, [
                   _c("h3", { staticClass: "card-title mt-2" }, [
@@ -68465,6 +68621,22 @@ var render = function() {
                   {
                     on: {
                       submit: function($event) {
+                        $event.preventDefault()
+                        _vm.editmode ? _vm.updateUser() : _vm.createUser()
+                      },
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
                         $event.preventDefault()
                         _vm.editmode ? _vm.updateUser() : _vm.createUser()
                       }
@@ -86372,8 +86544,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\OEM\Documents\GitHub\adminapp\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\OEM\Documents\GitHub\adminapp\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\user1\Documents\GitHub\adminapp\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\user1\Documents\GitHub\adminapp\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

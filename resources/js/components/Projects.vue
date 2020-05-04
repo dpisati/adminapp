@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-12  mt-5">
+      <div class="col-md-12 mt-5">
         <div class="card">
           <div class="card-header">
             <h3 class="card-title mt-2">Projects Table</h3>
@@ -113,7 +113,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="editmode ? updateProject() : createProject()">
+            <form
+              @submit.prevent="editmode ? updateProject() : createProject()"
+              @keyup.enter.prevent="editmode ? updateProject() : createProject()"
+            >
               <div class="form-group">
                 <input
                   placeholder="Project Name"

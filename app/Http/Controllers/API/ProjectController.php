@@ -151,11 +151,10 @@ class ProjectController extends Controller
                         ->orWhere('user_id','LIKE',"%$search%")
                         ->orWhere('franchise','LIKE',"%$search%")
                         ->orWhere('code','LIKE',"%$search%");
-                })->where('user_id', '=', $user->id)->paginate();
+                })->where('user_id', '=', $user->id)->paginate(1000000000000000);
             } else {
                 $projects = Project::where('user_id', '=', $user->id)->get();
             }
-
         } else {
             if ($search = \Request::get('q')) {
                 $projects = Project::where(function($query) use ($search) {
@@ -165,13 +164,11 @@ class ProjectController extends Controller
                         ->orWhere('user_id','LIKE',"%$search%")
                         ->orWhere('franchise','LIKE',"%$search%")
                         ->orWhere('code','LIKE',"%$search%");
-                })->paginate();
+                })->paginate(100000000000);
             } else {
                 $projects = Project::latest()->paginate(1000000);
             }
-
         }                    
-
         return $projects;
     }
 }
