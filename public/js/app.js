@@ -3067,9 +3067,215 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log("Component mounted.");
+  data: function data() {
+    return {
+      materials: {},
+      suppliers: {},
+      finishes: {},
+      editmode: false,
+      form: new Form({
+        id: "",
+        supplier_id: "",
+        name: "",
+        finish: "",
+        stock: "",
+        texture: ""
+      })
+    };
+  },
+  methods: {
+    newModal: function newModal() {
+      this.editmode = false;
+      this.form.reset();
+      $("#addNew").modal("show");
+    },
+    editModal: function editModal(material) {
+      this.editmode = true;
+      this.form.reset();
+      $("#addNew").modal("show");
+      this.form.fill(material);
+    },
+    getMaterials: function getMaterials() {
+      var _this = this;
+
+      axios.get('api/material').then(function (response) {
+        _this.materials = response.data;
+      });
+    },
+    getSuppliers: function getSuppliers() {
+      var _this2 = this;
+
+      axios.get('api/supplier').then(function (response) {
+        _this2.suppliers = response.data;
+      });
+    },
+    getFinishes: function getFinishes() {
+      var _this3 = this;
+
+      axios.get('api/finish').then(function (response) {
+        _this3.finishes = response.data;
+      });
+    },
+    loadFinishes: function loadFinishes() {
+      var _this4 = this;
+
+      this.$Progress.start();
+      axios.get("/api/finishes/" + this.form.supplier_id).then(function (_ref) {
+        var data = _ref.data;
+        _this4.finishes = data;
+
+        _this4.$Progress.finish();
+      })["catch"](function () {
+        _this4.$Progress.fail();
+      });
+    },
+    createMaterial: function createMaterial() {
+      var _this5 = this;
+
+      this.form.post("api/material").then(function () {
+        _this5.$Progress.start();
+
+        Fire.$emit("reloadMaterials");
+        $("#addNew").modal("hide");
+        Toast.fire({
+          icon: "success",
+          title: "Material created successfully"
+        });
+
+        _this5.$Progress.finish();
+      })["catch"](function () {
+        Toast.fire({
+          icon: "error",
+          title: "Unable to create Material"
+        });
+      });
+    },
+    updateTexture: function updateTexture(e) {
+      var _this6 = this;
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+
+      if (file['size'] < 2111775) {
+        reader.onloadend = function (file) {
+          _this6.form.texture = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        Swal.fire("Oops...", "Picture bigger than 2mb", "error");
+        this.form.photo = "no-preview.png";
+      }
+    },
+    updateMaterial: function updateMaterial() {
+      var _this7 = this;
+
+      this.$Progress.start();
+      this.form.put("api/material/" + this.form.id).then(function () {
+        Toast.fire({
+          icon: "success",
+          title: "Material updated"
+        });
+        $("#addNew").modal("hide");
+
+        _this7.$Progress.finish();
+
+        Fire.$emit("reloadMaterials");
+      })["catch"](function () {
+        _this7.$Progress.fail();
+
+        Toast.fire({
+          icon: "error",
+          title: "Unable to update Material"
+        });
+      });
+    },
+    deleteMaterial: function deleteMaterial(id) {
+      var _this8 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          _this8.form["delete"]("api/material/" + id).then(function () {
+            Swal.fire("Deleted!", "Material has been deleted.", "success");
+            Fire.$emit("reloadMaterials");
+          })["catch"](function () {
+            _this8.$Progress.fail();
+
+            Toast.fire({
+              icon: "error",
+              title: "Unable to delete Material"
+            });
+          });
+        }
+      });
+    }
+  },
+  created: function created() {
+    var _this9 = this;
+
+    this.getMaterials();
+    this.getSuppliers();
+    this.getFinishes();
+    Fire.$on('searching', function () {
+      var query = _this9.$parent.search;
+      axios.get('api/findMaterial?q=' + query).then(function (data) {
+        _this9.materials = data.data.data;
+      })["catch"](function () {});
+    });
+    Fire.$on("reloadMaterials", function () {
+      _this9.getMaterials();
+    });
   }
 });
 
@@ -4136,15 +4342,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      userId: '',
-      userType: '',
-      userFranchise: '',
+      userId: "",
+      userType: "",
+      userFranchise: "",
       projects: {},
       editmode: true,
-      projectStatus: 'Active',
+      projectStatus: "Active",
       form: new Form({
         id: "",
         name: "",
@@ -4163,7 +4392,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get('api/project?page=' + page).then(function (response) {
+      axios.get("api/project?page=" + page).then(function (response) {
         _this.projects = response.data;
       });
     },
@@ -4225,7 +4454,7 @@ __webpack_require__.r(__webpack_exports__);
     getUserId: function getUserId() {
       var _this4 = this;
 
-      var userId = axios.get('api/profile').then(function (res) {
+      var userId = axios.get("api/profile").then(function (res) {
         _this4.userId = res.data.id;
         _this4.userType = res.data.type;
         _this4.userFranchise = res.data.franchise;
@@ -4235,23 +4464,23 @@ __webpack_require__.r(__webpack_exports__);
       var _this5 = this;
 
       var query = this.projectStatus;
-      axios.get('api/findProject?q=' + query).then(function (data) {
+      axios.get("api/findProject?q=" + query).then(function (data) {
         var projects = data.data.data;
 
-        if (_this5.userType == 'user') {
+        if (_this5.userType == "user") {
           var projectsFilter = _.filter(projects, {
-            'user_id': _this5.userId
+            user_id: _this5.userId
           });
 
           _this5.projects = projectsFilter;
-        } else if (_this5.userType == 'maneger' || _this5.userType == 'owner') {
+        } else if (_this5.userType == "maneger" || _this5.userType == "owner") {
           var _projectsFilter = _.filter(projects, {
-            'franchise': _this5.userFranchise
+            franchise: _this5.userFranchise
           });
 
           _this5.projects = _projectsFilter;
         } else {
-          _this5.projects = data.data.data;
+          _this5.projects = projects;
         }
       })["catch"](function () {});
     },
@@ -4288,20 +4517,20 @@ __webpack_require__.r(__webpack_exports__);
 
     this.getUserId();
     this.filteredProjects();
-    Fire.$on('searching', function () {
+    Fire.$on("searching", function () {
       var query = _this7.$parent.search;
-      axios.get('api/findProject?q=' + query).then(function (data) {
+      axios.get("api/findProject?q=" + query).then(function (data) {
         var projects = data.data.data;
 
-        if (_this7.userType == 'user') {
+        if (_this7.userType == "user") {
           var projectsFilter = _.filter(projects, {
-            'user_id': _this7.userId
+            user_id: _this7.userId
           });
 
           _this7.projects = projectsFilter;
-        } else if (_this7.userType == 'maneger' || _this7.userType == 'owner') {
+        } else if (_this7.userType == "maneger" || _this7.userType == "owner") {
           var _projectsFilter2 = _.filter(projects, {
-            'franchise': _this7.userFranchise
+            franchise: _this7.userFranchise
           });
 
           _this7.projects = _projectsFilter2;
@@ -64118,9 +64347,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mt-2" }, [
+  return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row d-flex justify-content-center" }, [
-      _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "col-md-12 mt-5" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
             _c("h3", { staticClass: "card-title mt-2" }, [
@@ -65006,14 +65235,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "container mt-5" }, [
+    _c("div", { staticClass: "container" }, [
       !_vm.$gate.isAdminOrManegerOrOwner()
         ? _c("div", [_c("not-found")], 1)
         : _vm._e(),
       _vm._v(" "),
       _vm.$gate.isAdminOrManegerOrOwner()
         ? _c("div", { staticClass: "row d-flex justify-content-center" }, [
-            _c("div", { staticClass: "col-md-8" }, [
+            _c("div", { staticClass: "col-md-8  mt-5" }, [
               _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-header" }, [
                   _c("h3", { staticClass: "card-title mt-2" }, [
@@ -65620,7 +65849,7 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c(
         "div",
-        { staticClass: "col-md-12" },
+        { staticClass: "col-md-12 mt-5" },
         [
           _c("passport-clients"),
           _vm._v(" "),
@@ -65700,30 +65929,127 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container " }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8 mt-3" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Materials Component")
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row d-flex justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12 mt-5" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title mt-2" }, [
+              _vm._v("Materials Table")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v("I'm an example component.")
+            _vm.$gate.isAdminOrManegerOrOwner()
+              ? _c("div", { staticClass: "card-tools" }, [
+                  _c(
+                    "div",
+                    { staticClass: "input-group input-group-sm hidden-xs" },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success btn-sm mr-3 m-2",
+                          on: { click: _vm.newModal }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-cube mr-2" }),
+                          _vm._v(
+                            "\n                  Add Material\n                "
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body table-responsive no-padding " }, [
+            _c("table", { staticClass: "table table-hover" }, [
+              _c(
+                "tbody",
+                [
+                  _c("tr", [
+                    _c("th", [_vm._v("ID")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Supplier")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Name")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Finish")]),
+                    _vm._v(" "),
+                    _vm.$gate.isAdminOrManegerOrOwner()
+                      ? _c("th", [_vm._v("Modify")])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.materials, function(material) {
+                    return _c("tr", { key: material.id }, [
+                      _c("td", [_vm._v(_vm._s(material.id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(material.supplier.name))]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            { attrs: { to: "/material/" + material.id } },
+                            [
+                              _vm._v(
+                                " " +
+                                  _vm._s(_vm._f("upText")(material.name)) +
+                                  " "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm.$gate.isAdminOrManegerOrOwner()
+                        ? _c("td", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editModal(material)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-edit mr-2" })]
+                            ),
+                            _vm._v(
+                              "\n                    /\n                    "
+                            ),
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteMaterial(material.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash-alt ml-2" })]
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  })
+                ],
+                2
+              )
             ])
           ])
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -66246,7 +66572,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-md-center" }, [
-      _c("div", { staticClass: "col-md-8 mt-3" }, [
+      _c("div", { staticClass: "col-md-8 mt-5" }, [
         _c("div", [
           _c("div", { staticClass: "card card-widget widget-user" }, [
             _c(
@@ -67468,9 +67794,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mt-5" }, [
+  return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "col-md-12  mt-5" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
             _c("h3", { staticClass: "card-title mt-2" }, [
@@ -67492,9 +67818,7 @@ var render = function() {
                       _c("i", {
                         staticClass: "fas fa-file-powerpoint nav-icon mr-2"
                       }),
-                      _vm._v(
-                        "\n                              Add project\n                          "
-                      )
+                      _vm._v("\n                Add project\n              ")
                     ]
                   )
                 ]
@@ -67616,13 +67940,7 @@ var render = function() {
                           _c(
                             "router-link",
                             { attrs: { to: "/projects/" + project.id } },
-                            [
-                              _vm._v(
-                                " " +
-                                  _vm._s(_vm._f("upText")(project.name)) +
-                                  " "
-                              )
-                            ]
+                            [_vm._v(_vm._s(_vm._f("upText")(project.name)))]
                           )
                         ],
                         1
@@ -67649,9 +67967,7 @@ var render = function() {
                               },
                               [_c("i", { staticClass: "fa fa-edit mr-2" })]
                             ),
-                            _vm._v(
-                              "\n                              /\n                              "
-                            ),
+                            _vm._v("\n                  /\n                  "),
                             _c(
                               "a",
                               {
@@ -67986,14 +68302,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "container mt-5" }, [
+    _c("div", { staticClass: "container" }, [
       !_vm.$gate.isAdminOrManegerOrOwner()
         ? _c("div", [_c("not-found")], 1)
         : _vm._e(),
       _vm._v(" "),
       _vm.$gate.isAdminOrManegerOrOwner()
         ? _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "col-md-12  mt-5" }, [
               _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-header" }, [
                   _c("h3", { staticClass: "card-title mt-2" }, [

@@ -8,7 +8,7 @@
 <template>
     <div class="container">
         <div class="row justify-content-md-center">
-            <div class="col-md-8 mt-3">
+            <div class="col-md-8 mt-5">
                 <div >
                     <!-- Widget: user widget style 1 -->
                     <div class="card card-widget widget-user">

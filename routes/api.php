@@ -15,10 +15,14 @@ Route::put('profile', 'API\UserController@updateProfile');
 Route::apiResources(['project' => 'API\ProjectController']);
 Route::apiResources(['room' => 'API\RoomController']);
 Route::apiResources(['cabinet' => 'API\CabinetController']);
+Route::apiResources(['supplier' => 'API\SupplierController']);
+Route::apiResources(['material' => 'API\MaterialController']);
+Route::apiResources(['finish' => 'API\FinishController']);
 Route::apiResources(['category' => 'API\CategoryController']);
 Route::apiResources(['subcategory' => 'API\SubCategoryController']);
 Route::apiResources(['library' => 'API\LibraryController']);
 Route::get('findProject', 'API\ProjectController@search');
+
 Route::get('findCabinet/{id}', 'API\LibraryController@findCabinet');
 Route::get('findCabinet', 'API\LibraryController@search');
 Route::get('findCabinetBySubCategory/{id}', 'API\LibraryController@findCabinetBySubCategory');

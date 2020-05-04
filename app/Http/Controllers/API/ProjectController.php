@@ -75,7 +75,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return Project::find($id);
+        return Project::findOrFail($id);
         // return response()->json($project);
     }
  
