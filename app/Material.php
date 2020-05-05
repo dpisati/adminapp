@@ -12,4 +12,8 @@ class Material extends Model
     public function supplier() {
         return $this->belongsTo(Supplier::class);
       }
+    public function finishes() {
+        return $this->hasMany(Finish::class);
+      }
+    
 }

@@ -41,7 +41,7 @@ class MaterialController extends Controller
             'name' => 'required|string|max:191',
             'supplier_id' => 'required'
         ]);
-        return Project::create([
+        return Material::create([
             'supplier_id' => $request['supplier_id'],
             'name' => $request['name']
         ]);

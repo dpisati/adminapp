@@ -26,7 +26,7 @@ class CreateCabinetsTable extends Migration
             $table->string('comment')->nullable();
             $table->string('type');
             $table->timestamps();
-
+            
             $table->foreign('room_id')
             ->references('id')
             ->on('rooms')        

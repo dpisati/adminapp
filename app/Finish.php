@@ -12,4 +12,7 @@ class Finish extends Model
     public function supplier() {
         return $this->belongsTo(Supplier::class);
       }
+    public function materials() {
+        return $this->belongsToMany(Material::class);
+      }
 }

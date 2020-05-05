@@ -16,7 +16,7 @@ class FinishController extends Controller
      */
     public function index()
     {
-        return Finish::all();
+        return Finish::with('supplier')->get();
     }
 
     /**
