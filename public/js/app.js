@@ -4382,6 +4382,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -68948,77 +68967,129 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-row mb-1" }, [
-                      _c("div", { staticClass: "form-group col-md-4" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.width,
-                              expression: "form.width"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Width" },
-                          domProps: { value: _vm.form.width },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-md-4" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.width,
+                                expression: "form.width"
                               }
-                              _vm.$set(_vm.form, "width", $event.target.value)
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("width")
+                            },
+                            attrs: {
+                              name: "width",
+                              type: "text",
+                              placeholder: "Width"
+                            },
+                            domProps: { value: _vm.form.width },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "width", $event.target.value)
+                              }
                             }
-                          }
-                        })
-                      ]),
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "width" }
+                          })
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "form-group col-md-4" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.height,
-                              expression: "form.height"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Height" },
-                          domProps: { value: _vm.form.height },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-md-4" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.height,
+                                expression: "form.height"
                               }
-                              _vm.$set(_vm.form, "height", $event.target.value)
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("height")
+                            },
+                            attrs: {
+                              name: "height",
+                              type: "text",
+                              placeholder: "Height"
+                            },
+                            domProps: { value: _vm.form.height },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "height",
+                                  $event.target.value
+                                )
+                              }
                             }
-                          }
-                        })
-                      ]),
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "height" }
+                          })
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "form-group col-md-4" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.depth,
-                              expression: "form.depth"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Depth" },
-                          domProps: { value: _vm.form.depth },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-md-4" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.depth,
+                                expression: "form.depth"
                               }
-                              _vm.$set(_vm.form, "depth", $event.target.value)
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("depth")
+                            },
+                            attrs: {
+                              name: "depth",
+                              type: "text",
+                              placeholder: "Depth"
+                            },
+                            domProps: { value: _vm.form.depth },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "depth", $event.target.value)
+                              }
                             }
-                          }
-                        })
-                      ]),
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "depth" }
+                          })
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -69058,7 +69129,7 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("has-error", {
-                            attrs: { form: _vm.form, field: "cabinetquantity" }
+                            attrs: { form: _vm.form, field: "quantity" }
                           })
                         ],
                         1

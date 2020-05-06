@@ -50,9 +50,9 @@ class CabinetController extends Controller
         $this->validate($request, [
             'id' => 'required',
             'quantity' => 'required',
-            'width' => 'required',
-            'height' => 'required',
-            'depth' => 'required'
+            'width' => 'required|integer|gt:100',
+            'height' => 'required|max:100',
+            'depth' => 'required|max:100'
         ]);
         return Cabinet::create([
             'cabinet_id' => $request['id'],

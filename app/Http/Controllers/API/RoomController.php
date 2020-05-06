@@ -117,7 +117,16 @@ class RoomController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function addCabinet(Request $request)
-    {     
+    {
+        $library = Library::findOrFail($request['cabinets']);
+        $this->validate($request, [
+            'id' => 'required',
+            'quantity' => 'required|integer|gte:0',
+            'width' => 'required|integer|gte:' . $library->min_width .'|lte:' . $library->max_width ,
+            'height' => 'required|integer|gte:' . $library->min_height .'|lte:' . $library->max_height ,
+            'depth' => 'required|integer|gte:' . $library->min_depth .'|lte:' . $library->max_depth ,
+        ]);
+
         $room = Room::findOrFail($request['room_id']);
         $cabinet = Cabinet::create([
             'cabinet_id' => $request['id'],

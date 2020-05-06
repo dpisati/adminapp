@@ -252,18 +252,37 @@
 
               <div class="form-row mb-1">
                 <div class="form-group col-md-4">
-                  <input type="text" class="form-control" placeholder="Width" v-model="form.width" />
+                  <input 
+                    name="width"
+                    type="text" 
+                    class="form-control"
+                    :class="{'is-invalid': form.errors.has('width')}"
+                    placeholder="Width" 
+                    v-model="form.width" 
+                  />
+                  <has-error :form="form" field="width"></has-error>
                 </div>
                 <div class="form-group col-md-4">
                   <input
+                    name="height"
                     type="text"
                     class="form-control"
                     placeholder="Height"
                     v-model="form.height"
+                    :class="{'is-invalid': form.errors.has('height')}"
                   />
+                  <has-error :form="form" field="height"></has-error>
                 </div>
                 <div class="form-group col-md-4">
-                  <input type="text" class="form-control" placeholder="Depth" v-model="form.depth" />
+                  <input 
+                    name="depth"
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Depth" 
+                    v-model="form.depth" 
+                    :class="{'is-invalid': form.errors.has('depth')}"
+                  />
+                  <has-error :form="form" field="depth"></has-error>
                 </div>
                 <div class="form-group col-md-4">
                   <input
@@ -274,7 +293,7 @@
                     class="form-control"
                     :class="{'is-invalid': form.errors.has('quantity')}"
                   />
-                  <has-error :form="form" field="cabinetquantity"></has-error>
+                  <has-error :form="form" field="quantity"></has-error>
                 </div>
                 <div class="form-group col-md-8">
                   <textarea
