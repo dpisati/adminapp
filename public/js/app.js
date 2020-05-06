@@ -2361,6 +2361,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -64927,7 +64930,7 @@ var render = function() {
                 "tbody",
                 [
                   _c("tr", [
-                    _c("th", [_vm._v("ID")]),
+                    _c("th", [_vm._v("Picture")]),
                     _vm._v(" "),
                     _c("th", [_vm._v("Category")]),
                     _vm._v(" "),
@@ -64941,57 +64944,82 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _vm._l(_vm.cabinets, function(cabinet) {
-                    return _c("tr", { key: cabinet.id }, [
-                      _c("td", [_vm._v(_vm._s(cabinet.id))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(_vm._s(cabinet.subcategory.category.name))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cabinet.subcategory.name))]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        [
-                          _c(
-                            "router-link",
-                            { attrs: { to: "/cabinet/" + cabinet.id } },
-                            [_vm._v(_vm._s(_vm._f("upText")(cabinet.name)))]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _vm.$gate.isAdminOrManegerOrOwner()
-                        ? _c("td", [
+                    return _c(
+                      "tr",
+                      { key: cabinet.id, staticClass: "align-middle" },
+                      [
+                        _c("td", { staticClass: "align-middle p-0" }, [
+                          _c("img", {
+                            staticStyle: {
+                              width: "100px",
+                              height: "100px",
+                              "object-fit": "cover"
+                            },
+                            attrs: {
+                              src: "/images/cabinets/" + cabinet.picture,
+                              alt: "cabinet"
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "align-middle" }, [
+                          _vm._v(_vm._s(cabinet.subcategory.category.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "align-middle" }, [
+                          _vm._v(_vm._s(cabinet.subcategory.name))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "align-middle" },
+                          [
                             _c(
-                              "a",
-                              {
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.editModal(cabinet)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-edit mr-2" })]
-                            ),
-                            _vm._v("\n                  /\n                  "),
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteCabinet(cabinet.id)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-trash-alt ml-2" })]
+                              "router-link",
+                              { attrs: { to: "/cabinet/" + cabinet.id } },
+                              [_vm._v(_vm._s(_vm._f("upText")(cabinet.name)))]
                             )
-                          ])
-                        : _vm._e()
-                    ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _vm.$gate.isAdminOrManegerOrOwner()
+                          ? _c("td", { staticClass: "align-middle" }, [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.editModal(cabinet)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-edit mr-2" })]
+                              ),
+                              _vm._v(
+                                "\n                  /\n                  "
+                              ),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteCabinet(cabinet.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fa fa-trash-alt ml-2"
+                                  })
+                                ]
+                              )
+                            ])
+                          : _vm._e()
+                      ]
+                    )
                   })
                 ],
                 2

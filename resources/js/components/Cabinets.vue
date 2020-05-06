@@ -23,21 +23,24 @@
             <table class="table table-hover">
               <tbody>
                 <tr>
-                  <th>ID</th>
+                  <th>Picture</th>
                   <th>Category</th>
                   <th>Subcategory</th>
                   <th>Name</th>
                   <th v-if="$gate.isAdminOrManegerOrOwner()">Modify</th>
                 </tr>
 
-                <tr v-for="cabinet in cabinets" :key="cabinet.id">
-                  <td>{{ cabinet.id }}</td>
-                  <td>{{ cabinet.subcategory.category.name }}</td>
-                  <td>{{ cabinet.subcategory.name }}</td>
-                  <td>
+                <tr v-for="cabinet in cabinets" :key="cabinet.id" class="align-middle">
+                  <td class="align-middle p-0">
+                    <img :src="`/images/cabinets/${cabinet.picture}`" alt="cabinet" style="width:100px;height:100px;object-fit:cover">
+                  </td>
+                  
+                  <td class="align-middle">{{ cabinet.subcategory.category.name }}</td>
+                  <td class="align-middle">{{ cabinet.subcategory.name }}</td>
+                  <td class="align-middle">
                     <router-link :to="'/cabinet/' + cabinet.id">{{ cabinet.name | upText }}</router-link>
                   </td>
-                  <td v-if="$gate.isAdminOrManegerOrOwner()">
+                  <td v-if="$gate.isAdminOrManegerOrOwner()" class="align-middle">
                     <a href="#" @click="editModal(cabinet)">
                       <i class="fa fa-edit mr-2"></i>
                     </a>

@@ -46981,3 +46981,8 @@ h5 {
   font-size: 1.2em;
 }
 
+.table td,
+.table tr {
+  text-align: center;
+}
+

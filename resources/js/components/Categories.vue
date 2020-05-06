@@ -31,7 +31,7 @@
 
                   <tr v-for="category in categories" :key="category.id">
                     <td>{{ category.id }}</td>
-                    <td>{{ category.name | upText }}</td>
+                    <td >{{ category.name | upText }}</td>
                     <td>
                       <a href="#" @click="editModal(category)">
                         <i class="fa fa-edit mr-2"></i>
