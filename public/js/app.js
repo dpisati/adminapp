@@ -4423,6 +4423,7 @@ __webpack_require__.r(__webpack_exports__);
         comment: "",
         type: "",
         project_id: "",
+        cabinet_id: "",
         room_id: "",
         category: "",
         subcategory: "",
@@ -4482,11 +4483,11 @@ __webpack_require__.r(__webpack_exports__);
           icon: "success",
           title: "Cabinet updated"
         });
-        $("#addNewCabinet").modal("hide");
 
         _this3.$Progress.finish();
 
         Fire.$emit("reloadRooms");
+        $("#addNewCabinet").modal("hide");
       })["catch"](function () {
         _this3.$Progress.fail();
 

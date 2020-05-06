@@ -347,6 +347,7 @@ export default {
         comment: "",
         type: "",
         project_id: "",
+        cabinet_id: "",
         room_id: "",
         category: "",
         subcategory: "",
@@ -403,9 +404,9 @@ export default {
             icon: "success",
             title: "Cabinet updated"
           });
-          $("#addNewCabinet").modal("hide");
           this.$Progress.finish();
           Fire.$emit("reloadRooms");
+          $("#addNewCabinet").modal("hide");
         })
         .catch(() => {
           this.$Progress.fail();

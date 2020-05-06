@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\User;
 use App\Cabinet;
 use App\Project;
+use App\Library;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -47,12 +48,13 @@ class CabinetController extends Controller
      */
     public function store(Request $request)
     {
+        $library = Library::findOrFail($request['cabinet_id']);
         $this->validate($request, [
             'id' => 'required',
-            'quantity' => 'required',
-            'width' => 'required|integer|gt:100',
-            'height' => 'required|max:100',
-            'depth' => 'required|max:100'
+            'quantity' => 'required|integer|gte:0',
+            'width' => 'required|integer|gte:' . $library->min_width .'|lte:' . $library->max_width ,
+            'height' => 'required|integer|gte:' . $library->min_height .'|lte:' . $library->max_height ,
+            'depth' => 'required|integer|gte:' . $library->min_depth .'|lte:' . $library->max_depth ,
         ]);
         return Cabinet::create([
             'cabinet_id' => $request['id'],
@@ -94,14 +96,14 @@ class CabinetController extends Controller
     public function update(Request $request, $id)
     {
         $cabinet = Cabinet::findOrFail($id);
+        $library = Library::findOrFail($request['cabinet_id']);
         $this->validate($request, [
             'id' => 'required',
-            'quantity' => 'required',
-            'width' => 'required',
-            'height' => 'required',
-            'depth' => 'required',
-            'type' => 'required'
-        ]); 
+            'quantity' => 'required|integer|gte:0',
+            'width' => 'required|integer|gte:' . $library->min_width .'|lte:' . $library->max_width ,
+            'height' => 'required|integer|gte:' . $library->min_height .'|lte:' . $library->max_height ,
+            'depth' => 'required|integer|gte:' . $library->min_depth .'|lte:' . $library->max_depth ,
+        ]);
         $cabinet->update($request->all());
         return ['message' => 'Cabinet updated'];
     }
