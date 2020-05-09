@@ -43,7 +43,10 @@ class MaterialController extends Controller
         ]);
         return Material::create([
             'supplier_id' => $request['supplier_id'],
-            'name' => $request['name']
+            'name' => $request['name'],
+            'finish' => $request['finish'],
+            'stock' => $request['stock'],
+            'range' => $request['range']
         ]);
     }
 

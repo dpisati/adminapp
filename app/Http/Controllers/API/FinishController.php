@@ -53,9 +53,10 @@ class FinishController extends Controller
      * @param  \App\Finish  $finish
      * @return \Illuminate\Http\Response
      */
-    public function show(Finish $finish)
+    public function show($id)
     {
-        return Finish::findOrFail($finish->id);
+        // return Finish::findOrFail($finish->id);
+        return Finish::where('supplier_id', $id)->get();
     }
 
     /**

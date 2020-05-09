@@ -15,7 +15,7 @@
                 </div>
               </div>
             </div>
-            <!-- /.card-header -->
+
             <div class="card-body table-responsive no-padding ">
               <table class="table table-hover">
                 <tbody>
@@ -42,7 +42,7 @@
               </table>
             </div>
           </div>
-        </div>
+        </div> 
         
 
         <div class="col-md-12 mt-3">
@@ -72,7 +72,7 @@
                   <tr v-for="material in materials" :key="material.id">
                     <td>{{ material.id }}</td>
                     <td>{{ material.supplier.name | upText }}</td>
-                    <td><router-link :to="'/material/' + material.id"> {{ material.name | upText }} </router-link></td>
+                    <td><router-link :to="'/material/' + material.id"> {{ material.name | upText }} {{ material.finish | upText }} </router-link></td>
                     <td v-if="$gate.isAdminOrManegerOrOwner()">
                       <a href="#" @click="editModal(material)">
                         <i class="fa fa-edit mr-2"></i>
@@ -91,7 +91,6 @@
 
 
 
-
         <div class="col-md-12 mt-3">
           <div class="card">
             <div class="card-header">
@@ -105,7 +104,7 @@
                 </div>
               </div>
             </div>
-            <!-- /.card-header -->
+            
             <div class="card-body table-responsive no-padding ">
               <table class="table table-hover">
                 <tbody>
@@ -116,7 +115,7 @@
                     <th v-if="$gate.isAdminOrManegerOrOwner()">Modify</th>
                   </tr>
 
-                  <tr v-for="finish in finishes" :key="finish.id">
+                  <tr v-for="finish in allfinishes" :key="finish.id">
                     <td>{{ finish.id }}</td>
                     <td>{{ finish.supplier.name | upText }}</td>
                     <td>{{ finish.name | upText  }}</td>
@@ -207,7 +206,7 @@
             <h5
               class="modal-title"
               id="addNewLabel"
-            >{{ editmode ? "Edit User" : "Create New User" }}</h5>
+            >{{ editmode ? "Edit Material" : "Create New Material" }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -219,6 +218,7 @@
             >
                <div class="form-group">
                 <select
+                  @change="loadFinishes"
                   v-model="form.supplier_id"
                   name="supplier"
                   class="form-control"
@@ -244,6 +244,54 @@
                   :class="{'is-invalid': form.errors.has('name')}"
                 />
                 <has-error :form="form" field="username"></has-error>
+              </div>
+
+                <div class="form-group">
+                  <select
+                    v-model="form.finish"
+                    name="finish"
+                    class="form-control"
+                    :class="{'is-invalid': form.errors.has('finish')}"
+                  >
+                    <option value disabled selected>- Finish -</option>
+                    <option
+                      v-for="finish in finishes"
+                      :key="finish.name"
+                      :value="finish.name"
+                    >{{ finish.name }}</option>
+                  </select>
+                  <has-error :form="form" field="finish"></has-error>
+                </div>
+
+                <div class="form-group">
+                <select
+                  v-model="form.range"
+                  name="range"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('range')}"
+                >
+                  <option value disabled selected>- Range -</option>
+                  <option value="One">One</option>
+                  <option value="Two">Two</option>
+                  <option value="Three">Three</option>
+                  <option value="Four">Four</option>
+                </select>
+                <has-error :form="form" field="range"></has-error>
+              </div>
+
+
+              <div class="form-group">
+                <select
+                  v-model="form.stock"
+                  name="stock"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('stock')}"
+                >
+                  <option value disabled selected>- Stock -</option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <has-error :form="form" field="stock"></has-error>
               </div>
 
               <div class="modal-footer">
@@ -345,6 +393,7 @@ export default {
         materials: {},
         suppliers: {},
         finishes: {},
+        allfinishes: {},
         editmode: false,
         form: new Form({
             id: "",
@@ -352,6 +401,7 @@ export default {
             name: "",
             finish: "",
             stock: "",
+            range: "",
             texture: ""
         })
         };
@@ -405,14 +455,15 @@ export default {
         getFinishes() {
             axios.get('api/finish')
             .then(response => {
-                this.finishes = response.data;
+                this.allfinishes = response.data;
 			      });
         },
         loadFinishes() {
           this.$Progress.start();
           axios
-          .get("/api/finishes/" + this.form.supplier_id)
+          .get("/api/finish/" + this.form.supplier_id)
           .then(({ data }) => {
+              console.log(data);
               this.finishes = data;
               this.$Progress.finish();
           })

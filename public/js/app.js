@@ -3415,12 +3415,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       materials: {},
       suppliers: {},
       finishes: {},
+      allfinishes: {},
       editmode: false,
       form: new Form({
         id: "",
@@ -3428,6 +3477,7 @@ __webpack_require__.r(__webpack_exports__);
         name: "",
         finish: "",
         stock: "",
+        range: "",
         texture: ""
       })
     };
@@ -3484,15 +3534,16 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       axios.get('api/finish').then(function (response) {
-        _this3.finishes = response.data;
+        _this3.allfinishes = response.data;
       });
     },
     loadFinishes: function loadFinishes() {
       var _this4 = this;
 
       this.$Progress.start();
-      axios.get("/api/finishes/" + this.form.supplier_id).then(function (_ref) {
+      axios.get("/api/finish/" + this.form.supplier_id).then(function (_ref) {
         var data = _ref.data;
+        console.log(data);
         _this4.finishes = data;
 
         _this4.$Progress.finish();
@@ -66708,6 +66759,8 @@ var render = function() {
                               _vm._v(
                                 " " +
                                   _vm._s(_vm._f("upText")(material.name)) +
+                                  " " +
+                                  _vm._s(_vm._f("upText")(material.finish)) +
                                   " "
                               )
                             ]
@@ -66806,7 +66859,7 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _vm._l(_vm.finishes, function(finish) {
+                  _vm._l(_vm.allfinishes, function(finish) {
                     return _c("tr", { key: finish.id }, [
                       _c("td", [_vm._v(_vm._s(finish.id))]),
                       _vm._v(" "),
@@ -67024,7 +67077,9 @@ var render = function() {
                   { staticClass: "modal-title", attrs: { id: "addNewLabel" } },
                   [
                     _vm._v(
-                      _vm._s(_vm.editmode ? "Edit User" : "Create New User")
+                      _vm._s(
+                        _vm.editmode ? "Edit Material" : "Create New Material"
+                      )
                     )
                   ]
                 ),
@@ -67085,23 +67140,27 @@ var render = function() {
                             },
                             attrs: { name: "supplier" },
                             on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.form,
-                                  "supplier_id",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "supplier_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                                _vm.loadFinishes
+                              ]
                             }
                           },
                           [
@@ -67167,6 +67226,216 @@ var render = function() {
                         _vm._v(" "),
                         _c("has-error", {
                           attrs: { form: _vm.form, field: "username" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.finish,
+                                expression: "form.finish"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("finish")
+                            },
+                            attrs: { name: "finish" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "finish",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { value: "", disabled: "", selected: "" }
+                              },
+                              [_vm._v("- Finish -")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.finishes, function(finish) {
+                              return _c(
+                                "option",
+                                {
+                                  key: finish.name,
+                                  domProps: { value: finish.name }
+                                },
+                                [_vm._v(_vm._s(finish.name))]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "finish" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.range,
+                                expression: "form.range"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("range")
+                            },
+                            attrs: { name: "range" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "range",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { value: "", disabled: "", selected: "" }
+                              },
+                              [_vm._v("- Range -")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "One" } }, [
+                              _vm._v("One")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Two" } }, [
+                              _vm._v("Two")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Three" } }, [
+                              _vm._v("Three")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Four" } }, [
+                              _vm._v("Four")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "range" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.stock,
+                                expression: "form.stock"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("stock")
+                            },
+                            attrs: { name: "stock" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "stock",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { value: "", disabled: "", selected: "" }
+                              },
+                              [_vm._v("- Stock -")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Yes" } }, [
+                              _vm._v("Yes")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "No" } }, [
+                              _vm._v("No")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "stock" }
                         })
                       ],
                       1

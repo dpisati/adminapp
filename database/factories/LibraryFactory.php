@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 $factory->define(Library::class, function (Faker $faker) {
     return [
-        'sub_category_id' => $faker->randomElement([1, 2, 3]),
+        'sub_category_id' => factory(App\SubCategory::class),
         'measure_type' => $faker->randomElement(['Single', 'Parametric', 'Multiple']),
         'type' => $faker->randomElement(['Cabinet', 'Panel']),
         'name' => $faker->name,
