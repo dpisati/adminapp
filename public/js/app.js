@@ -3463,6 +3463,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -66736,6 +66740,10 @@ var render = function() {
                     _vm._v(" "),
                     _c("th", [_vm._v("Name")]),
                     _vm._v(" "),
+                    _c("th", [_vm._v("Range")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Stock")]),
+                    _vm._v(" "),
                     _vm.$gate.isAdminOrManegerOrOwner()
                       ? _c("th", [_vm._v("Modify")])
                       : _vm._e()
@@ -66768,6 +66776,14 @@ var render = function() {
                         ],
                         1
                       ),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm._f("upText")(material.range)))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm._f("upText")(material.stock)))
+                      ]),
                       _vm._v(" "),
                       _vm.$gate.isAdminOrManegerOrOwner()
                         ? _c("td", [

@@ -66,6 +66,8 @@
                     <th>ID</th>
                     <th>Supplier</th>
                     <th>Name</th>
+                    <th>Range</th>
+                    <th>Stock</th>
                     <th v-if="$gate.isAdminOrManegerOrOwner()">Modify</th>
                   </tr>
 
@@ -73,6 +75,8 @@
                     <td>{{ material.id }}</td>
                     <td>{{ material.supplier.name | upText }}</td>
                     <td><router-link :to="'/material/' + material.id"> {{ material.name | upText }} {{ material.finish | upText }} </router-link></td>
+                    <td>{{ material.range | upText }}</td>
+                    <td>{{ material.stock | upText }}</td>
                     <td v-if="$gate.isAdminOrManegerOrOwner()">
                       <a href="#" @click="editModal(material)">
                         <i class="fa fa-edit mr-2"></i>
