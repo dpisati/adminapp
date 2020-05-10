@@ -22,6 +22,7 @@ Route::apiResources(['category' => 'API\CategoryController']);
 Route::apiResources(['subcategory' => 'API\SubCategoryController']);
 Route::apiResources(['library' => 'API\LibraryController']);
 Route::get('findProject', 'API\ProjectController@search');
+Route::get('findMaterial/{id}', 'API\MaterialController@find');
 
 Route::get('findCabinet/{id}', 'API\LibraryController@findCabinet');
 Route::get('findCabinet', 'API\LibraryController@search');

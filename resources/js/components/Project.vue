@@ -10,9 +10,7 @@
     <div class="row justify-content-md-center">
       <div class="col-md-12 mt-3">
         <div>
-          <!-- Widget: user widget style 1 -->
           <div class="card card-widget widget-user">
-            <!-- Add the bg color to the header using any of the bg-* classes -->
             <div
               class="d-flex widget-user-header bg-white justify-content-center align-items-center"
             >
@@ -69,6 +67,32 @@
                 </div>
               </div>
             </div>
+
+            <div class="card-footer pt-3">
+              <div class="row">
+                <div class="col-sm-6 border-right">
+                  <div class="description-block">
+                    <h5 class="description-header">{{ room.material }}</h5>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-6">
+                  <div class="description-block">
+                    <h5 class="description-header">{{ room.handle }}</h5>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+                
+
+
+
+
+
             <div class="card-body table-responsive no-padding">
               <table class="table table-hover">
                 <tbody>
@@ -148,6 +172,58 @@
                   :class="{'is-invalid': form.errors.has('name')}"
                 />
                 <has-error :form="form" field="roomname"></has-error>
+              </div>
+
+              <div class="form-group">
+                <select
+                  @change="loadMaterials"
+                  v-model="form.supplier_id"
+                  name="supplier"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('supplier')}"
+                >
+                  <option value disabled selected>- Supplier -</option>
+                  <option
+                    v-for="supplier in suppliers"
+                    :key="supplier.id"
+                    :value="supplier.id"
+                  >{{ supplier.name }}</option>
+                </select>
+                <has-error :form="form" field="supplier"></has-error>
+              </div>
+
+
+              <div class="form-group">
+                <select
+                  @change="loadSupplierName"
+                  v-model="form.material"
+                  name="material"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('material')}"
+                >
+                  <option value disabled selected>- Material -</option>
+                  <option
+                    v-for="material in materials"
+                    :key="material.id"
+                    :value="material.name + ' ' + material.finish"
+                  >{{ material.name }} {{ material.finish }} </option>
+                </select>
+                <has-error :form="form" field="material"></has-error>
+              </div>
+
+              <div class="form-group">
+                <select
+                  v-model="form.handle"
+                  name="handle"
+                  class="form-control"
+                  :class="{'is-invalid': form.errors.has('handle')}"
+                >
+                  <option value disabled selected>- Handle -</option>
+                  <option value="No Handle">No Handle</option>
+                  <option value="Strip Handle">Strip Handle</option>
+                  <option value="Hidden Handle">Hidden Handle</option>
+                </select>
+                <has-error :form="form" field="handle"></has-error>
               </div>
 
               <div class="modal-footer">
@@ -337,6 +413,10 @@ export default {
       cabinets: {},
       categories: {},
       subcategories: {},
+      allfinishes: {},
+      finishes: {},
+      materials: {},
+      suppliers: {},
       form: new Form({
         id: "",
         quantity: "",
@@ -351,7 +431,11 @@ export default {
         room_id: "",
         category: "",
         subcategory: "",
-        cabinets: ""
+        cabinets: "",
+        handle: "",
+        supplier_id: "",
+        completeMaterial: "",
+        material: ""
       })
     };
   },
@@ -603,12 +687,29 @@ export default {
         .catch(() => {
           this.$Progress.fail();
         });
-    }
+    },
+        loadMaterials() {
+            axios.get('/api/findMaterial/' + this.form.supplier_id)
+            .then(response => {
+                this.materials = response.data;
+            });
+        },
+        getSuppliers() {
+            axios.get('/api/supplier')
+            .then(response => {
+                this.suppliers = response.data;
+			      });
+        },
+        loadSupplierName() {
+          this.form.completeMaterial = this.materials[0].supplier.name + ' ' + this.form.material;
+        }
   },
   created() {
     this.loadRooms();
     this.loadCategories();
+    this.getSuppliers();  
     Fire.$on("reloadRooms", () => {
+      this.$Progress.start();
       this.loadRooms();
     });
   }

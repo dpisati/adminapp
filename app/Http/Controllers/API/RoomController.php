@@ -47,7 +47,10 @@ class RoomController extends Controller
         ]);
         return Room::create([
             'name' => $request['name'],
-            'project_id' => $request['project_id']
+            'project_id' => $request['project_id'],
+            'supplier_id' => $request['supplier_id'],
+            'material' => $request['completeMaterial'],
+            'handle' => $request['handle']
         ]);
     }
 

@@ -103,4 +103,14 @@ class MaterialController extends Controller
 
         return ['message' => 'Material Deleted'];
     }
+        /**
+     * Display the specified resource.
+     *
+     * @param  \App\Material  $material
+     * @return \Illuminate\Http\Response
+     */
+    public function find($id)
+    {
+        return Material::with('supplier')->where('supplier_id', $id)->get();
+    }
 }

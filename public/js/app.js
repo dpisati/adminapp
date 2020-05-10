@@ -4459,6 +4459,82 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4471,6 +4547,10 @@ __webpack_require__.r(__webpack_exports__);
       cabinets: {},
       categories: {},
       subcategories: {},
+      allfinishes: {},
+      finishes: {},
+      materials: {},
+      suppliers: {},
       form: new Form({
         id: "",
         quantity: "",
@@ -4485,7 +4565,11 @@ __webpack_require__.r(__webpack_exports__);
         room_id: "",
         category: "",
         subcategory: "",
-        cabinets: ""
+        cabinets: "",
+        handle: "",
+        supplier_id: "",
+        completeMaterial: "",
+        material: ""
       })
     };
   },
@@ -4749,15 +4833,35 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function () {
         _this12.$Progress.fail();
       });
+    },
+    loadMaterials: function loadMaterials() {
+      var _this13 = this;
+
+      axios.get('/api/findMaterial/' + this.form.supplier_id).then(function (response) {
+        _this13.materials = response.data;
+      });
+    },
+    getSuppliers: function getSuppliers() {
+      var _this14 = this;
+
+      axios.get('/api/supplier').then(function (response) {
+        _this14.suppliers = response.data;
+      });
+    },
+    loadSupplierName: function loadSupplierName() {
+      this.form.completeMaterial = this.materials[0].supplier.name + ' ' + this.form.material;
     }
   },
   created: function created() {
-    var _this13 = this;
+    var _this15 = this;
 
     this.loadRooms();
     this.loadCategories();
+    this.getSuppliers();
     Fire.$on("reloadRooms", function () {
-      _this13.loadRooms();
+      _this15.$Progress.start();
+
+      _this15.loadRooms();
     });
   }
 });
@@ -68715,6 +68819,26 @@ var render = function() {
                     : _vm._e()
                 ]),
                 _vm._v(" "),
+                _c("div", { staticClass: "card-footer pt-3" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-6 border-right" }, [
+                      _c("div", { staticClass: "description-block" }, [
+                        _c("h5", { staticClass: "description-header" }, [
+                          _vm._v(_vm._s(room.material))
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-6" }, [
+                      _c("div", { staticClass: "description-block" }, [
+                        _c("h5", { staticClass: "description-header" }, [
+                          _vm._v(_vm._s(room.handle))
+                        ])
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
                 _c(
                   "div",
                   { staticClass: "card-body table-responsive no-padding" },
@@ -68926,6 +69050,235 @@ var render = function() {
                         _vm._v(" "),
                         _c("has-error", {
                           attrs: { form: _vm.form, field: "roomname" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.supplier_id,
+                                expression: "form.supplier_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("supplier")
+                            },
+                            attrs: { name: "supplier" },
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "supplier_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                                _vm.loadMaterials
+                              ]
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { value: "", disabled: "", selected: "" }
+                              },
+                              [_vm._v("- Supplier -")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.suppliers, function(supplier) {
+                              return _c(
+                                "option",
+                                {
+                                  key: supplier.id,
+                                  domProps: { value: supplier.id }
+                                },
+                                [_vm._v(_vm._s(supplier.name))]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "supplier" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.material,
+                                expression: "form.material"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("material")
+                            },
+                            attrs: { name: "material" },
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "material",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                                _vm.loadSupplierName
+                              ]
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { value: "", disabled: "", selected: "" }
+                              },
+                              [_vm._v("- Material -")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.materials, function(material) {
+                              return _c(
+                                "option",
+                                {
+                                  key: material.id,
+                                  domProps: {
+                                    value: material.name + " " + material.finish
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(material.name) +
+                                      " " +
+                                      _vm._s(material.finish) +
+                                      " "
+                                  )
+                                ]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "material" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.handle,
+                                expression: "form.handle"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("handle")
+                            },
+                            attrs: { name: "handle" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "handle",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { value: "", disabled: "", selected: "" }
+                              },
+                              [_vm._v("- Handle -")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "No Handle" } }, [
+                              _vm._v("No Handle")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Strip Handle" } }, [
+                              _vm._v("Strip Handle")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "Hidden Handle" } },
+                              [_vm._v("Hidden Handle")]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "handle" }
                         })
                       ],
                       1

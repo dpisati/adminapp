@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     protected $fillable = [
-        'name', 'project_id'
+        'name', 'project_id', 'supplier_id', 'material', 'handle'
     ];
     public function project() {
         return $this->belongsTo(Project::class);
