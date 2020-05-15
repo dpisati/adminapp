@@ -47,11 +47,15 @@ h5 {
     z-index: 6;
 }
 .breadcrumb {
-    background-color:white;
+    background-color: white;
     color: black;
     justify-content: center;
     font-size: 1.2em;
 }
-.table td, .table tr {
-    text-align: center;   
- }
+.table td,
+.table tr {
+    text-align: center;
+}
+.main-sidebar {
+    position: fixed !important;
+}

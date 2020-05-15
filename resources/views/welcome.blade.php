@@ -5,98 +5,92 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Joinery Scene App</title>
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;700&display=swap" rel="stylesheet">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
         <!-- Styles -->
-        <style>
-            html, body {
-                /* background-color: #fff; */
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-                background-image: url("/images/main-background.jpg");
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                
-            }
-            .full-height {
-                height: 100vh;
-            }
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-            .position-ref {
-                position: relative;
-            }
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-            .content {
-                position: absolute;
-                text-align: center;
-            }
-            .title {
-                font-size: 84px;
-            }
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-                display: none;
-            }
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-            .flag {
-                position: absolute;
-                top: 25%;
-                left: 0px;
-                height: 50%;
-                width: 100vw;
-                background-color: white;
-                opacity: 0.6;                
-            }
-            .button {
-                margin-left: auto;
-                margin-right: auto;
-                text-decoration: none;
-                background-color: gray;
-                color: white;
-                width: 120px;
-                height: 50px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                transition: all 0.6s ease;
-            }
-            .button:hover {
-                background-color: #565c61;     
-            }
-            a {
-                text-decoration: none;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-        </style>
+        <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+
+         <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
     </head>
     <body>
+
+<header class="main-header">
+    <div class="logo">
+        <!-- <a href="#">Joinery Scene</a> -->
+        <img src="./images/main-pictures/js-logo-min.png" alt="LOGO" class="js-logo">
+    </div>
+
+    <input type="checkbox" class="menu-btn" id="menu-btn">
+        <label for="menu-btn" class="menu-icon">
+            <span class="menu-icon__line"></span>
+        </label>
+
+        <ul class="nav-links">
+            <li class="nav-link"><a href="#">Cabinets</a></li>
+            <li class="nav-link"><a href="#">Portfolio</a></li>
+            <li class="nav-link"><a href="#">Contact</a></li>
+            <!-- <li class="nav-link"><a href="#">Login</a></li> -->
+            @if (Route::has('login'))
+                @auth
+                    <li class="nav-link"><a href="{{ url('/home') }}">Home</a></li>
+                @else
+                    <li class="nav-link last"><a href="{{ route('login') }}">Login</a></li>
+                <!-- @if (Route::has('register'))
+                    <li class="nav-link"><a href="{{ route('register') }}">Register</a></li>
+                @endif -->
+                @endauth
+            @endif            
+        </ul>
+</header>
+
+<div class="container">
+    <div class="landing_picture"></div>
+    <div class="landing_picture2"></div>
+</div>
+
+
+
+    <!-- <div class="container">
+        <nav class="">
+            <a class="" href="#">Joinery Sceme App</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0 ml-5">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Cabinets <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Materials</a>
+                        </li>
+                    </ul>                    
+                    @if (Route::has('login'))
+                        <div class="top-right links">
+                            @auth
+                                <a href="{{ url('/home') }}">Home</a>
+                            @else
+                                <a class="btn btn-outline-success my-2 my-sm-0" href="{{ route('login') }}">Login</a>
+                            @if (Route::has('register'))
+                                <a class="ml-3" href="{{ route('register') }}">Register</a>
+                            @endif
+                            @endauth
+                        </div>
+                        @endif
+                </div>
+            </nav>
+        </div> -->
+
+
+<!-- 
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -114,9 +108,7 @@
             <div class="flag"></div>
 
             <div class="content">
-                <div class="title m-b-md">
-                    Joinery Scene App                    
-                </div>
+
                 <div>
                     <a href="{{ route('login') }}">
                         <div class="button">
@@ -126,5 +118,11 @@
                 </div>
             </div>
         </div>
-    </body>
+        @auth
+<script>
+  window.user = @json(auth()->user())
+</script>
+@endauth -->
+
+</body>
 </html>
