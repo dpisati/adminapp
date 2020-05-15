@@ -2,6 +2,7 @@
 @import "header";
 @import "media";
 @import "animations";
+@import "swiper";
 
 * {
     box-sizing: border-box;
@@ -28,7 +29,6 @@
 .range-kitchen {
     width: 50%;
     height: 100%;
-    background: blue;
     margin: 0;
     padding: 0;
     background: url("./images/portfolio/1.jpg") no-repeat

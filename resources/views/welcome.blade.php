@@ -18,17 +18,13 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
         <!-- Styles -->
-        {{-- <link href="{{ asset('css/main.css') }}" rel="stylesheet"> --}}
+        <link href="./node_modules/swiper/css/swiper.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
         <link href="/css/main.css" rel="stylesheet">
 
-
-
          <!-- Scripts -->
-        {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-
         <script src="/js/app.js" defer></script>
-
-
+        
 
     </head>
     <body>
@@ -87,7 +83,22 @@
         </div>
     </div>
 
-    
+     <!-- Swiper -->
+<div class="swiper">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="/images/portfolio/1.jpg" alt="1"></div>
+      <div class="swiper-slide"><img src="/images/portfolio/6.jpg" alt="2"></div>
+      <div class="swiper-slide"><img src="/images/portfolio/bishop1.jpg" alt="3"></div>
+      <div class="swiper-slide"><img src="/images/portfolio/melrose1.jpg" alt="5"></div>
+      <div class="swiper-slide"><img src="/images/portfolio/tutton1.jpg" alt="6"></div>
+      <div class="swiper-slide"><img src="/images/portfolio/madras1.jpg" alt="7"></div>
+      <div class="swiper-slide"><img src="/images/portfolio/10.jpg" alt="8"></div>    
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
 
 
 </div>
@@ -159,7 +170,23 @@
   window.user = @json(auth()->user())
 </script>
 @endauth -->
-
+<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        coverflowEffect: {
+        rotate: 20,
+        stretch: 0,
+        depth: 300,
+        modifier: 1,
+        slideShadows : false,
+        },
+        loop: true,
+    });
+</script>
 
 </body>
 </html>

@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import Gate from './Gate';
 
 
+
 Vue.prototype.$gate = new Gate(window.user);
 
 

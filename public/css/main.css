@@ -337,6 +337,42 @@
   }
 }
 
+.swiper {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  margin-bottom: 25px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background: url(/images/porcelain.jpg?4ce0a115c6d854e1592dd929daa67b06) no-repeat bottom center;
+  background-size: cover;
+}
+
+.swiper-container {
+  width: 100%;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.swiper-slide {
+  width: 55vw;
+  height: 65vh;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+.swiper-slide img {
+  width: 56vw;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -362,7 +398,6 @@
 .range-kitchen {
   width: 50%;
   height: 100%;
-  background: blue;
   margin: 0;
   padding: 0;
   background: url(/images/1.jpg?5159031728085cc775121a693da0a570) no-repeat bottom center;
