@@ -17,14 +17,15 @@
 
 .main-header {
   position: fixed;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 85px;
   width: 100vw;
   padding: 0 25px;
+  padding-right: 42px;
   color: black;
-  z-index: 1;
   top: 0;
   background-color: white;
 }
@@ -41,7 +42,6 @@
 }
 
 .main-header .nav-links {
-  padding-right: 10px;
   width: 60%;
   display: flex;
   justify-content: space-between;
@@ -54,22 +54,18 @@
 }
 
 .main-header .nav-links .nav-link a {
-  margin: 0.2rem;
-  padding: 1rem 0.5rem;
+  margin: 0.2rem 0px;
+  padding: 1rem 0px;
 }
 
 .main-header .nav-links .nav-link a:hover {
   color: #757575;
 }
 
-.main-header .nav-links .nav-link .last {
-  padding-right: 0px;
-  background-color: red;
-}
-
 .main-header .menu-icon {
   position: relative;
   padding: 26px 10px;
+  padding-right: 0px;
   cursor: pointer;
   z-index: 1;
   display: none;
@@ -353,5 +349,121 @@
   padding: 0px 25px;
   padding-top: 75px;
   padding-bottom: 25px;
+}
+
+.range {
+  width: 100%;
+  height: 95vh;
+  padding: 25px 0px;
+  display: flex;
+}
+
+.range-kitchen {
+  width: 50%;
+  height: 100%;
+  background: blue;
+  margin: 0;
+  padding: 0;
+  background: url(/images/1.jpg?5159031728085cc775121a693da0a570) no-repeat bottom center;
+  background-size: cover;
+  transition: all 0.5s ease;
+}
+
+.range-left {
+  width: 50%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.range-right {
+  width: 50%;
+  height: 100%;
+  display: block;
+}
+
+.range-left h3,
+.right-top h3,
+.right-bottom h3 {
+  position: absolute;
+  z-index: 5;
+  top: 80px;
+  left: 100px;
+  z-index: 1;
+  font-size: 7rem;
+  font-family: "Mr De Haviland", cursive;
+  font-weight: 100;
+}
+
+.range-left button,
+.right-top button,
+.right-bottom button {
+  position: absolute;
+  z-index: 5;
+  width: 150px;
+  height: 40px;
+  top: 220px;
+  left: 100px;
+  z-index: 1;
+  background: transparent;
+  border: 1px solid black;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  transition: all 0.5s ease;
+}
+
+.range-left button:hover,
+.right-top button:hover,
+.right-bottom button:hover {
+  background: black;
+  color: white;
+}
+
+.right-top,
+.right-bottom {
+  width: 100%;
+  height: 50%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.range-kitchen,
+.range-laundry,
+.range-bathroom {
+  width: 100%;
+  height: 100%;
+  background: url(/images/laundry.jpg?9a06df6add8f008e4849cc2e7dd0f09d) no-repeat bottom center;
+  background-size: cover;
+  transition: all 0.5s ease;
+}
+
+.range-bathroom {
+  background: url(/images/2.jpg?636b6eff59d7099d40cd6198fb839b54) no-repeat bottom center;
+  background-size: cover;
+}
+
+.range-kitchen {
+  background: url(/images/kitchen.jpg?4a9c7c9d63e2a630b17e758986151242) no-repeat bottom center;
+  background-size: cover;
+}
+
+.range-left:hover > .range-kitchen {
+  transform: scale(1.05);
+  opacity: 0.6;
+}
+
+.right-top:hover > .range-laundry {
+  transform: scale(1.05);
+  opacity: 0.6;
+}
+
+.right-bottom:hover > .range-bathroom {
+  transform: scale(1.05);
+  opacity: 0.4;
 }
 

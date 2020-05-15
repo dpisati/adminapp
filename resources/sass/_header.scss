@@ -1,13 +1,14 @@
 .main-header {
     position: fixed;
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 85px;
     width: 100vw;
     padding: 0 25px;
+    padding-right: 42px;
     color: black;
-    z-index: 1;
     top: 0;
     background-color: white;
     a {
@@ -21,7 +22,6 @@
     }
 
     .nav-links {
-        padding-right: 10px;
         width: 60%;
         display: flex;
         justify-content: space-between;
@@ -30,21 +30,20 @@
         .nav-link {
             transition: opacity 0.4s ease-in-out;
             a {
-                margin: 0.2rem;
-                padding: 1rem 0.5rem;
+                margin: 0.2rem 0px;
+                padding: 1rem 0px;
             }
             a:hover {
                 color: rgb(117, 117, 117);
             }
-            .last {
-                padding-right: 0px;
-                background-color: red;
-            }
         }
+
     }
+
     .menu-icon {
         position: relative;
         padding: 26px 10px;
+        padding-right: 0px;
         cursor: pointer;
         z-index: 1;
         display: none;

@@ -4,12 +4,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Joinery Scene App</title>
+        <title>Joinery Scene</title>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
+                <!-- Swiper Portfolio -->
+                <link rel="stylesheet" href="path/to/swiper.min.css">
+                <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mr+De+Haviland&display=swap" rel="stylesheet">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
@@ -17,9 +21,14 @@
         {{-- <link href="{{ asset('css/main.css') }}" rel="stylesheet"> --}}
         <link href="/css/main.css" rel="stylesheet">
 
+
+
          <!-- Scripts -->
         {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+
         <script src="/js/app.js" defer></script>
+
+
 
     </head>
     <body>
@@ -29,6 +38,7 @@
         <!-- <a href="#">Joinery Scene</a> -->
         <img src="./images/main-pictures/js-logo-min.png" alt="LOGO" class="js-logo">
     </div>
+
 
     <input type="checkbox" class="menu-btn" id="menu-btn">
         <label for="menu-btn" class="menu-icon">
@@ -44,7 +54,7 @@
                 @auth
                     <li class="nav-link"><a href="{{ url('/home') }}">Home</a></li>
                 @else
-                    <li class="nav-link last"><a href="{{ route('login') }}">Login</a></li>
+                    <li class="nav-link last"><a href="{{ route('login') }}" class="last">Login</a></li>
                 <!-- @if (Route::has('register'))
                     <li class="nav-link"><a href="{{ route('register') }}">Register</a></li>
                 @endif -->
@@ -54,8 +64,31 @@
 </header>
 
 <div class="container">
-    <div class="landing_picture"></div>
-    <div class="landing_picture2"></div>
+     <div class="landing_picture"></div>
+    
+    <div class="range">
+        <div class="range-left">
+            <h3>Kitchen</h3>
+            <button>View more</button>
+            <div class="range-kitchen"></div>
+        </div>
+        <div class="range-right">
+            <div class="right-top">
+                <h3>Laundry</h3>
+                <button>View more</button>
+                <div class="range-laundry"></div>
+            </div>
+            <div class="right-bottom">
+                <h3>Bathroom</h3>
+                <button>View more</button>
+                <div class="range-bathroom"></div>
+            </div>
+        </div>
+    </div>
+
+    
+
+
 </div>
 
 
@@ -125,6 +158,7 @@
   window.user = @json(auth()->user())
 </script>
 @endauth -->
+
 
 </body>
 </html>
