@@ -18,14 +18,11 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
         <!-- Styles -->
-        <link href="./node_modules/swiper/css/swiper.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
         <link href="/css/main.css" rel="stylesheet">
 
          <!-- Scripts -->
         <script src="/js/app.js" defer></script>
         
-
     </head>
     <body>
 
@@ -170,23 +167,7 @@
   window.user = @json(auth()->user())
 </script>
 @endauth -->
-<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
-<script>
-    var swiper = new Swiper('.swiper-container', {
-        effect: 'coverflow',
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        coverflowEffect: {
-        rotate: 20,
-        stretch: 0,
-        depth: 300,
-        modifier: 1,
-        slideShadows : false,
-        },
-        loop: true,
-    });
-</script>
+
 
 </body>
 </html>
