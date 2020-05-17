@@ -7,13 +7,22 @@
         <title>Joinery Scene</title>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-                <!-- Swiper Portfolio -->
-                <link rel="stylesheet" href="path/to/swiper.min.css">
-                <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+        <!-- Swiper Portfolio -->
+        <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+        <!-- Maps -->
+        < <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""/>
+        <!-- Make sure you put this AFTER Leaflet's CSS -->
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Mr+De+Haviland&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
@@ -81,24 +90,44 @@
     </div>
 
      <!-- Swiper -->
-<div class="swiper">
-  <div class="swiper-container">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="/images/portfolio/1.jpg" alt="1"></div>
-      <div class="swiper-slide"><img src="/images/portfolio/6.jpg" alt="2"></div>
-      <div class="swiper-slide"><img src="/images/portfolio/bishop1.jpg" alt="3"></div>
-      <div class="swiper-slide"><img src="/images/portfolio/melrose1.jpg" alt="5"></div>
-      <div class="swiper-slide"><img src="/images/portfolio/tutton1.jpg" alt="6"></div>
-      <div class="swiper-slide"><img src="/images/portfolio/madras1.jpg" alt="7"></div>
-      <div class="swiper-slide"><img src="/images/portfolio/10.jpg" alt="8"></div>    
+    <div class="swiper">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="/images/portfolio/1.jpg" alt="1"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/6.jpg" alt="2"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/bishop1.jpg" alt="3"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/melrose1.jpg" alt="5"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/tutton1.jpg" alt="6"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/madras1.jpg" alt="7"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/10.jpg" alt="8"></div>    
+            </div>
+        </div>
     </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination"></div>
-  </div>
+    
+    <div class="contact">
+        <div class="form">
+            <form action="">
+                <h2>Contact Us</h2>
+                <input type="text" name="name" id="name" placeholder="Name" autocomplete="none">
+                <input type="email" name="email" id="email" placeholder="E-mail" autocomplete="none">
+                <input type="phone" name="phone" id="phone" placeholder="Phone" autocomplete="none">
+                <textarea name="message" class="contact-input" placeholder="Message..." rows="2" autocomplete="none"></textarea>
+            </form>
+        </div>
+
+        <div class="contact-right">
+            <div class="map">
+                <div id="mapid"></div>
+            </div>
+            <div class="address">
+                <h3>Joinery Scene</h3>
+                <p>5 Newtown Street, Bromley - Christchurch - 8062</p>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-
-</div>
 
 
 
@@ -167,7 +196,6 @@
   window.user = @json(auth()->user())
 </script>
 @endauth -->
-
 
 </body>
 </html>

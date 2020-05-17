@@ -1,5 +1,4 @@
-.landing_picture,
-.landing_picture2 {
+.landing_picture {
   width: 100%;
   height: 100%;
   background: url(/images/landing-picture.jpg?5a2b56fa49c1577ff854910c962b114a) no-repeat bottom center;
@@ -9,10 +8,6 @@
   align-items: center;
   page-break-after: 0 10vw;
   color: white;
-}
-
-.landing_picture2 {
-  margin: 25px 0px;
 }
 
 .main-header {
@@ -501,5 +496,80 @@
 .right-bottom:hover > .range-bathroom {
   transform: scale(1.05);
   opacity: 0.4;
+}
+
+.contact {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.form {
+  width: 50%;
+  height: 100%;
+  background: url(/images/concrete-grey.jpg?5b800d4a016eee45e4cf8f8a93fdd00a) no-repeat bottom center;
+  background-size: cover;
+  color: white;
+}
+
+.form h2 {
+  font-family: "Cinzel", serif;
+  font-weight: 400;
+  font-size: 3em;
+  margin-top: 110px;
+  margin-left: 90px;
+  margin-bottom: 50px;
+}
+
+.form input,
+.form textarea {
+  font-size: 1.2rem;
+  background: rgba(46, 46, 46, 0.2);
+  width: 60%;
+  margin: 15px 20%;
+  padding: 15px 20px;
+  outline: none;
+  border: none;
+  border-bottom: 1px grey solid;
+  border-radius: 5px;
+  color: white;
+}
+
+input:focus,
+textarea:focus {
+  outline: 0;
+  border-bottom: 2px white solid;
+}
+
+.contact-right {
+  width: 50%;
+  height: 100%;
+  background: silver;
+}
+
+.map {
+  height: 60%;
+}
+
+#mapid {
+  height: 100%;
+  width: 100%;
+}
+
+.address {
+  height: 40%;
+  background: #1f1f1f;
+  color: white;
+}
+
+.address h3,
+.address p {
+  width: 100%;
+  padding-left: 25px;
+  padding-top: 30px;
+  font-family: "Cinzel", serif;
+  font-weight: 400;
+  font-size: 1.5rem;
 }
 
