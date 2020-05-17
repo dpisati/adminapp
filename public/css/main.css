@@ -378,9 +378,10 @@
 .container {
   width: 100%;
   height: 100vh;
-  padding: 0px 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 40px;
   padding-top: 75px;
-  padding-bottom: 25px;
 }
 
 .range {
@@ -576,15 +577,42 @@ textarea:focus {
   height: 40%;
   background: #1f1f1f;
   color: white;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.address h3,
-.address p {
+.address-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  padding-left: 25px;
-  padding-top: 30px;
+  height: 30%;
+}
+
+.address-title h3 {
   font-family: "Cinzel", serif;
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 2rem;
+  padding-top: 3%;
+}
+
+.address-left,
+.address-right {
+  width: 50%;
+  height: 70%;
+  padding-left: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 3%;
+  padding-bottom: 6%;
+  font-size: 1.3rem;
+}
+
+.address-left p,
+.address-right p {
+  width: 100%;
+  font-weight: 100;
 }
 

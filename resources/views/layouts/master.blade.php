@@ -97,6 +97,12 @@
                 <p>Projects</p>
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link to="/manual" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <p>Manual</p>
+              </router-link>
+            </li>
           </ul>
         </li>
       </ul>

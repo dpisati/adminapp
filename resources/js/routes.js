@@ -3,6 +3,7 @@ import Profile from "./components/Profile";
 import Users from "./components/Users";
 import Categories from "./components/Categories";
 import Projects from "./components/Projects";
+import Manual from "./components/Manual";
 import Project from "./components/Project";
 import Cabinets from "./components/Cabinets";
 import Cabinet from "./components/Cabinet";
@@ -18,6 +19,7 @@ export default {
         { path: "/users", component: Users },
         { path: "/categories", component: Categories },
         { path: "/projects", component: Projects },
+        { path: "/manual", component: Manual },
         { path: "/projects/:id", component: Project },
         { path: "/cabinets", component: Cabinets },
         { path: "/cabinet/:id", component: Cabinet },

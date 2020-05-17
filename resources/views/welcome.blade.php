@@ -31,7 +31,8 @@
 
          <!-- Scripts -->
         <script src="/js/app.js" defer></script>
-        
+        <script src="/js/maps.js" defer></script>
+                
     </head>
     <body>
 
@@ -39,7 +40,6 @@
     <div class="logo">
         <!-- <a href="#">Joinery Scene</a> -->
         <img src="./images/main-pictures/jslogo.jpg" alt="LOGO" class="js-logo">
-        {{-- <img src="./images/main-pictures/js-logo-min.png" alt="LOGO" class="js-logo"> --}}
     </div>
 
 
@@ -49,7 +49,7 @@
         </label>
 
         <ul class="nav-links">
-            <li class="nav-link"><a href="#">Cabinets</a></li>
+            <li class="nav-link"><a href="#">Shop</a></li>
             <li class="nav-link"><a href="#">Portfolio</a></li>
             <li class="nav-link"><a href="#">Contact</a></li>
             <!-- <li class="nav-link"><a href="#">Login</a></li> -->
@@ -121,8 +121,17 @@
                 <div id="mapid"></div>
             </div>
             <div class="address">
-                <h3>Joinery Scene</h3>
-                <p>5 Newtown Street, Bromley - Christchurch - 8062</p>
+                <div class="address-title">
+                    <h3>Joinery Scene</h3>
+                </div>
+                <div class="address-left">
+                    <p>5 Newtown Street, Bromley</p>
+                    <p>Christchurch - 8062</p>
+                </div>
+                <div class="address-right">
+                    <p>03 384 3547</p>
+                    <p>admin@joineryscene.co.nz</p>
+                </div>
             </div>
         </div>
     </div>
@@ -199,4 +208,6 @@
 @endauth -->
 
 </body>
+<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+<script src="/js/swiper.js"></script>
 </html>

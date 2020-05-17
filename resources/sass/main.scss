@@ -14,10 +14,10 @@
 .container {
     width: 100%;
     height: 100vh;
-    padding: 0px 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 40px;
     padding-top: 75px;
-    padding-bottom: 25px;
-
 }
 
 .range {
@@ -31,10 +31,9 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    background: url("./images/portfolio/1.jpg") no-repeat
-    bottom center;
+    background: url("./images/portfolio/1.jpg") no-repeat bottom center;
     background-size: cover;
-    transition: all .5s ease;
+    transition: all 0.5s ease;
 }
 .range-left {
     width: 50%;
@@ -48,17 +47,21 @@
     height: 100%;
     display: block;
 }
-.range-left h3 , .right-top h3, .right-bottom h3 {
+.range-left h3,
+.right-top h3,
+.right-bottom h3 {
     position: absolute;
     z-index: 5;
     top: 80px;
     left: 100px;
     z-index: 1;
     font-size: 7rem;
-    font-family: 'Mr De Haviland', cursive;
+    font-family: "Mr De Haviland", cursive;
     font-weight: 100;
 }
-.range-left button, .right-top button, .right-bottom button {
+.range-left button,
+.right-top button,
+.right-bottom button {
     position: absolute;
     z-index: 5;
     width: 150px;
@@ -67,19 +70,22 @@
     left: 100px;
     z-index: 1;
     background: transparent;
-	border: 1px solid black;
-	padding: 0;
+    border: 1px solid black;
+    padding: 0;
     font: inherit;
-	cursor: pointer;
+    cursor: pointer;
     outline: inherit;
-    transition: all .5s ease;
+    transition: all 0.5s ease;
 }
-.range-left button:hover, .right-top button:hover, .right-bottom button:hover {
+.range-left button:hover,
+.right-top button:hover,
+.right-bottom button:hover {
     background: black;
     color: white;
 }
 
-.right-top, .right-bottom {
+.right-top,
+.right-bottom {
     width: 100%;
     height: 50%;
     margin: 0;
@@ -88,37 +94,36 @@
     position: relative;
 }
 
-.range-kitchen, .range-laundry, .range-bathroom {
+.range-kitchen,
+.range-laundry,
+.range-bathroom {
     width: 100%;
     height: 100%;
-    background: url("./images/portfolio/laundry.jpg") no-repeat
-    bottom center;
+    background: url("./images/portfolio/laundry.jpg") no-repeat bottom center;
     background-size: cover;
-    transition: all .5s ease;
+    transition: all 0.5s ease;
 }
 .range-bathroom {
-    background: url("./images/portfolio/2.jpg") no-repeat
-    bottom center;
+    background: url("./images/portfolio/2.jpg") no-repeat bottom center;
     background-size: cover;
 }
 .range-kitchen {
-    background: url("./images/portfolio/kitchen.jpg") no-repeat
-    bottom center;
+    background: url("./images/portfolio/kitchen.jpg") no-repeat bottom center;
     background-size: cover;
 }
 
-  .range-left:hover > .range-kitchen {
+.range-left:hover > .range-kitchen {
     transform: scale(1.05);
     opacity: 0.6;
-  }
-  .right-top:hover > .range-laundry {
+}
+.right-top:hover > .range-laundry {
     transform: scale(1.05);
     opacity: 0.6;
-  }
-  .right-bottom:hover > .range-bathroom {
+}
+.right-bottom:hover > .range-bathroom {
     transform: scale(1.05);
     opacity: 0.4;
-  }
+}
 
 .contact {
     width: 100%;
@@ -130,21 +135,22 @@
 .form {
     width: 50%;
     height: 100%;
-    background: url("./images/textures/concrete-grey.jpg") no-repeat
-    bottom center;
+    background: url("./images/textures/concrete-grey.jpg") no-repeat bottom
+        center;
     background-size: cover;
     color: white;
 }
 
 .form h2 {
-    font-family: 'Cinzel', serif;
+    font-family: "Cinzel", serif;
     font-weight: 400;
     font-size: 3em;
     margin-top: 110px;
     margin-left: 90px;
     margin-bottom: 50px;
 }
-.form input, .form textarea {
+.form input,
+.form textarea {
     font-size: 1.2rem;
     background: rgb(46, 46, 46, 0.2);
     width: 60%;
@@ -161,12 +167,13 @@ textarea {
     resize: none;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
     outline: 0;
     border-bottom: 2px white solid;
-  }
+}
 
-  .form button {
+.form button {
     width: 60%;
     margin: 15px 20%;
     padding: 15px 20px;
@@ -175,7 +182,7 @@ input:focus, textarea:focus {
     font-size: 1.5rem;
     border-radius: 5px;
     margin-top: 25px;
-  }
+}
 
 .contact-right {
     width: 50%;
@@ -194,13 +201,39 @@ input:focus, textarea:focus {
     height: 40%;
     background: #1f1f1f;
     color: white;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-.address h3, .address p {
+.address-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding-left: 25px;
-    padding-top: 30px;
-    font-family: 'Cinzel', serif;
+    height: 30%;
+}
+.address-title h3 {
+    font-family: "Cinzel", serif;
     font-weight: 400;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    padding-top: 3%;
+}
+
+.address-left,
+.address-right {
+    width: 50%;
+    height: 70%;
+    padding-left: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 3%;
+    padding-bottom: 6%;
+    font-size: 1.3rem;
+}
+.address-left p,
+.address-right p {
+    width: 100%;
+    font-weight: 100;
 }
