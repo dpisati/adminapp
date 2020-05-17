@@ -95,10 +95,10 @@
             <div class="swiper-wrapper">
             <div class="swiper-slide"><img src="/images/portfolio/1.jpg" alt="1"></div>
             <div class="swiper-slide"><img src="/images/portfolio/6.jpg" alt="2"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/bishop1.jpg" alt="3"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/melrose1.jpg" alt="5"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/tutton1.jpg" alt="6"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/madras1.jpg" alt="7"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/bishop1.jpg" alt="bishop"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/melrose1.jpg" alt="melrose"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/tutton1.jpg" alt="tutton"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/madras1.jpg" alt="madras"></div>
             <div class="swiper-slide"><img src="/images/portfolio/10.jpg" alt="8"></div>    
             </div>
         </div>
