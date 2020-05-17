@@ -111,7 +111,8 @@
                 <input type="text" name="name" id="name" placeholder="Name" autocomplete="none">
                 <input type="email" name="email" id="email" placeholder="E-mail" autocomplete="none">
                 <input type="phone" name="phone" id="phone" placeholder="Phone" autocomplete="none">
-                <textarea name="message" class="contact-input" placeholder="Message..." rows="2" autocomplete="none"></textarea>
+                <textarea name="message" class="contact-input" placeholder="Message..." rows="3" autocomplete="none"></textarea>
+                <button type="submit">Send</button>
             </form>
         </div>
 

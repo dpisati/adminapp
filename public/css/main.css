@@ -536,10 +536,25 @@
   color: white;
 }
 
+textarea {
+  resize: none;
+}
+
 input:focus,
 textarea:focus {
   outline: 0;
   border-bottom: 2px white solid;
+}
+
+.form button {
+  width: 60%;
+  margin: 15px 20%;
+  padding: 15px 20px;
+  outline: none;
+  border: none;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  margin-top: 25px;
 }
 
 .contact-right {
