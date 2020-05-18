@@ -1,5 +1,6 @@
 @media screen and (max-width: 767px) {
     .main-header {
+        padding: 0px 20px;
         .menu-icon {
             display: block;
             &__line {
@@ -72,6 +73,8 @@
 
     .container {
         display: block;
+        padding-left: 15px;
+        padding-right: 15px;
     }
     .range {
         display: block;
@@ -158,5 +161,9 @@
         height: 25%;
         padding: 15px 0px;
         margin: 0px;
+    }
+    .address-left p,
+    .address-right p {
+        font-size: 1.2rem;
     }
 }
