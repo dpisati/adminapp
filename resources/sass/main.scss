@@ -264,7 +264,10 @@ textarea:focus {
     font-weight: 100;
 }
 #contact {
-    padding-top: 100px;
+    display: block;
+    position: relative;
+    top: -100px;
+    visibility: hidden;
 }
 
 @import "media";

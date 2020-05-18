@@ -568,7 +568,10 @@ textarea:focus {
 }
 
 #contact {
-  padding-top: 100px;
+  display: block;
+  position: relative;
+  top: -100px;
+  visibility: hidden;
 }
 
 @media screen and (max-width: 767px) {
