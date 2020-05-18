@@ -24,12 +24,13 @@
     overflow: hidden;
     position: relative;
     text-align: center;
+    text-align: center;
 }
 .swiper-slide img {
-    width: 56vw;
+    height: 65vh;
     position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%), translateX(-50%);
+
     // -webkit-box-shadow: 40px 8px 410px -6px black;
     // -moz-box-shadow: 40px 8px 40px -6px black;
     //      box-shadow: 40px 8px 40px -6px black;

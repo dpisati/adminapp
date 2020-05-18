@@ -279,13 +279,13 @@
   overflow: hidden;
   position: relative;
   text-align: center;
+  text-align: center;
 }
 
 .swiper-slide img {
-  width: 56vw;
+  height: 65vh;
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%), translateX(-50%);
 }
 
 * {
