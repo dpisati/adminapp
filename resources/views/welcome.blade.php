@@ -116,7 +116,8 @@
         </div>
     </div>
     
-    <div class="contact" id="contact">
+    <div id="contact"></div>
+    <div class="contact">
         <div class="form">
             <form action="">
                 <h2>Contact Us</h2>
@@ -222,5 +223,4 @@
 </body>
 <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 <script src="/js/swiper.js"></script>
-
 </html>

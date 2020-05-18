@@ -9,6 +9,10 @@ import VueProgressBar from "vue-progressbar";
 import Swal from "sweetalert2";
 import Gate from "./Gate";
 
+$(".nav-link a").on("click", function() {
+    $(".menu-icon").click();
+});
+
 Vue.prototype.$gate = new Gate(window.user);
 
 const Toast = Swal.mixin({

@@ -1,7 +1,7 @@
 @media screen and (max-width: 767px) {
     .main-header {
         padding: 0px 20px;
-        z-index: 99999999999999999;
+        z-index: 9;
         .menu-icon {
             display: block;
             &__line {
@@ -55,6 +55,7 @@
                 transition: all 0.4s ease-in-out;
             }
         }
+
         .menu-btn:checked ~ .menu-icon {
             .menu-icon__line {
                 background: white;
@@ -76,6 +77,10 @@
         display: block;
         padding-left: 15px;
         padding-right: 15px;
+    }
+    .landing_picture {
+        background: url("./images/portfolio/vertical.jpg") no-repeat bottom
+            center;
     }
     .range {
         display: block;
@@ -174,5 +179,8 @@
     .address-left p,
     .address-right p {
         font-size: 2vh;
+    }
+    #contact {
+        padding-top: 100px;
     }
 }

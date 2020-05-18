@@ -424,7 +424,7 @@ a {
 }
 
 .range-kitchen {
-  background: url(/images/kitchen.jpg?4a9c7c9d63e2a630b17e758986151242) no-repeat bottom center;
+  background: url(/images/7.jpg?0a8621937efe01d6025d677362a93d6e) no-repeat bottom center;
   background-size: cover;
 }
 
@@ -570,7 +570,7 @@ textarea:focus {
 @media screen and (max-width: 767px) {
   .main-header {
     padding: 0px 20px;
-    z-index: 100000000000000020;
+    z-index: 9;
   }
 
   .main-header .menu-icon {
@@ -658,6 +658,10 @@ textarea:focus {
     display: block;
     padding-left: 15px;
     padding-right: 15px;
+  }
+
+  .landing_picture {
+    background: url(/images/vertical.jpg?7a4a876c0a18d0cb1f4419e306e57508) no-repeat bottom center;
   }
 
   .range {
@@ -771,6 +775,10 @@ textarea:focus {
   .address-left p,
   .address-right p {
     font-size: 2vh;
+  }
+
+  #contact {
+    padding-top: 100px;
   }
 }
 
