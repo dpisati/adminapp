@@ -107,11 +107,23 @@
             <div class="swiper-wrapper">
             <div class="swiper-slide"><img src="/images/portfolio/1.jpg" alt="1"></div>
             <div class="swiper-slide"><img src="/images/portfolio/6.jpg" alt="2"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/bishop1.jpg" alt="bishop"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/melrose1.jpg" alt="melrose"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/tutton1.jpg" alt="tutton"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/madras1.jpg" alt="madras"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/Canon 2.jpg" alt="bishop"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/3.jpg" alt="melrose"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/4.jpg" alt="tutton"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/5.jpg" alt="madras"></div>
             <div class="swiper-slide"><img src="/images/portfolio/10.jpg" alt="8"></div>    
+            <div class="swiper-slide"><img src="/images/portfolio/Bishop 1.jpg" alt="8"></div>    
+            <div class="swiper-slide"><img src="/images/portfolio/Bishop 3.jpg" alt="8"></div>    
+            <div class="swiper-slide"><img src="/images/portfolio/Bishop 5.jpg" alt="8"></div>    
+            <div class="swiper-slide"><img src="/images/portfolio/Bishop 6.jpg" alt="8"></div>    
+            <div class="swiper-slide"><img src="/images/portfolio/Canon 4.jpg" alt="8"></div>   
+            <div class="swiper-slide"><img src="/images/portfolio/Canon 3.jpg" alt="8"></div>   
+            <div class="swiper-slide"><img src="/images/portfolio/Canon 6.jpg" alt="8"></div>   
+            <div class="swiper-slide"><img src="/images/portfolio/Madras 3.jpg" alt="8"></div>   
+            <div class="swiper-slide"><img src="/images/portfolio/Madras L.jpg" alt="8"></div>   
+            <div class="swiper-slide"><img src="/images/portfolio/Madras wardrobe.jpg" alt="8"></div>   
+            <div class="swiper-slide"><img src="/images/portfolio/tutton1.jpg" alt="8"></div>   
+            <div class="swiper-slide"><img src="/images/portfolio/Tutton.jpg" alt="8"></div>   
             </div>
         </div>
     </div>
