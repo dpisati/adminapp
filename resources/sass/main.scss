@@ -1,6 +1,5 @@
 @import "landing_picture";
 @import "header";
-@import "media";
 @import "animations";
 @import "swiper";
 
@@ -9,6 +8,26 @@
     padding: 0;
     margin: 0;
     font-family: "Montserrat", sans-serif;
+    scroll-behavior: smooth;
+}
+body {
+    overflow-x: hidden;
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+#top {
+    display: block;
+    position: relative;
+    top: -100px;
+    visibility: hidden;
+}
+#portfolio {
+    display: block;
+    position: relative;
+    top: -75px;
+    visibility: hidden;
 }
 
 .container {
@@ -182,6 +201,13 @@ textarea:focus {
     font-size: 1.5rem;
     border-radius: 5px;
     margin-top: 25px;
+    background: rgb(209, 209, 209);
+    transition: all 0.2s ease-in-out;
+}
+
+.form button:hover {
+    cursor: pointer;
+    background: white;
 }
 
 .contact-right {
@@ -237,3 +263,5 @@ textarea:focus {
     width: 100%;
     font-weight: 100;
 }
+
+@import "media";

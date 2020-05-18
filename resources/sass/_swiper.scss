@@ -1,7 +1,7 @@
 .swiper {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 14px;
-    color:#000;
+    color: #000;
     margin: 0;
     margin-bottom: 25px;
     padding: 0;
@@ -9,24 +9,22 @@
     justify-content: center;
     align-items: center;
     min-height: 90vh;
-    background: url("./images/textures/porcelain.jpg") no-repeat
-    bottom center;
+    background: url("./images/textures/porcelain.jpg") no-repeat bottom center;
     background-size: cover;
-  }
-  .swiper-container {
+    scroll-snap-align: start;
+}
+.swiper-container {
     width: 100%;
     padding-top: 100px;
     padding-bottom: 100px;
-  }
-  .swiper-slide {
+}
+.swiper-slide {
     width: 55vw;
     height: 65vh;
     overflow: hidden;
     position: relative;
     text-align: center;
-    
-
-  }
+}
 .swiper-slide img {
     width: 56vw;
     position: relative;
@@ -35,5 +33,4 @@
     // -webkit-box-shadow: 40px 8px 410px -6px black;
     // -moz-box-shadow: 40px 8px 40px -6px black;
     //      box-shadow: 40px 8px 40px -6px black;
-
 }

@@ -5,14 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Joinery Scene</title>
+
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <!-- Swiper Portfolio -->
         <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+
         <!-- Maps -->
         < <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
         crossorigin=""/>
+
         <!-- Make sure you put this AFTER Leaflet's CSS -->
         <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
@@ -23,25 +27,25 @@
         <link href="https://fonts.googleapis.com/css2?family=Mr+De+Haviland&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
 
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-
         <!-- Styles -->
         <link href="/css/main.css" rel="stylesheet">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">      
 
          <!-- Scripts -->
         <script src="/js/app.js" defer></script>
         <script src="/js/maps.js" defer></script>
                 
-    </head>
-    <body>
+</head>
+<body>
 
 <header class="main-header">
     <div class="logo">
         <!-- <a href="#">Joinery Scene</a> -->
-        <img src="./images/main-pictures/jslogo.jpg" alt="LOGO" class="js-logo">
+        <a href="#top">
+            <img src="./images/main-pictures/jslogo.jpg" alt="LOGO" class="js-logo">
+        </a>
     </div>
-
 
     <input type="checkbox" class="menu-btn" id="menu-btn">
         <label for="menu-btn" class="menu-icon">
@@ -50,8 +54,8 @@
 
         <ul class="nav-links">
             <li class="nav-link"><a href="#">Shop</a></li>
-            <li class="nav-link"><a href="#">Portfolio</a></li>
-            <li class="nav-link"><a href="#">Contact</a></li>
+            <li class="nav-link"><a href="#portfolio">Portfolio</a></li>
+            <li class="nav-link"><a href="#contact">Contact</a></li>
             <!-- <li class="nav-link"><a href="#">Login</a></li> -->
             @if (Route::has('login'))
                 @auth
@@ -67,29 +71,37 @@
 </header>
 
 <div class="container">
-     <div class="landing_picture"></div>
-    
+    <a id="top"></a>
+    <div class="landing_picture"></div>    
+
     <div class="range">
         <div class="range-left">
             <h3>Kitchen</h3>
-            <button>View more</button>
+                <a href="#portfolio">
+                    <button>View more</button>
+                </a>
             <div class="range-kitchen"></div>
         </div>
         <div class="range-right">
             <div class="right-top">
                 <h3>Laundry</h3>
-                <button>View more</button>
+                    <a href="#portfolio">
+                        <button>View more</button>
+                    </a>
                 <div class="range-laundry"></div>
             </div>
             <div class="right-bottom">
                 <h3>Bathroom</h3>
-                <button>View more</button>
+                <a href="#portfolio">
+                        <button>View more</button>
+                    </a>
                 <div class="range-bathroom"></div>
             </div>
         </div>
     </div>
 
      <!-- Swiper -->
+     <div id="portfolio"></div>
     <div class="swiper">
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -104,7 +116,7 @@
         </div>
     </div>
     
-    <div class="contact">
+    <div class="contact" id="contact">
         <div class="form">
             <form action="">
                 <h2>Contact Us</h2>
@@ -125,8 +137,8 @@
                     <h3>Joinery Scene</h3>
                 </div>
                 <div class="address-left">
-                    <p>5 Newtown Street, Bromley</p>
-                    <p>Christchurch - 8062</p>
+                    <p><a href="https://goo.gl/maps/7FUATDXZsPnKWfVK6" target="_blank">5 Newtown Street, Bromley</a></p>
+                    <p><a href="https://goo.gl/maps/7FUATDXZsPnKWfVK6" target="_blank">Christchurch - 8062</a></p>
                 </div>
                 <div class="address-right">
                     <p>03 384 3547</p>
@@ -210,4 +222,5 @@
 </body>
 <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 <script src="/js/swiper.js"></script>
+
 </html>
