@@ -119,11 +119,7 @@
             <div class="swiper-slide"><img src="/images/portfolio/Canon 4.jpg" alt="8"></div>   
             <div class="swiper-slide"><img src="/images/portfolio/Canon 3.jpg" alt="8"></div>   
             <div class="swiper-slide"><img src="/images/portfolio/Canon 6.jpg" alt="8"></div>   
-            <div class="swiper-slide"><img src="/images/portfolio/Madras 3.jpg" alt="8"></div>   
-            <div class="swiper-slide"><img src="/images/portfolio/Madras L.jpg" alt="8"></div>   
             <div class="swiper-slide"><img src="/images/portfolio/Madras wardrobe.jpg" alt="8"></div>   
-            <div class="swiper-slide"><img src="/images/portfolio/tutton1.jpg" alt="8"></div>   
-            <div class="swiper-slide"><img src="/images/portfolio/Tutton.jpg" alt="8"></div>   
             </div>
         </div>
     </div>
