@@ -570,6 +570,7 @@ textarea:focus {
 @media screen and (max-width: 767px) {
   .main-header {
     padding: 0px 20px;
+    z-index: 100000000000000020;
   }
 
   .main-header .menu-icon {
@@ -681,7 +682,7 @@ textarea:focus {
   .right-top h3,
   .right-bottom h3 {
     top: 50px;
-    font-size: 5rem;
+    font-size: 15vw;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -689,8 +690,11 @@ textarea:focus {
   .range-left button,
   .right-top button,
   .right-bottom button {
-    top: 160px;
+    top: 30vw;
     left: 50%;
+    font-size: 3vw;
+    width: 25vw;
+    height: 7vw;
     transform: translateX(-50%);
   }
 
@@ -713,6 +717,7 @@ textarea:focus {
   .contact {
     display: block;
     height: 190vh;
+    margin-bottom: 15px;
   }
 
   .form {
@@ -722,18 +727,18 @@ textarea:focus {
   }
 
   .form h2 {
-    font-size: 3em;
-    padding-top: 80px;
+    font-size: 8vw;
+    padding-top: 5vh;
     margin: 0;
-    margin-bottom: 50px;
+    margin-bottom: 2vh;
   }
 
   .form input,
   .form textarea {
     font-size: 1rem;
     width: 80%;
-    margin: 40px 10px;
-    padding: 10px 20px;
+    margin: 2vh;
+    padding: 2vw;
   }
 
   .contact-right {
@@ -759,9 +764,13 @@ textarea:focus {
     margin: 0px;
   }
 
+  .address-title h3 {
+    font-size: 3.2vh;
+  }
+
   .address-left p,
   .address-right p {
-    font-size: 1.2rem;
+    font-size: 2vh;
   }
 }
 
