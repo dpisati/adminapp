@@ -118,14 +118,15 @@
     }
 
     .swiper-slide {
-        width: 65vw;
+        width: 80vw;
         height: 65vh;
     }
     .swiper-slide img {
         width: auto;
         position: relative;
         top: 50%;
-        transform: translateY(-50%);
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
     }
     .js-logo {
         margin-left: 0px !important;
@@ -179,5 +180,9 @@
     .address-left p,
     .address-right p {
         font-size: 2vh;
+    }
+    .form button {
+        font-size: 4vw;
+        margin-top: 5vh;
     }
 }

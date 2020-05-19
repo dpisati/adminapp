@@ -53,9 +53,10 @@
         </label>
 
         <ul class="nav-links">
-            <li class="nav-link"><a href="#">Shop</a></li>
+            <li class="nav-link"><a href="/shop">Shop</a></li>
             <li class="nav-link"><a href="#portfolio">Portfolio</a></li>
             <li class="nav-link"><a href="#contact">Contact</a></li>
+            
             <!-- <li class="nav-link"><a href="#">Login</a></li> -->
             @if (Route::has('login'))
                 @auth

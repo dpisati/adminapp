@@ -36,7 +36,7 @@ a {
     padding-left: 25px;
     padding-right: 25px;
     padding-bottom: 40px;
-    padding-top: 75px;
+    padding-top: 85px;
 }
 
 .range {
@@ -222,6 +222,7 @@ textarea:focus {
 #mapid {
     height: 100%;
     width: 100%;
+    z-index: 1;
 }
 .address {
     height: 40%;
@@ -258,6 +259,10 @@ textarea:focus {
     padding-bottom: 6%;
     font-size: 1.3rem;
 }
+.address-right {
+    padding-left: 25px;
+}
+
 .address-left p,
 .address-right p {
     width: 100%;
@@ -270,4 +275,5 @@ textarea:focus {
     visibility: hidden;
 }
 
+@import "media-tablet";
 @import "media";

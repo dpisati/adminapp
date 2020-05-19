@@ -274,18 +274,21 @@
 }
 
 .swiper-slide {
-  width: 55vw;
-  height: 65vh;
+  width: 65vw;
+  height: 73vh;
   overflow: hidden;
   position: relative;
   text-align: center;
   text-align: center;
+  box-shadow: 4px 8px 40px -6px black;
 }
 
 .swiper-slide img {
-  height: 65vh;
+  width: auto;
   position: relative;
-  transform: translateY(-50%), translateX(-50%);
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
 }
 
 * {
@@ -325,7 +328,7 @@ a {
   padding-left: 25px;
   padding-right: 25px;
   padding-bottom: 40px;
-  padding-top: 75px;
+  padding-top: 85px;
 }
 
 .range {
@@ -522,6 +525,7 @@ textarea:focus {
 #mapid {
   height: 100%;
   width: 100%;
+  z-index: 1;
 }
 
 .address {
@@ -561,6 +565,10 @@ textarea:focus {
   font-size: 1.3rem;
 }
 
+.address-right {
+  padding-left: 25px;
+}
+
 .address-left p,
 .address-right p {
   width: 100%;
@@ -572,6 +580,18 @@ textarea:focus {
   position: relative;
   top: -100px;
   visibility: hidden;
+}
+
+@media screen and (max-width: 1280px) {
+  .address-left,
+  .address-right {
+    font-size: 1.7vw;
+    padding-left: 20px;
+  }
+
+  .address-right {
+    padding-left: 0px;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -710,7 +730,7 @@ textarea:focus {
   }
 
   .swiper-slide {
-    width: 65vw;
+    width: 80vw;
     height: 65vh;
   }
 
@@ -718,7 +738,8 @@ textarea:focus {
     width: auto;
     position: relative;
     top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
   }
 
   .js-logo {
@@ -782,6 +803,11 @@ textarea:focus {
   .address-left p,
   .address-right p {
     font-size: 2vh;
+  }
+
+  .form button {
+    font-size: 4vw;
+    margin-top: 5vh;
   }
 }
 

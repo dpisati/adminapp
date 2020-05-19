@@ -10,6 +10,7 @@ import Cabinet from "./components/Cabinet";
 import Materials from "./components/Materials";
 import Developer from "./components/Developer";
 import NotFound from "./components/NotFound";
+import Shop from "./components/Shop";
 
 export default {
     mode: "history",
@@ -25,6 +26,7 @@ export default {
         { path: "/cabinet/:id", component: Cabinet },
         { path: "/materials", component: Materials },
         { path: "/developer", component: Developer },
+        { path: "/shop", component: Shop },
         { path: "*", component: NotFound }
     ]
 };

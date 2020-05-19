@@ -10,9 +10,7 @@ Auth::routes([
     // 'reset' => false, // Password Reset Routes...
     // 'verify' => false, // Email Verification Routes...
   ]);
-
-
-
+Route::get('/shop', 'ShopController@index')->name('shop');
 Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('{path}', 'HomeController@index')->where('path', '([A-z\d-\/_.]+)?');
 Route::get('/{any}', 'HomeController@index')->where('any', '.*');
