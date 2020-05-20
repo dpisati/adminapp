@@ -2,6 +2,7 @@
 @import "header";
 @import "animations";
 @import "swiper";
+@import "customers";
 
 * {
     box-sizing: border-box;
@@ -26,7 +27,7 @@ a {
 #portfolio {
     display: block;
     position: relative;
-    top: -75px;
+    top: -60px;
     visibility: hidden;
 }
 
@@ -36,7 +37,7 @@ a {
     padding-left: 25px;
     padding-right: 25px;
     padding-bottom: 40px;
-    padding-top: 85px;
+    padding-top: 40px;
 }
 
 .range {
@@ -146,7 +147,7 @@ a {
 
 .contact {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 25px);
     display: flex;
     margin-bottom: 25px;
 }
@@ -159,22 +160,25 @@ a {
     background-size: cover;
     color: white;
 }
+form {
+    max-height: 100%;
+}
 
 .form h2 {
     font-family: "Cinzel", serif;
     font-weight: 400;
     font-size: 3em;
-    margin-top: 110px;
-    margin-left: 90px;
-    margin-bottom: 50px;
+    padding-top: 10%;
+    padding-left: 90px;
+    padding-bottom: 0px;
 }
 .form input,
 .form textarea {
     font-size: 1.2rem;
     background: rgb(46, 46, 46, 0.2);
     width: 60%;
-    margin: 15px 20%;
-    padding: 15px 20px;
+    margin: 3.5% 20%;
+    padding: 2% 2%;
     outline: none;
     border: none;
     border-bottom: 1px grey solid;
@@ -267,11 +271,16 @@ textarea:focus {
 .address-right p {
     width: 100%;
     font-weight: 100;
+    transition: all 0.2s ease-in-out;
+}
+.address-left p:hover,
+.address-right p:hover {
+    opacity: 0.7;
 }
 #contact {
     display: block;
     position: relative;
-    top: -100px;
+    top: -80px;
     visibility: hidden;
 }
 

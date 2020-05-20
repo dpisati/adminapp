@@ -43,7 +43,7 @@
     <div class="logo">
         <!-- <a href="#">Joinery Scene</a> -->
         <a href="#top">
-            <img src="./images/main-pictures/jslogo.jpg" alt="LOGO" class="js-logo">
+            <img src="./images/main-pictures/js-logo-min.png" alt="LOGO" class="js-logo">
         </a>
     </div>
 
@@ -70,7 +70,6 @@
             @endif            
         </ul>
 </header>
-
 <div class="container">
     <a id="top"></a>
     <div class="landing_picture"></div>    
@@ -106,23 +105,46 @@
     <div class="swiper">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="/images/portfolio/1.jpg" alt="1"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/6.jpg" alt="2"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/Canon 2.jpg" alt="bishop"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/3.jpg" alt="melrose"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/4.jpg" alt="tutton"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/5.jpg" alt="madras"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/6.jpg" alt="2"></div>            
             <div class="swiper-slide"><img src="/images/portfolio/10.jpg" alt="8"></div>    
-            <div class="swiper-slide"><img src="/images/portfolio/Bishop 1.jpg" alt="8"></div>    
+            <div class="swiper-slide"><img src="/images/portfolio/5.jpg" alt="madras"></div>
             <div class="swiper-slide"><img src="/images/portfolio/Bishop 3.jpg" alt="8"></div>    
-            <div class="swiper-slide"><img src="/images/portfolio/Bishop 5.jpg" alt="8"></div>    
+            <div class="swiper-slide"><img src="/images/portfolio/1.jpg" alt="1"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/4.jpg" alt="tutton"></div>
             <div class="swiper-slide"><img src="/images/portfolio/Bishop 6.jpg" alt="8"></div>    
-            <div class="swiper-slide"><img src="/images/portfolio/Canon 4.jpg" alt="8"></div>   
-            <div class="swiper-slide"><img src="/images/portfolio/Canon 3.jpg" alt="8"></div>   
-            <div class="swiper-slide"><img src="/images/portfolio/Canon 6.jpg" alt="8"></div>   
-            <div class="swiper-slide"><img src="/images/portfolio/Madras wardrobe.jpg" alt="8"></div>   
             </div>
         </div>
+    </div>
+
+    
+    <div class="customers">
+        <div class="customers-title">
+            <hr>
+            <h3>Premium Custumers</h3>
+            <hr>
+        </div>
+        <div class="customer-logos">
+            <a href="https://www.markprosserbuilders.co.nz/" target="_blank"><div class="customer-logo"><img src="/images/customers/prosser.png" alt="prosser"></div></a>
+            <a href="https://www.silverstardevelopments.co.nz/" target="_blank"><div class="customer-logo"><img src="/images/customers/silverstar.png" alt="silverstar"></div></a>
+            <a href="https://www.couplands.co.nz/" target="_blank"><div class="customer-logo"><img src="/images/customers/couplands.png" alt="couplands"></div></a>
+            <a href="https://www.a1homes.co.nz/" target="_blank"><div class="customer-logo"><img src="/images/customers/a1homes.png" alt="a1homes"></div></a>
+            <a href="https://www.versatile.co.nz/" target="_blank"><div class="customer-logo"><img src="/images/customers/versitile.png" alt="versitile"></div></a>
+        </div>
+        <div class="customers-title">
+            <hr>
+            <h3>Partners</h3>
+            <hr>
+        </div>
+        <div class="customer-logos">
+            <a href="https://www.primepanels.co.nz/" target="_blank"><div class="customer-logo"><img src="/images/partners/prime.png" alt="prosser"></div></a>
+            <a href="https://www.bestwood.co.nz/" target="_blank"><div class="customer-logo"><img src="/images/partners/bestwood.png" alt="silverstar"></div></a>
+            <a href="https://www.melteca.net/" target="_blank"><div class="customer-logo"><img src="/images/partners/melteca.png" alt="couplands"></div></a>
+            <a href="https://www.hafele.co.nz/en/" target="_blank"><div class="customer-logo"><img src="/images/partners/hafele.png" alt="a1homes"></div></a>
+            <a href="https://archant.co.nz/" target="_blank"><div class="customer-logo"><img src="/images/partners/archant.png" alt="versitile"></div></a>
+        </div>
+
+
+    
     </div>
     
     <div id="contact"></div>
@@ -152,7 +174,7 @@
                 </div>
                 <div class="address-right">
                     <p>03 384 3547</p>
-                    <p>admin@joineryscene.co.nz</p>
+                    <p><a href="mailto:admin@joineryscene.co.nz">admin@joineryscene.co.nz</a></p>
                 </div>
             </div>
         </div>

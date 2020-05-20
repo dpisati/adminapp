@@ -29,7 +29,7 @@
     <div class="logo">
         <!-- <a href="#">Joinery Scene</a> -->
         <a href="/">
-            <img src="./images/main-pictures/jslogo.jpg" alt="LOGO" class="js-logo">
+            <img src="./images/main-pictures/js-logo-min.png" alt="LOGO" class="js-logo">
         </a>
     </div>
 

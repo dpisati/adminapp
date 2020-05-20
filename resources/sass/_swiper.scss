@@ -1,14 +1,9 @@
 .swiper {
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: #000;
-    margin: 0;
+    height: calc(100vh - 85px);
     margin-bottom: 25px;
-    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 90vh;
     background: url("./images/textures/porcelain.jpg") no-repeat bottom center;
     background-size: cover;
     scroll-snap-align: start;

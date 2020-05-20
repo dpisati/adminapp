@@ -1,0 +1,54 @@
+.customers {
+    width: 100%;
+    min-height: calc(100vh - 85px);
+    background: url("./images/textures/concrete.jpg") no-repeat bottom center;
+    background-size: cover;
+    display: block;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.customers-title {
+    padding: 50px 0px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.customers-title hr {
+    border-top: 2px solid black;
+    width: 100%;
+    margin: 0px 50px;
+}
+.customers h3 {
+    font-family: "Cinzel", serif;
+    font-weight: 400;
+    font-size: 2.5em;
+}
+.customer-logos {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 30%;
+    width: 100%;
+    padding: 6vh 0px;
+}
+.customer-logo {
+    width: 250px;
+    height: 100px;
+    margin: 35px;
+    opacity: 0.8;
+    transition: all 0.2s ease-in-out;
+}
+
+.customer-logo img {
+    width: 100%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
+.customer-logo:hover {
+    opacity: 0.6;
+    transform: scale(1.05);
+}
