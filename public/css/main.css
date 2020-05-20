@@ -470,13 +470,13 @@ a {
 .range-bathroom {
   width: 100%;
   height: 100%;
-  background: url(/images/laundry.jpg?9a06df6add8f008e4849cc2e7dd0f09d) no-repeat bottom center;
+  background: url("/images/laundry(2).jpg?2e0f728e9e3574fd7208a76ae8afa48b") no-repeat bottom center;
   background-size: cover;
   transition: all 0.5s ease;
 }
 
 .range-bathroom {
-  background: url(/images/2.jpg?636b6eff59d7099d40cd6198fb839b54) no-repeat bottom center;
+  background: url(/images/bathroom.jpg?ba1f0e125e7da3666cc38384eeb5f3ea) no-repeat bottom center;
   background-size: cover;
 }
 

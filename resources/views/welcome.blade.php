@@ -120,7 +120,7 @@
     <div class="customers">
         <div class="customers-title">
             <hr>
-            <h3>Premium Customers</h3>
+            <h3>Premium Custmers</h3>
             <hr>
         </div>
         <div class="customer-logos">
