@@ -72,7 +72,11 @@
 </header>
 <div class="container">
     <a id="top"></a>
-    <div class="landing_picture"></div>    
+    <div class="landing_picture"></div>
+    <div class="scroll-down">
+        <div class="arrow arrow-first"></div>
+        <div class="arrow arrow-second"></div>
+    </div>
 
     <div class="range">
         <div class="range-left">
