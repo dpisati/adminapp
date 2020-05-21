@@ -117,6 +117,11 @@
             <div class="swiper-slide"><img src="/images/portfolio/4.jpg" alt="tutton"></div>
             <div class="swiper-slide"><img src="/images/portfolio/Bishop 6.jpg" alt="8"></div>    
             </div>
+            <div class="swipe">
+                <span class="x-swipe-indicator">
+                    <svg class="x-hand" xmlns="http://www.w3.org/2000/svg" width="44" height="39" viewBox="0 0 44 39"><path d="M27 6h10v2.826a1 1 0 0 0 1.65.759l4.464-3.826a1 1 0 0 0 0-1.518L38.651.415a1 1 0 0 0-1.651.76V4H27a1 1 0 1 0 0 2zM15 6a1 1 0 1 0 0-2H7V1.174A1 1 0 0 0 5.35.415L.885 4.241a1 1 0 0 0 0 1.518l4.463 3.826A1 1 0 0 0 7 8.825V6h8z"/><path d="M35.114 17.223L24 15V3a3 3 0 1 0-6 0v20a1 1 0 0 1-2 0v-4h-2a2 2 0 0 0-2 2v8c0 3.5 5 6.063 5 10h18l3.258-17.107a4 4 0 0 0-3.144-4.67z"/></svg>
+                </span>
+            </div>
         </div>
     </div>
 
