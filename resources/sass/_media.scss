@@ -191,4 +191,18 @@
         background-repeat: repeat-y;
         background-size: auto;
     }
+    .swipe {
+        z-index: 10;
+        width: 160px;
+        height: 9vw;
+        position: absolute;
+        left: calc(50% - 80px);
+        bottom: 5vh;
+        margin: 15px auto;
+        opacity: 0.6;
+    }
+
+    .x-hand {
+        height: 100%;
+    }
 }
