@@ -29,7 +29,10 @@ class ContactFormMail extends Mailable
      * @return $this
     */
     public function build()
-    {
-        return $this->markdown('emails.contact.contact-form');
+    {        
+        $img_url = env('APP_URL')."./images/main-pictures/jslogo.png";
+        return $this->markdown('emails.contact.contact-form', [
+            'img_url' => $img_url
+        ]);
     }
 }

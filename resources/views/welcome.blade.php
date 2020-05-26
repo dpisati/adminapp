@@ -163,19 +163,19 @@
             @csrf
                 <h2>Contact Us</h2>
                 @if(session()->has('message'))
-                <div>
+                <div class="contact-success">
                     <strong>Success!</strong> {{ session()->get('message') }}
                 </div>
                 @endif
                 
                 <input type="text" name="name" id="name" placeholder="Name" autocomplete="none" value="{{ old('name')}}">
-                    <div>{{ $errors->first('name') }}</div>
+                    <div class="contact-feedback">{{ $errors->first('name') }}</div>
                 <input type="email" name="email" id="email" placeholder="E-mail" autocomplete="none" value="{{ old('email')}}">
-                    <div>{{ $errors->first('email') }}</div>
+                    <div class="contact-feedback">{{ $errors->first('email') }}</div>
                 <input type="phone" name="phone" id="phone" placeholder="Phone" autocomplete="none" value="{{ old('phone')}}">
-                    <div>{{ $errors->first('phone') }}</div>
+                    <div class="contact-feedback">{{ $errors->first('phone') }}</div>
                 <textarea name="message" class="contact-input" placeholder="Message..." rows="3" autocomplete="none" value="{{ old('message')}}"></textarea>
-                    <div>{{ $errors->first('message') }}</div>
+                    <div class="contact-feedback">{{ $errors->first('message') }}</div>
                 <button type="submit">Send</button>
                 
             </form>

@@ -161,22 +161,23 @@ a {
         center;
     background-size: cover;
     color: white;
+    text-align: center;
 }
 form {
-    max-height: 100%;
+    max-height: 720px;
 }
 
 .form h2 {
     font-family: "Cinzel", serif;
     font-weight: 400;
     font-size: 3em;
-    padding-top: 10%;
-    padding-left: 90px;
+    padding-top: 5vh;
+    // padding-left: 90px;
     padding-bottom: 0px;
 }
 .form input,
 .form textarea {
-    font-size: 1.2rem;
+    font-size: 1rem;
     background: rgb(46, 46, 46, 0.2);
     width: 60%;
     margin: 3.5% 20%;
@@ -186,6 +187,7 @@ form {
     border-bottom: 1px grey solid;
     border-radius: 5px;
     color: white;
+    margin-bottom: 5px;
 }
 
 textarea {
@@ -201,7 +203,7 @@ textarea:focus {
 .form button {
     width: 60%;
     margin: 15px 20%;
-    padding: 15px 20px;
+    padding: 10px 20px;
     outline: none;
     border: none;
     font-size: 1.5rem;
@@ -284,6 +286,15 @@ textarea:focus {
     position: relative;
     top: -80px;
     visibility: hidden;
+}
+.contact-success {
+    background: rgb(77, 77, 77);
+    padding: 15px 0px;
+    margin-top: 25px;
+}
+.contact-feedback {
+    font-size: 0.7rem;
+    margin-bottom: 10px;
 }
 
 @import "media-tablet";
