@@ -208,6 +208,11 @@
     .customer-logos {
         text-align: center;
     }
+
+    .customer-logo img {
+        width: 70%;
+        display: flex;
+    }
     .customers h3 {
         font-size: 2em;
     }
@@ -216,6 +221,6 @@
         margin: 0px 10px;
     }
     .customer-logos {
-        padding: 0px;
+        padding: 10px;
     }
 }
