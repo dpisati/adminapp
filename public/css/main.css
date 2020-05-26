@@ -30,8 +30,9 @@
 }
 
 .main-header .js-logo {
-  height: 40px;
+  height: 70px;
   width: auto;
+  margin-left: 30px;
 }
 
 .main-header .nav-links {
@@ -1029,6 +1030,23 @@ textarea:focus {
 
   .x-hand {
     height: 100%;
+  }
+
+  .customer-logos {
+    text-align: center;
+  }
+
+  .customers h3 {
+    font-size: 2em;
+  }
+
+  .customers-title hr {
+    width: 100%;
+    margin: 0px 10px;
+  }
+
+  .customer-logos {
+    padding: 0px;
   }
 }
 

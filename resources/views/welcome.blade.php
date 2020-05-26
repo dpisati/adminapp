@@ -41,9 +41,9 @@
 
 <header class="main-header">
     <div class="logo">
-        <!-- <a href="#">Joinery Scene</a> -->
         <a href="#top">
-            <img src="./images/main-pictures/js-logo-min.png" alt="LOGO" class="js-logo">
+            <!-- <img src="./images/main-pictures/js-logo-min.png" alt="LOGO" class="js-logo"> -->
+            <img src="./images/main-pictures/jslogo.jpg" alt="LOGO" class="js-logo">
         </a>
     </div>
 
@@ -159,13 +159,25 @@
     <div id="contact"></div>
     <div class="contact">
         <div class="form">
-            <form action="">
+            <form action="/contact-form" method="POST">
+            @csrf
                 <h2>Contact Us</h2>
-                <input type="text" name="name" id="name" placeholder="Name" autocomplete="none">
-                <input type="email" name="email" id="email" placeholder="E-mail" autocomplete="none">
-                <input type="phone" name="phone" id="phone" placeholder="Phone" autocomplete="none">
-                <textarea name="message" class="contact-input" placeholder="Message..." rows="3" autocomplete="none"></textarea>
+                @if(session()->has('message'))
+                <div>
+                    <strong>Success!</strong> {{ session()->get('message') }}
+                </div>
+                @endif
+                
+                <input type="text" name="name" id="name" placeholder="Name" autocomplete="none" value="{{ old('name')}}">
+                    <div>{{ $errors->first('name') }}</div>
+                <input type="email" name="email" id="email" placeholder="E-mail" autocomplete="none" value="{{ old('email')}}">
+                    <div>{{ $errors->first('email') }}</div>
+                <input type="phone" name="phone" id="phone" placeholder="Phone" autocomplete="none" value="{{ old('phone')}}">
+                    <div>{{ $errors->first('phone') }}</div>
+                <textarea name="message" class="contact-input" placeholder="Message..." rows="3" autocomplete="none" value="{{ old('message')}}"></textarea>
+                    <div>{{ $errors->first('message') }}</div>
                 <button type="submit">Send</button>
+                
             </form>
         </div>
 
