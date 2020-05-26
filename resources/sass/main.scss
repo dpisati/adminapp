@@ -170,8 +170,9 @@ form {
 .form h2 {
     font-family: "Cinzel", serif;
     font-weight: 400;
-    font-size: 3em;
+    font-size: 5vh;
     padding-top: 5vh;
+    margin-bottom: 5vh;
     // padding-left: 90px;
     padding-bottom: 0px;
 }
@@ -180,8 +181,8 @@ form {
     font-size: 1rem;
     background: rgb(46, 46, 46, 0.2);
     width: 60%;
-    margin: 3.5% 20%;
-    padding: 2% 2%;
+    margin: 2vh 20%;
+    padding: 1vh 2%;
     outline: none;
     border: none;
     border-bottom: 1px grey solid;
@@ -202,13 +203,13 @@ textarea:focus {
 
 .form button {
     width: 60%;
-    margin: 15px 20%;
-    padding: 10px 20px;
+    margin: 1vh 20%;
+    padding: 2vh 20px;
     outline: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 2vh;
     border-radius: 5px;
-    margin-top: 25px;
+    margin-top: 5vh;
     background: rgb(209, 209, 209);
     transition: all 0.2s ease-in-out;
 }
@@ -265,7 +266,7 @@ textarea:focus {
     align-items: center;
     padding-top: 3%;
     padding-bottom: 6%;
-    font-size: 1.3rem;
+    font-size: 2.5vh;
 }
 .address-right {
     padding-left: 25px;
