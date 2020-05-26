@@ -16,8 +16,8 @@ class ContactFormController extends Controller
             'message' => 'required'
         ]);
         
-        // Mail::to('production@joineryscene.co.nz')->send(new ContactFormMail($data));
-        Mail::to('dpisati@gmail.com')->send(new ContactFormMail($data));
+        Mail::to('production@joineryscene.co.nz')->send(new ContactFormMail($data));
+        // Mail::to('dpisati@gmail.com')->send(new ContactFormMail($data));
         return Redirect::to(URL::previous() . "#contact")->with('message', ' Thanks for your message.');
         
         // return new ContactFormMail($data);
