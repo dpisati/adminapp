@@ -5,7 +5,7 @@
 <img src="https://laravel.com/img/notification-logo.png" class="logo" alt="Laravel Logo">
 @else
 <!-- {{ $slot }} -->
-<img src="{{asset('/images/main-pictures/jslogo.png')}}" width="250px" alt="JS Logo">
+<img src="{{asset('/images/main-pictures/jslogo.png')}}" class="logo" alt="JS Logo">
 @endif
 </a>
 </td>
