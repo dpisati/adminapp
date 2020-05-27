@@ -119,10 +119,11 @@
 
     .swiper-slide {
         width: 80vw;
-        height: 65vh;
+        height: 45vh;
     }
     .swiper-slide img {
-        width: auto;
+        min-width: 100%;
+        min-height: 100%;
         position: relative;
         top: 50%;
         left: 50%;
@@ -139,7 +140,9 @@
     .form {
         height: 100vh;
         width: 100%;
-        text-align: center;
+        display: block;
+        text-align: -webkit-center;
+        margin: auto;
     }
     .form h2 {
         font-size: 8vw;
@@ -194,12 +197,12 @@
     .swipe {
         z-index: 10;
         width: 160px;
-        height: 9vw;
+        height: 7vw;
         position: absolute;
         left: calc(50% - 80px);
-        bottom: 5vh;
         margin: 15px auto;
-        opacity: 0.6;
+        opacity: 0.4;
+        bottom: 0px;
     }
 
     .x-hand {
@@ -209,10 +212,6 @@
         text-align: center;
     }
 
-    .customer-logo img {
-        width: 70%;
-        display: flex;
-    }
     .customers h3 {
         font-size: 2em;
     }
@@ -222,5 +221,12 @@
     }
     .customer-logos {
         padding: 10px;
+        text-align: -webkit-center;
+    }
+    .customer-logo {
+        width: 50%;
+    }
+    .customer-logo img {
+        width: 180px;
     }
 }

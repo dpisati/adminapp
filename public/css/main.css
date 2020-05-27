@@ -273,10 +273,12 @@
   position: relative;
   text-align: center;
   text-align: center;
+  box-shadow: 4px 8px 40px -6px black;
 }
 
 .swiper-slide img {
-  width: 100%;
+  min-width: 100%;
+  height: 100%;
   position: relative;
   top: 50%;
   left: 50%;
@@ -432,7 +434,7 @@
   height: 30px;
   position: absolute;
   left: calc(50% - 80px);
-  bottom: 60px;
+  bottom: 45px;
   margin: 0 auto;
   opacity: 0.4;
 }
@@ -649,20 +651,25 @@ a {
   background: url(/images/concrete-grey.jpg?5b800d4a016eee45e4cf8f8a93fdd00a) no-repeat bottom center;
   background-size: cover;
   color: white;
+  display: flex;
   text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 form {
-  max-height: 720px;
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .form h2 {
   font-family: "Cinzel", serif;
   font-weight: 400;
   font-size: 5vh;
-  padding-top: 5vh;
   margin-bottom: 5vh;
-  padding-bottom: 0px;
 }
 
 .form input,
@@ -944,11 +951,12 @@ textarea:focus {
 
   .swiper-slide {
     width: 80vw;
-    height: 65vh;
+    height: 45vh;
   }
 
   .swiper-slide img {
-    width: auto;
+    min-width: 100%;
+    min-height: 100%;
     position: relative;
     top: 50%;
     left: 50%;
@@ -968,7 +976,9 @@ textarea:focus {
   .form {
     height: 100vh;
     width: 100%;
-    text-align: center;
+    display: block;
+    text-align: -webkit-center;
+    margin: auto;
   }
 
   .form h2 {
@@ -1032,12 +1042,12 @@ textarea:focus {
   .swipe {
     z-index: 10;
     width: 160px;
-    height: 9vw;
+    height: 7vw;
     position: absolute;
     left: calc(50% - 80px);
-    bottom: 5vh;
     margin: 15px auto;
-    opacity: 0.6;
+    opacity: 0.4;
+    bottom: 0px;
   }
 
   .x-hand {
@@ -1046,11 +1056,6 @@ textarea:focus {
 
   .customer-logos {
     text-align: center;
-  }
-
-  .customer-logo img {
-    width: 70%;
-    display: flex;
   }
 
   .customers h3 {
@@ -1064,6 +1069,15 @@ textarea:focus {
 
   .customer-logos {
     padding: 10px;
+    text-align: -webkit-center;
+  }
+
+  .customer-logo {
+    width: 50%;
+  }
+
+  .customer-logo img {
+    width: 180px;
   }
 }
 
