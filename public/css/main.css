@@ -608,18 +608,18 @@ a {
 .range-bathroom {
   width: 100%;
   height: 100%;
-  background: url(/images/1a.jpg?598bb16dc926c665367f0fdb37848472) no-repeat bottom center;
+  background: url(/images/3d.jpg?921c5182f831a90627c77fddbe5992dd) no-repeat bottom center;
   background-size: cover;
   transition: all 0.5s ease;
 }
 
 .range-bathroom {
-  background: url(/images/1b.jpg?a7e67a0b4a17d550cb252deccbe3960f) no-repeat bottom center;
+  background: url(/images/27.jpg?ba1f0e125e7da3666cc38384eeb5f3ea) no-repeat bottom center;
   background-size: cover;
 }
 
 .range-kitchen {
-  background: url(/images/1c.jpg?4316ae79b942946719e73be69c9f5732) no-repeat bottom center;
+  background: url(/images/2a.jpg?5159031728085cc775121a693da0a570) no-repeat bottom center;
   background-size: cover;
 }
 
@@ -794,7 +794,7 @@ textarea:focus {
 .contact-success {
   background: #4d4d4d;
   padding: 15px 0px;
-  margin-top: 25px;
+  margin: 25px 0px;
 }
 
 .contact-feedback {
@@ -803,18 +803,47 @@ textarea:focus {
 }
 
 @media screen and (max-width: 1280px) {
-  .address-left,
-  .address-right {
-    font-size: 1.2vw;
-    padding-left: 20px;
+  .range-left h3,
+  .right-top h3,
+  .right-bottom h3 {
+    left: 5vw;
   }
 
-  .address-right {
-    padding-left: 0px;
+  .range-left button,
+  .right-top button,
+  .right-bottom button {
+    left: 5vw;
+  }
+
+  form {
+    align-items: center;
+  }
+
+  .form input,
+  .form textarea {
+    width: 85%;
+    margin: 2vh;
+    padding: 1vw;
+  }
+
+  .address-title {
+    padding-top: 30px;
+  }
+
+  .address-right,
+  .address-left {
+    height: 50%;
+    padding-left: 15px;
+    padding-top: 0px;
+  }
+
+  .address-left p,
+  .address-right p {
+    font-size: 1.5vw;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 850px) {
   .main-header {
     padding: 0px 20px;
     z-index: 9;
@@ -933,7 +962,7 @@ textarea:focus {
   .right-top h3,
   .right-bottom h3 {
     top: 50px;
-    font-size: 15vw;
+    font-size: 13vw;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -941,11 +970,11 @@ textarea:focus {
   .range-left button,
   .right-top button,
   .right-bottom button {
-    top: 30vw;
+    top: 24vw;
     left: 50%;
     font-size: 3vw;
     width: 25vw;
-    height: 7vw;
+    height: 6vw;
     transform: translateX(-50%);
   }
 
@@ -1020,7 +1049,7 @@ textarea:focus {
   }
 
   .address-title h3 {
-    font-size: 3.2vh;
+    font-size: 3.2vw;
   }
 
   .address-left p,

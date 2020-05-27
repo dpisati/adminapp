@@ -1,4 +1,5 @@
-@media screen and (max-width: 767px) {
+// @media screen and (max-width: 767px) {
+@media screen and (max-width: 850px) {
     .main-header {
         padding: 0px 20px;
         z-index: 9;
@@ -100,7 +101,7 @@
     .right-top h3,
     .right-bottom h3 {
         top: 50px;
-        font-size: 15vw;
+        font-size: 13vw;
         left: 50%;
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
@@ -108,11 +109,11 @@
     .range-left button,
     .right-top button,
     .right-bottom button {
-        top: 30vw;
+        top: 24vw;
         left: 50%;
         font-size: 3vw;
         width: 25vw;
-        height: 7vw;
+        height: 6vw;
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
     }
@@ -177,7 +178,7 @@
         margin: 0px;
     }
     .address-title h3 {
-        font-size: 3.2vh;
+        font-size: 3.2vw;
     }
 
     .address-left p,

@@ -109,75 +109,76 @@
     <div class="swiper">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/1a.jpg"></div>     
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/1b.jpg"></div>    
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/1c.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/1d.jpg"></div>    
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2a.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2d.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2e.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2f.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2g.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2h.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2i.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/3a.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/3b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/3c.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/3d.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/3e.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/4a.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/4b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/4c.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/4d.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/5a.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/5b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/5c.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/5d.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/5e.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6a.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6c.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6d.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6e.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6f.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6g.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/7b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/7c.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/7d.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/8a.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/8b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/8c.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/9a.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/9b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/10a.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/10b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/10c.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/11a.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/11b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/11c.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/11d.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/12a.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/12b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/13a.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/13b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/14.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/15.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/16.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/17.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/18.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/19.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/20a.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/20b.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/21.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/22.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/23.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/24.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/25.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/26.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/27.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/28.jpg"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/29.jpg"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/1a.jpg" alt="1a"></div>     
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/1b.jpg" alt="1b"></div>    
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/1c.jpg" alt="1c"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/1d.jpg" alt="1d"></div>    
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2a.jpg" alt="2a"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2b.jpg" alt="2b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2c.jpg" alt="2c"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2d.jpg" alt="2d"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2e.jpg" alt="2e"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2f.jpg" alt="2f"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2g.jpg" alt="2g"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2h.jpg" alt="2h"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/2i.jpg" alt="2i"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/3a.jpg" alt="3a"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/3b.jpg" alt="3b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/3c.jpg" alt="3c"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/3d.jpg" alt="3d"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/3e.jpg" alt="3e"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/4a.jpg" alt="4a"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/4b.jpg" alt="4b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/4c.jpg" alt="4c"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/4d.jpg" alt="4d"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/5a.jpg" alt="5a"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/5b.jpg" alt="5b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/5c.jpg" alt="5c"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/5d.jpg" alt="5d"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/5e.jpg" alt="5e"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6a.jpg" alt="6a"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6b.jpg" alt="6b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6c.jpg" alt="6c"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6d.jpg" alt="6d"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6e.jpg" alt="6e"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6f.jpg" alt="6f"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6g.jpg" alt="6g"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/7b.jpg" alt="7b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/7c.jpg" alt="7c"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/7d.jpg" alt="7d"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/8a.jpg" alt="8a"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/8b.jpg" alt="8b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/8c.jpg" alt="8c"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/9a.jpg" alt="9a"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/9b.jpg" alt="9b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/10a.jpg" alt="10a"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/10b.jpg" alt="10b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/10c.jpg" alt="10c"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/11a.jpg" alt="11a"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/11b.jpg" alt="11b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/11c.jpg" alt="11c"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/11d.jpg" alt="11d"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/12a.jpg" alt="12a"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/12b.jpg" alt="12b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/13a.jpg" alt="13a"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/13b.jpg" alt="13b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/14.jpg" alt="14"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/15.jpg" alt="15"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/16.jpg" alt="16"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/17.jpg" alt="17"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/18.jpg" alt="18"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/19.jpg" alt="19"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/20a.jpg" alt="20a"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/20b.jpg" alt="20b"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/21.jpg" alt="21"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/22.jpg" alt="22"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/23.jpg" alt="23"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/24.jpg" alt="24"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/25.jpg" alt="25"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/26.jpg" alt="26"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/27.jpg" alt="27"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/28.jpg" alt="28"></div>
+            <div class="swiper-slide"><img src="/images/portfolio/horizontal/29.jpg" alt="29"></div>
         </div>
             <div class="swipe">
                 <span class="x-swipe-indicator">
