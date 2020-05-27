@@ -78,6 +78,7 @@
         display: block;
         padding-left: 15px;
         padding-right: 15px;
+        padding-bottom: 15px;
     }
     .landing_picture {
         background: url("./images/portfolio/vertical/2.jpg") no-repeat bottom
@@ -85,6 +86,8 @@
     }
     .range {
         display: block;
+        padding-top: 15px;
+        padding-bottom: 10px;
     }
     .range-left {
         width: 100%;
@@ -143,6 +146,7 @@
         width: 100%;
         display: block;
         text-align: -webkit-center;
+        text-align: center;
         margin: auto;
     }
     .form h2 {
@@ -195,6 +199,12 @@
         background-repeat: repeat-y;
         background-size: auto;
     }
+    .swiper {
+        margin-bottom: 15px;
+    }
+    .customers {
+        margin-bottom: 15px;
+    }
     .swipe {
         z-index: 10;
         width: 160px;
@@ -230,4 +240,8 @@
     .customer-logo img {
         width: 180px;
     }
+    .landing_picture {
+        display: none;
+    }
+    @import "main-gallery";
 }

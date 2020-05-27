@@ -72,6 +72,22 @@
 </header>
 <div class="container">
     <a id="top"></a>
+    <!-- Mobile landing img -->
+    <div class="main-gallery">
+            <figure class="gallery__item gallery__item--1">
+                <img src="./images/portfolio/horizontal/4a.jpg" class="gallery__img" alt="Image 1">
+            </figure>
+            <figure class="gallery__item gallery__item--2">
+                <img src="./images/portfolio/horizontal/11c.jpg" class="gallery__img" alt="Image 2">
+            </figure>
+            <figure class="gallery__item gallery__item--3">
+                <img src="./images/portfolio/horizontal/2e.jpg" class="gallery__img" alt="Image 3">
+            </figure>
+            <figure class="gallery__item gallery__item--4">
+                <img src="./images/portfolio/horizontal/1a.jpg" class="gallery__img" alt="Image 4">
+            </figure>
+    </div>
+    <!-- Desktop landing img -->
     <div class="landing_picture"></div>
     <div class="scroll-down">
         <div class="arrow arrow-first"></div>
