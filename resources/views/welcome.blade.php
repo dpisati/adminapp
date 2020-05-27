@@ -129,14 +129,14 @@
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/3e.jpg" alt="3e"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/4a.jpg" alt="4a"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/4b.jpg" alt="4b"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/4c.jpg" alt="4c"></div>
+            <!-- <div class="swiper-slide"><img src="/images/portfolio/horizontal/4c.jpg" alt="4c"></div> -->
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/4d.jpg" alt="4d"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/5a.jpg" alt="5a"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/5b.jpg" alt="5b"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/5c.jpg" alt="5c"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/5d.jpg" alt="5d"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/5e.jpg" alt="5e"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/6a.jpg" alt="6a"></div>
+            <!-- <div class="swiper-slide"><img src="/images/portfolio/horizontal/6a.jpg" alt="6a"></div> -->
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/6b.jpg" alt="6b"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/6c.jpg" alt="6c"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/6d.jpg" alt="6d"></div>
@@ -164,7 +164,7 @@
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/13b.jpg" alt="13b"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/14.jpg" alt="14"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/15.jpg" alt="15"></div>
-            <div class="swiper-slide"><img src="/images/portfolio/horizontal/16.jpg" alt="16"></div>
+            <!-- <div class="swiper-slide"><img src="/images/portfolio/horizontal/16.jpg" alt="16"></div> -->
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/17.jpg" alt="17"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/18.jpg" alt="18"></div>
             <div class="swiper-slide"><img src="/images/portfolio/horizontal/19.jpg" alt="19"></div>
