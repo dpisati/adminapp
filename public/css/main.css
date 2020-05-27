@@ -1,7 +1,7 @@
 .landing_picture {
   width: 100%;
   height: 100%;
-  background: url(/images/4444.jpg?21e045f2bc1afe92011f33b858142273) no-repeat bottom center;
+  background: url(/images/1a.jpg?598bb16dc926c665367f0fdb37848472) no-repeat bottom center;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -273,11 +273,10 @@
   position: relative;
   text-align: center;
   text-align: center;
-  box-shadow: 4px 8px 40px -6px black;
 }
 
 .swiper-slide img {
-  width: auto;
+  width: 100%;
   position: relative;
   top: 50%;
   left: 50%;
@@ -430,18 +429,18 @@
 .swipe {
   z-index: 10;
   width: 160px;
-  height: 50px;
+  height: 30px;
   position: absolute;
   left: calc(50% - 80px);
-  bottom: 25px;
+  bottom: 60px;
   margin: 0 auto;
-  opacity: 0.6;
+  opacity: 0.4;
 }
 
 .x-hand {
   color: #000;
   font-size: 4em;
-  height: 50px;
+  height: 100%;
   left: calc(50% - 22px);
   opacity: 0.8;
   position: absolute;
@@ -534,7 +533,7 @@ a {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: url(/images/1.jpg?5159031728085cc775121a693da0a570) no-repeat bottom center;
+  background: url(/images/1a.jpg?598bb16dc926c665367f0fdb37848472) no-repeat bottom center;
   background-size: cover;
   transition: all 0.5s ease;
 }
@@ -607,18 +606,18 @@ a {
 .range-bathroom {
   width: 100%;
   height: 100%;
-  background: url("/images/Bishop 6.jpg?703af8e3da52506820f8a84760c241d4") no-repeat bottom center;
+  background: url(/images/1a.jpg?598bb16dc926c665367f0fdb37848472) no-repeat bottom center;
   background-size: cover;
   transition: all 0.5s ease;
 }
 
 .range-bathroom {
-  background: url(/images/bathroom.jpg?ba1f0e125e7da3666cc38384eeb5f3ea) no-repeat bottom center;
+  background: url(/images/1b.jpg?a7e67a0b4a17d550cb252deccbe3960f) no-repeat bottom center;
   background-size: cover;
 }
 
 .range-kitchen {
-  background: url(/images/7.jpg?0a8621937efe01d6025d677362a93d6e) no-repeat bottom center;
+  background: url(/images/1c.jpg?4316ae79b942946719e73be69c9f5732) no-repeat bottom center;
   background-size: cover;
 }
 
@@ -902,7 +901,7 @@ textarea:focus {
   }
 
   .landing_picture {
-    background: url(/images/vertical.jpg?7a4a876c0a18d0cb1f4419e306e57508) no-repeat bottom center;
+    background: url(/images/2.jpg?636b6eff59d7099d40cd6198fb839b54) no-repeat bottom center;
   }
 
   .range {
