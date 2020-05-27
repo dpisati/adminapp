@@ -948,6 +948,7 @@ textarea:focus {
 
   .range {
     display: block;
+    display: none;
     padding-top: 15px;
     padding-bottom: 10px;
   }
