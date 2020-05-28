@@ -1,0 +1,64 @@
+@import "dropdown";
+.container {
+    padding: 0px;
+}
+.shop-nav {
+    padding: 0px 25px;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: black;
+    height: 85px;
+    margin-top: 85px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    select {
+        width: 300px;
+        margin: 10px 20px;
+        padding: 10px 20px;
+    }
+}
+
+.cart-button {
+    cursor: pointer;
+    color: white;
+    width: 110px;
+    padding: 10px;
+    height: 45px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+.cart-button:hover {
+    background-color: rgb(59, 59, 59);
+}
+
+.cart-button h3 {
+    font-size: 1.2rem;
+}
+.cart {
+    position: relative;
+}
+.fa-shopping-cart {
+    color: white;
+}
+.badge {
+    position: absolute;
+    padding: 0px 5px;
+    height: 20px;
+    left: 50%;
+    top: -5px;
+    transform: translateX(-25%);
+    background-color: red;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 700;
+}
+.shop-content {
+    padding: 25px 50px;
+    margin-top: 170px;
+}

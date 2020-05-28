@@ -6,6 +6,7 @@ mix.sourceMaps()
 
 mix.js("resources/js/app.js", "public/js")
     .sass("resources/sass/app.scss", "public/css")
+    .sass("resources/sass/eshop.scss", "public/css")
     .sass("resources/sass/main.scss", "public/css");
 
 module.exports = {
