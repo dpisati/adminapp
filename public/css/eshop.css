@@ -101,6 +101,7 @@
   height: 50px;
   align-self: flex-end;
   cursor: pointer;
+  outline: none;
 }
 
 .card__btn span {
