@@ -154,7 +154,8 @@ class LibraryController extends Controller
      */
     public function findCabinetBySubCategory($id)
     {
-        return Library::where('sub_category_id', $id)->get();
+        return Library::where('sub_category_id', $id)->with(['subcategory', 'subcategory.category'])->get();
+        
     }
     public function updateCabinet(Request $request)
     {

@@ -129,5 +129,7 @@ $(document).on("keydown", ".dropdown", function(event) {
 });
 
 $(document).ready(function() {
-    create_custom_dropdowns();
+    setTimeout(function() {
+        create_custom_dropdowns();
+    }, 1000);
 });

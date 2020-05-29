@@ -1,0 +1,126 @@
+// VARIABLES
+$color-header: #0d0d0d;
+$color-text: #404040;
+$color-btn-text: #ffffff;
+$color-btn-background: #616161;
+$transition: 0.2s;
+
+// MEDIA QUERY
+@mixin media($breakpoint) {
+    @if $breakpoint == small {
+        @media (max-width: 60em) {
+            @content;
+        }
+    }
+}
+
+.main-grid {
+    box-sizing: border-box;
+    margin-top: 170px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 25px 50px;
+    background-color: #f5f5f5;
+    font-family: "Inter", sans-serif;
+    min-height: calc(100vh - 300px);
+    @include media(small) {
+        padding: 3rem;
+    }
+}
+// MAIN CONTENT
+.grid {
+    display: grid;
+    width: 95%;
+    grid-gap: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 20rem));
+    grid-template-rows: repeat(auto-fit, minmax(20rem, 20rem));
+    align-items: start;
+    min-height: calc(100vh - 170px);
+    justify-content: center;
+    @include media(small) {
+        grid-gap: 1rem;
+    }
+
+    &__item {
+        background-color: #fff;
+        border-radius: 0.4rem;
+        overflow: hidden;
+        box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: $transition;
+        height: 100%;
+
+        &:hover {
+            transform: translateY(-0.5%);
+            box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.card {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: flex-end;
+    &__img {
+        display: block;
+        width: 100%;
+        height: 50%;
+        object-fit: contain;
+        padding-top: 25px;
+    }
+
+    &__content {
+        padding: 1rem 1rem;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    &__header {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: $color-header;
+        margin-bottom: 1.5rem;
+    }
+
+    &__text {
+        font-size: 1.5rem;
+        letter-spacing: 0.1rem;
+        line-height: 1.7;
+        color: darken($color-text, 1%);
+        margin-bottom: 2.5rem;
+    }
+
+    &__btn {
+        display: block;
+        width: 100%;
+        font-size: 1.2rem;
+        text-align: center;
+        color: $color-btn-text;
+        background-color: $color-btn-background;
+        border: none;
+        border-radius: 0.4rem;
+        transition: $transition;
+        height: 50px;
+        align-self: flex-end;
+        cursor: pointer;
+
+        span {
+            margin-left: 1rem;
+            transition: $transition;
+        }
+
+        &:hover,
+        &:active {
+            background-color: darken($color-btn-background, 2%);
+
+            span {
+                margin-left: 1.5rem;
+            }
+        }
+    }
+}

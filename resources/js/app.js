@@ -1,5 +1,5 @@
 require("./bootstrap");
-require("./dropdown");
+// require("./dropdown");
 
 import Vue from "vue";
 import VueRouter from "vue-router";
