@@ -22,12 +22,19 @@
                 </div>
             </div>
         </nav>
-        <div>
-            <img
-                :src="`/images/cabinets/${cabinet.picture}`"
-                alt="product-picture"
-            />
-            <div>
+        <div class="product-container">
+            <div class="product-left">
+                <img
+                    :src="`/images/cabinets/${cabinet.picture}`"
+                    alt="product-picture"
+                />
+                <div class="product-color">
+                    <p>Color</p>
+                    <p>Prime White Embossed</p>
+                    <button>Change Color</button>
+                </div>
+            </div>
+            <div class="product-right">
                 <div class="product-header">
                     <h1>{{ cabinet.name }}</h1>
                     <h3>
@@ -36,13 +43,19 @@
                     </h3>
                 </div>
                 <div class="product-price">
-                    <div class="price-number">
-                        314.78
+                    <div class="price-name">
+                        <h4>Price</h4>
+                        <div class="price-number">
+                            314.78
+                        </div>
                     </div>
                     <div class="quantity">
-                        <div class="minus"></div>
-                        <div class="number"></div>
-                        <div class="plus"></div>
+                        <h4>Quantity</h4>
+                        <div class="qnty-controller">
+                            <div class="minus">-</div>
+                            <div class="number">10</div>
+                            <div class="plus">+</div>
+                        </div>
                     </div>
                 </div>
                 <div class="description">
@@ -53,10 +66,11 @@
                 </div>
                 <div class="product-footer">
                     <div class="total">
-                        757.45
+                        <h4>Total Price</h4>
+                        <p>757.45</p>
                     </div>
                     <div class="add-button">
-                        <div class="icon"></div>
+                        <i class="fas fa-cart-plus fa-lg"></i>
                         <div class="button-title">Add to Cart</div>
                     </div>
                 </div>

@@ -17,8 +17,8 @@ class CreateLibrariesTable extends Migration
         Schema::create('libraries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sub_category_id');
-            $table->string('name');
-            $table->string('slug');
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('measure_type');
             $table->string('type');
