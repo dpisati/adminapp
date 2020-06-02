@@ -21,6 +21,8 @@ Route::apiResources(['finish' => 'API\FinishController']);
 Route::apiResources(['category' => 'API\CategoryController']);
 Route::apiResources(['subcategory' => 'API\SubCategoryController']);
 Route::apiResources(['library' => 'API\LibraryController']);
+
+
 Route::get('findProject', 'API\ProjectController@search');
 Route::get('findMaterial/{id}', 'API\MaterialController@find');
 
@@ -29,6 +31,9 @@ Route::get('findCabinet', 'API\LibraryController@search');
 Route::get('findCabinetBySubCategory/{id}', 'API\LibraryController@findCabinetBySubCategory');
 Route::post('addCabinet', 'API\RoomController@addCabinet');
 Route::put('cabinet', 'API\LibraryController@updateCabinet');
+
+// Route::get('shop-cabinet/{slug}', 'API\LibraryController@shopShow');
+Route::apiResources(['shop-cabinet' => 'ShopController']);
 
 
 

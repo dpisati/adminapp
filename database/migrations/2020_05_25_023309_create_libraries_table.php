@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
 class CreateLibrariesTable extends Migration
 {
     /**
@@ -17,6 +18,7 @@ class CreateLibrariesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sub_category_id');
             $table->string('name');
+            $table->string('slug');
             $table->text('description')->nullable();
             $table->string('measure_type');
             $table->string('type');

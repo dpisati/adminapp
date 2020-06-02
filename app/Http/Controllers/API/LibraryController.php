@@ -6,6 +6,8 @@ use App\Library;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class LibraryController extends Controller
 {
@@ -43,10 +45,12 @@ class LibraryController extends Controller
             'measure_type' => 'required',
             'type' => 'required'
         ]);
+        $slug = Str::slug($request->name, '-');
 
         $cabinet = new Library;
         $cabinet->sub_category_id = $request->sub_category_id;
         $cabinet->name = $request->name;
+        $cabinet->slug = $slug;
         $cabinet->measure_type = $request->measure_type;
         $cabinet->type = $request->type;
         $cabinet->min_width = $request->min_width;
@@ -79,6 +83,7 @@ class LibraryController extends Controller
         // return Library::where('sub_category_id', $id)->get();
         return Library::with(['subcategory', 'subcategory.category'])->findOrFail($id);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -192,5 +197,9 @@ class LibraryController extends Controller
             $cabinet = Library::with(['subcategory', 'subcategory.category'])->latest()->paginate();
         }
         return $cabinet;
+    }
+    public function shopShow($slug)
+    {
+        return Library::where('slug', $slug)->first();
     }
 }

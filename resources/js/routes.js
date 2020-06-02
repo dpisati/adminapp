@@ -11,6 +11,7 @@ import Materials from "./components/Materials";
 import Developer from "./components/Developer";
 import NotFound from "./components/NotFound";
 import Shop from "./components/Shop";
+import ShopCabinet from "./components/ShopCabinet";
 
 export default {
     mode: "history",
@@ -27,6 +28,7 @@ export default {
         { path: "/materials", component: Materials },
         { path: "/developer", component: Developer },
         { path: "/shop", component: Shop },
+        { path: "/shop/:slug", component: ShopCabinet },
         { path: "*", component: NotFound }
     ]
 };

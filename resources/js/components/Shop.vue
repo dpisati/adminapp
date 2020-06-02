@@ -2,6 +2,13 @@
     <div class="container">
         <nav class="shop-nav">
             <div class="nav-left">
+                <button
+                    v-if="subcategoryLoaded"
+                    @click="reset"
+                    style="width:100px;height:40px;border:none;cursor:pointer;border-radius:5px;margin-right:25px"
+                >
+                    All
+                </button>
                 <select
                     @change="loadSubCategories"
                     v-model="form.category"
@@ -20,6 +27,7 @@
 
                 <select
                     @change="loadCabinets"
+                    v-if="subcategoryLoaded"
                     v-model="form.subcategory"
                     name="subcategory"
                     class="form-control"
@@ -63,17 +71,19 @@
                         <img
                             class="card__img"
                             :src="`/images/cabinets/${cabinet.picture}`"
-                            alt="Snowy Mountains"
+                            alt="prodcut-picture"
                         />
                         <div class="card__content">
                             <h1 class="card__header">{{ cabinet.name }}</h1>
                             <p class="card__text"></p>
-                            <button
+
+                            <router-link
+                                :to="'/shop/' + cabinet.slug"
+                                tag="button"
                                 class="card__btn"
-                                @click="cartItemsNumbers += 1"
                             >
                                 View More <span>&rarr;</span>
-                            </button>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -88,6 +98,7 @@ export default {
         return {
             categories: {},
             subcategories: {},
+            subcategoryLoaded: false,
             cabinets: {},
             cartItemsNumbers: 0,
             form: new Form({
@@ -99,6 +110,13 @@ export default {
         };
     },
     methods: {
+        reset() {
+            this.$Progress.start();
+            this.getCabinets();
+            this.form.category = "";
+            this.subcategories = {};
+            this.subcategoryLoaded = false;
+        },
         loadCategories() {
             this.$Progress.start();
             axios
@@ -112,11 +130,13 @@ export default {
                 });
         },
         loadSubCategories() {
+            this.subcategoryLoaded = false;
             this.$Progress.start();
             axios
                 .get("/api/subcategory/" + this.form.category)
                 .then(({ data }) => {
                     this.subcategories = data;
+                    this.subcategoryLoaded = true;
                     this.$Progress.finish();
                 })
                 .catch(() => {

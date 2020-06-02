@@ -16,4 +16,8 @@ class ShopController extends Controller
     {
         return view('layouts.ecommerce');
     }
+    public function show($slug)
+    {
+        return Library::where('slug', $slug)->with(['subcategory', 'subcategory.category'])->first();
+    }
 }
