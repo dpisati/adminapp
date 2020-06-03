@@ -10,6 +10,7 @@
     color: black;
     top: 0;
     background-color: white;
+    margin: 0px !important;
     a {
         text-decoration: none;
         color: inherit;
@@ -29,14 +30,17 @@
         width: 60%;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         list-style: none;
         font-weight: 400;
+        margin: 0px;
+        font-size: 1rem;
+        ul {
+            margin: 0px;
+        }
         .nav-link {
             transition: opacity 0.4s ease-in-out;
-            a {
-                margin: 0.2rem 0px;
-                padding: 1rem 0px;
-            }
+            padding: 10px 0px !important;
             a:hover {
                 color: rgb(117, 117, 117);
             }

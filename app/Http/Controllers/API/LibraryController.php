@@ -61,9 +61,9 @@ class LibraryController extends Controller
         $cabinet->max_depth = $request->max_depth;
 
         if($request->picture != "") {
-            $name = time().'.' . explode('/', explode(':', substr($request->picture, 0, strpos($request->picture, ';')))[1])[1];
-            \Image::make($request->picture)->save(public_path('images/cabinets/').$name);
-            $cabinet->picture = $name;
+            // $name = time().'.' . explode('/', explode(':', substr($request->picture, 0, strpos($request->picture, ';')))[1])[1];
+            \Image::make($request->picture)->save(public_path('images/cabinets/').$slug);
+            $cabinet->picture = $slug;
         }
 
         $cabinet->save();
@@ -113,9 +113,10 @@ class LibraryController extends Controller
         ]); 
         $currentPicture = $cabinet->picture;
         if($request->picture != $currentPicture) {
-            $name = time().'.' . explode('/', explode(':', substr($request->picture, 0, strpos($request->picture, ';')))[1])[1];
-            \Image::make($request->picture)->save(public_path('images/cabinets/').$name);
-            $request->merge(['picture' => $name]);
+            $slug = Str::slug($request->name, '-');
+            $slugJPG = $slug . ".jpeg";
+            \Image::make($request->picture)->save(public_path('images/cabinets/').$slugJPG);
+            $request->merge(['picture' => $slugJPG]);
             $cabinet->picture = $request->picture;
             $cabinetPhoto = public_path('images/cabinets/').$currentPicture;
             if(file_exists($cabinetPhoto) && $cabinetPhoto != public_path('images/cabinets/no-preview.png')) {
@@ -167,9 +168,10 @@ class LibraryController extends Controller
         $cabinet = Library::findOrFail($request->id);
         $currentPicture = $cabinet->picture;
         if($request->picture != $currentPicture) {
-            $name = time().'.' . explode('/', explode(':', substr($request->picture, 0, strpos($request->picture, ';')))[1])[1];
-            \Image::make($request->picture)->save(public_path('images/cabinets/').$name);
-            $request->merge(['picture' => $name]);
+            $slug = Str::slug($request->name, '-');
+            $slugJPG = $slug . ".jpeg";
+            \Image::make($request->picture)->save(public_path('images/cabinets/').$slugJPG);
+            $request->merge(['picture' => $slugJPG]);
             $cabinet->picture = $request->picture;
             $cabinetPhoto = public_path('images/cabinets/').$currentPicture;
             if(file_exists($cabinetPhoto) && $cabinetPhoto != public_path('images/cabinets/no-preview.png')) {

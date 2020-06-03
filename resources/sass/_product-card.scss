@@ -61,9 +61,8 @@ $transition: 0.2s;
 .card {
     height: 100%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-self: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
     &__img {
         display: block;
         width: 100%;
