@@ -129,21 +129,20 @@
   background-color: white;
   display: flex;
   justify-content: center;
-  align-items: center;
-  max-width: 1500px;
-  height: calc(100vh - 170px);
+  max-width: 1400px;
   padding: 0px 50px;
-  margin: auto;
+  margin: 50px auto;
 }
 
 .product-container .product-left {
   display: block;
   width: 50%;
+  padding: 0px 25px;
 }
 
 .product-container .product-color {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   padding: 25px 0px;
 }
@@ -159,16 +158,23 @@
 .product-container .product-right {
   width: 50%;
   padding: 50px;
-  background: #f0f0f0;
+  background: whitesmoke;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .product-container .product-right .product-header h1 {
   padding: 0px 0px 25px 0px;
+  font-weight: 500;
+}
+
+.product-container .product-right .product-header h3 {
+  font-weight: 400;
 }
 
 .product-container .product-right .product-price {
-  margin: 50px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -224,12 +230,9 @@
   background-color: #5f5f5f;
 }
 
-.product-container .product-right .description {
-  margin: 50px 0px;
-}
-
 .product-container .product-right .description h4 {
   margin-bottom: 25px;
+  font-family: "Montserrat", sans-serif;
 }
 
 .product-container .product-right .product-footer {
@@ -246,8 +249,10 @@
   justify-content: space-between;
 }
 
-.product-container .product-right .product-footer .add-button {
-  padding: 0px 25px;
+.add-button,
+.color-button {
+  height: 45px;
+  padding: 0px 20px;
   background-color: black;
   border-radius: 22.5px;
   color: white;
@@ -258,9 +263,53 @@
   transition: all 0.3s ease-in-out;
 }
 
-.product-container .product-right .product-footer .add-button:hover {
+.add-button:hover,
+.color-button:hover {
   cursor: pointer;
   background-color: #5f5f5f;
+}
+
+.color-preview {
+  min-width: 40px;
+  min-height: 40px;
+  background: url(/images/southern-oak.jpg?f677918aa5a7380c541a10020c0a393e);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+  border: black 1px solid;
+  margin: 0px 15px;
+}
+
+.color {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.color p {
+  margin-left: 10px;
+}
+
+.add-button,
+.color-button,
+.minus,
+.plus {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+}
+
+.color-button {
+  min-width: 188px;
+  margin: 0px 15px;
 }
 
 .container {
@@ -271,7 +320,7 @@
   padding: 0px 25px;
   width: 100%;
   position: fixed;
-  z-index: 10;
+  z-index: 5;
   top: 0px;
   left: 0px;
   background: black;

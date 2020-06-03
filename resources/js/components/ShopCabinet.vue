@@ -29,9 +29,15 @@
                     alt="product-picture"
                 />
                 <div class="product-color">
-                    <p>Color</p>
-                    <p>Prime White Embossed</p>
-                    <button>Change Color</button>
+                    <h4>Color</h4>
+                    <div class="color">
+                        <div class="color-preview"></div>
+                        <p>{{ color }}</p>
+                    </div>
+                    <div class="color-button">
+                        <i class="fas fa-palette fa-lg"></i>
+                        <div class="button-title">Change Color</div>
+                    </div>
                 </div>
             </div>
             <div class="product-right">
@@ -46,15 +52,22 @@
                     <div class="price-name">
                         <h4>Price</h4>
                         <div class="price-number">
-                            314.78
+                            {{ price | roundPrice }}
                         </div>
                     </div>
                     <div class="quantity">
                         <h4>Quantity</h4>
                         <div class="qnty-controller">
-                            <div class="minus">-</div>
-                            <div class="number">10</div>
-                            <div class="plus">+</div>
+                            <div
+                                class="minus"
+                                @click="
+                                    quantity > 0 ? (quantity -= 1) : quantity
+                                "
+                            >
+                                -
+                            </div>
+                            <div class="number">{{ quantity }}</div>
+                            <div class="plus" @click="quantity += 1">+</div>
                         </div>
                     </div>
                 </div>
@@ -67,7 +80,7 @@
                 <div class="product-footer">
                     <div class="total">
                         <h4>Total Price</h4>
-                        <p>757.45</p>
+                        <p>{{ (price * quantity) | roundPrice }}</p>
                     </div>
                     <div class="add-button">
                         <i class="fas fa-cart-plus fa-lg"></i>
@@ -85,6 +98,9 @@ export default {
         return {
             cartItemsNumbers: 0,
             slug: this.$route.params.slug,
+            price: 317.54,
+            quantity: 1,
+            color: "Southern Oak Woodgrain",
             cabinet: {}
         };
     },

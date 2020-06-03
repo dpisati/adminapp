@@ -15,6 +15,7 @@ $factory->define(Library::class, function (Faker $faker) {
         'type' => $faker->randomElement(['Cabinet', 'Panel']),
         'name' => $name,
         'slug' => $slug,
+        'description' => $faker->paragraph,
         'min_width' => 600,
         'max_width' => 1200,
         'min_height' => 720,

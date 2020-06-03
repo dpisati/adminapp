@@ -56,6 +56,10 @@ Vue.filter("upText", function(text) {
     return text.charAt(0).toUpperCase() + text.slice(1);
 });
 
+Vue.filter("roundPrice", function(number) {
+    return number.toFixed(2);
+});
+
 Vue.filter("myDate", function(date) {
     return moment(date).format("DD/MM/YY - hh:mm:ss a");
 });
