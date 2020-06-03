@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Material;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 
 class MaterialController extends Controller
@@ -41,13 +42,25 @@ class MaterialController extends Controller
             'name' => 'required|string|max:191',
             'supplier_id' => 'required'
         ]);
-        return Material::create([
-            'supplier_id' => $request['supplier_id'],
-            'name' => $request['name'],
-            'finish' => $request['finish'],
-            'stock' => $request['stock'],
-            'range' => $request['range']
-        ]);
+        $slug = Str::slug($request->name, '-');
+        $slugFinish = Str::slug($request->finish, '-');
+        $slugJPG = $slug . "-" . $slugFinish . ".jpeg";
+        
+        $material = new Material;
+        $material->supplier_id = $request->supplier_id;
+        $material->name = $request->name;
+        $material->slug = $slug;
+        $material->finish = $request->finish;
+        $material->stock = $request->stock;
+        $material->range = $request->range;
+   
+        if($request->picture != "") {
+            // $name = time().'.' . explode('/', explode(':', substr($request->picture, 0, strpos($request->picture, ';')))[1])[1];
+            \Image::make($request->picture)->save(public_path('images/materials/').$slugJPG);
+            $material->picture = $slugJPG;
+        }
+        $material->save();
+        return ['message', 'Material created successfully'];
     }
 
     /**
@@ -86,8 +99,20 @@ class MaterialController extends Controller
             'name' => 'required|string|max:191',
             'supplier_id' => 'required'
         ]);
+        $currentPicture = $material->picture;
+        if($request->picture != $currentPicture) {
+            $slug = Str::slug($request->name, '-');
+            $slugFinish = Str::slug($request->finish, '-');
+            $slugJPG = $slug . "-" . $slugFinish . ".jpeg";
+            \Image::make($request->picture)->save(public_path('images/materials/').$slugJPG);
+            $request->merge(['picture' => $slugJPG]);
+            $material->picture = $request->picture;
+            $materialPhoto = public_path('images/materials/').$currentPicture;
+            if(file_exists($materialPhoto) && $materialPhoto != public_path('images/materials/no-preview.png')) {
+                    @unlink($materialPhoto);
+            }
+        }
         $material->update($request->all());
-        return ['message' => 'material updated', $material];
     }
 
     /**
@@ -99,7 +124,11 @@ class MaterialController extends Controller
     public function destroy(Material $material)
     {
         $material = Material::findOrFail($material->id);
+        $currentPicture = $material->picture;
+        $materialPhoto = public_path('images/materials/').$currentPicture;
+        @unlink($materialPhoto);
         $material->delete();
+
 
         return ['message' => 'Material Deleted'];
     }

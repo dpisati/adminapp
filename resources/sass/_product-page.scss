@@ -42,14 +42,16 @@
         flex-direction: column;
         justify-content: space-between;
         .product-header {
-            margin-bottom: 50px;
+            margin-bottom: 3vh;
             h1 {
-                padding: 0px 0px 25px 0px;
-                font-weight: 500;
+                padding: 0px 0px 15px 0px;
+                font-weight: 600;
+                margin: 0px;
             }
             h3 {
                 font-weight: 400;
                 font-size: 1.1rem;
+                margin: 0px;
             }
         }
         .product-price {
@@ -57,7 +59,8 @@
             justify-content: space-between;
             align-items: center;
             height: 100px;
-            margin: 50px 0px;
+            margin: 3vh 0px;
+            margin-top: 0px;
             .price-name {
                 display: flex;
                 flex-direction: column;
@@ -65,6 +68,8 @@
                 justify-content: space-between;
             }
             .price-number {
+                font-family: "Montserrat", sans-serif;
+                font-weight: 600;
                 font-size: 3rem;
             }
             .quantity {
@@ -81,6 +86,10 @@
                     width: 180px;
                     border-radius: 25px;
                     padding: 0px 5px;
+                    .number {
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                    }
                     .minus,
                     .plus {
                         background-color: black;
@@ -103,10 +112,9 @@
             }
         }
         .description {
-            margin-bottom: 50px;
+            margin-bottom: 2vh;
             h4 {
                 margin-bottom: 25px;
-                font-family: "Montserrat", sans-serif;
             }
         }
         .product-footer {
@@ -121,6 +129,7 @@
                 justify-content: space-between;
                 p {
                     font-size: 1.3rem;
+                    font-weight: bold;
                 }
             }
         }
@@ -178,4 +187,8 @@
 .color-button {
     min-width: 188px;
     margin: 0px 15px;
+}
+h4 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
 }

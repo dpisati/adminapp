@@ -29,7 +29,7 @@
                     alt="product-picture"
                 />
                 <div class="product-color">
-                    <h4>Color</h4>
+                    <h4>COLOR</h4>
                     <div class="color">
                         <div class="color-preview"></div>
                         <p>{{ color }}</p>
@@ -51,20 +51,20 @@
                     </h3>
                 </div>
                 <div class="description">
-                    <h4>Description</h4>
+                    <h4>DESCRIPTION</h4>
                     <p>
                         {{ cabinet.description }}
                     </p>
                 </div>
                 <div class="product-price">
                     <div class="price-name">
-                        <h4>Price</h4>
+                        <h4>PRICE</h4>
                         <div class="price-number">
                             {{ price | roundPrice }}
                         </div>
                     </div>
                     <div class="quantity">
-                        <h4>Quantity</h4>
+                        <h4>QUANTITY</h4>
                         <div class="qnty-controller">
                             <div
                                 class="minus"
@@ -82,7 +82,7 @@
                 </div>
                 <div class="product-footer">
                     <div class="total">
-                        <h4>Total Price</h4>
+                        <h4>TOTAL</h4>
                         <p>{{ (price * quantity) | roundPrice }}</p>
                     </div>
                     <div class="add-button">

@@ -17,10 +17,11 @@ class CreateMaterialsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('supplier_id');
             $table->string('name');
+            $table->string('slug');
             $table->string('finish');
             $table->string('range');
             $table->string('stock');
-            $table->string('texture')->default('no-preview.png')->nullable();;
+            $table->string('picture')->default('no-preview.png')->nullable();;
             $table->timestamps();
                         
             $table->foreign('supplier_id')

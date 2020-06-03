@@ -173,17 +173,19 @@
 }
 
 .product-container .product-right .product-header {
-  margin-bottom: 50px;
+  margin-bottom: 3vh;
 }
 
 .product-container .product-right .product-header h1 {
-  padding: 0px 0px 25px 0px;
-  font-weight: 500;
+  padding: 0px 0px 15px 0px;
+  font-weight: 600;
+  margin: 0px;
 }
 
 .product-container .product-right .product-header h3 {
   font-weight: 400;
   font-size: 1.1rem;
+  margin: 0px;
 }
 
 .product-container .product-right .product-price {
@@ -191,7 +193,8 @@
   justify-content: space-between;
   align-items: center;
   height: 100px;
-  margin: 50px 0px;
+  margin: 3vh 0px;
+  margin-top: 0px;
 }
 
 .product-container .product-right .product-price .price-name {
@@ -202,6 +205,8 @@
 }
 
 .product-container .product-right .product-price .price-number {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   font-size: 3rem;
 }
 
@@ -221,6 +226,11 @@
   width: 180px;
   border-radius: 25px;
   padding: 0px 5px;
+}
+
+.product-container .product-right .product-price .quantity .qnty-controller .number {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .product-container .product-right .product-price .quantity .qnty-controller .minus,
@@ -244,12 +254,11 @@
 }
 
 .product-container .product-right .description {
-  margin-bottom: 50px;
+  margin-bottom: 2vh;
 }
 
 .product-container .product-right .description h4 {
   margin-bottom: 25px;
-  font-family: "Montserrat", sans-serif;
 }
 
 .product-container .product-right .product-footer {
@@ -268,6 +277,7 @@
 
 .product-container .product-right .product-footer .total p {
   font-size: 1.3rem;
+  font-weight: bold;
 }
 
 .add-button,
@@ -332,6 +342,11 @@
 .color-button {
   min-width: 188px;
   margin: 0px 15px;
+}
+
+h4 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
 }
 
 .container {
