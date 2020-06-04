@@ -25,6 +25,8 @@ Route::apiResources(['library' => 'API\LibraryController']);
 
 Route::get('findProject', 'API\ProjectController@search');
 Route::get('findMaterial/{id}', 'API\MaterialController@find');
+Route::get('findStockMaterial', 'API\MaterialController@findStock');
+Route::get('findSelectedMaterial/{id}', 'API\MaterialController@findSelectedMaterial');
 
 Route::get('findCabinet/{id}', 'API\LibraryController@findCabinet');
 Route::get('findCabinet', 'API\LibraryController@search');

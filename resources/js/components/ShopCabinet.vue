@@ -31,8 +31,13 @@
                 <div class="product-color">
                     <h4>COLOR</h4>
                     <div class="color">
-                        <div class="color-preview"></div>
-                        <p>{{ color }}</p>
+                        <div class="color-preview">
+                            <img
+                                :src="`/images/materials/${material.picture}`"
+                                alt="product-picture"
+                            />
+                        </div>
+                        <p>{{ material.name }} {{ material.finish }}</p>
                     </div>
                     <div class="color-button">
                         <i class="fas fa-palette fa-lg"></i>
@@ -56,6 +61,7 @@
                         {{ cabinet.description }}
                     </p>
                 </div>
+
                 <div class="product-price">
                     <div class="price-name">
                         <h4>PRICE</h4>
@@ -122,65 +128,24 @@
                             @submit.prevent="updateColor()"
                             @keyup.enter.prevent="updateColor()"
                         >
-                            <div class="form-group">
-                                <select
-                                    @change="loadMaterials"
-                                    v-model="form.supplier_id"
-                                    name="supplier"
-                                    class="form-control"
-                                    :class="{
-                                        'is-invalid': form.errors.has(
-                                            'supplier'
-                                        )
-                                    }"
-                                >
-                                    <option value disabled selected
-                                        >- Supplier -</option
-                                    >
-                                    <option
-                                        v-for="supplier in suppliers"
-                                        :key="supplier.id"
-                                        :value="supplier.id"
-                                        >{{ supplier.name }}</option
-                                    >
-                                </select>
-                                <has-error
-                                    :form="form"
-                                    field="supplier"
-                                ></has-error>
-                            </div>
-
-                            <div class="form-group">
-                                <select
-                                    @change="loadSupplierName"
-                                    v-model="form.material"
-                                    name="material"
-                                    class="form-control"
-                                    :class="{
-                                        'is-invalid': form.errors.has(
-                                            'material'
-                                        )
-                                    }"
-                                >
-                                    <option value disabled selected
-                                        >- Material -</option
-                                    >
-                                    <option
-                                        v-for="material in materials"
-                                        :key="material.id"
-                                        :value="
-                                            material.name +
-                                                ' ' +
-                                                material.finish
-                                        "
-                                        >{{ material.name }}
-                                        {{ material.finish }}
-                                    </option>
-                                </select>
-                                <has-error
-                                    :form="form"
-                                    field="material"
-                                ></has-error>
+                            <div
+                                @click="selectedColor"
+                                class="pictures-options"
+                                :id="material.id"
+                                :tabindex="material.id"
+                                v-for="material in materials"
+                                :key="material.id"
+                            >
+                                <img
+                                    :src="
+                                        `/images/materials/${material.picture}`
+                                    "
+                                    alt="product-picture"
+                                />
+                                <h4>
+                                    {{ material.name }}
+                                    {{ material.finish }}
+                                </h4>
                             </div>
 
                             <div class="modal-footer">
@@ -209,18 +174,31 @@
 export default {
     data() {
         return {
+            test: "",
             cartItemsNumbers: 0,
             slug: this.$route.params.slug,
             price: 317.54,
             quantity: 1,
-            color: "Southern Oak Woodgrain",
+            material: {
+                name: "Southern Oak",
+                finish: "Woodgrain",
+                picture: "southern-oak.jpg"
+            },
             cabinet: {},
             materials: {},
             suppliers: {},
-            form: new Form({ supplier: "", supplier_id: "", material: "" })
+            form: new Form({ supplier: "", supplier_id: "", material: {} })
         };
     },
     methods: {
+        selectedColor(event) {
+            let targetId = event.currentTarget.id;
+            axios
+                .get("/api/findSelectedMaterial/" + targetId)
+                .then(response => {
+                    this.form.material = response.data[0];
+                });
+        },
         newModal() {
             this.editmode = false;
             this.form.reset();
@@ -228,7 +206,7 @@ export default {
         },
         updateColor() {
             this.$Progress.start();
-            this.color = this.form.material;
+            this.material = this.form.material;
             $("#addNew").modal("hide");
             Toast.fire({
                 icon: "success",
@@ -254,16 +232,14 @@ export default {
             });
         },
         loadMaterials() {
-            axios
-                .get("/api/findMaterial/" + this.form.supplier_id)
-                .then(response => {
-                    this.materials = response.data;
-                });
+            axios.get("/api/findStockMaterial").then(response => {
+                this.materials = response.data;
+            });
         }
     },
     created() {
         this.loadCabinet();
-        this.getSuppliers();
+        this.loadMaterials();
     },
     mounted() {}
 };

@@ -142,4 +142,12 @@ class MaterialController extends Controller
     {
         return Material::with('supplier')->where('supplier_id', $id)->get();
     }
+    public function findStock()
+    {
+        return Material::with('supplier')->where('stock', 'yes')->get();
+    }
+    public function findSelectedMaterial($id)
+    {
+        return Material::where('id', $id)->get();
+    }
 }
