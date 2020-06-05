@@ -28,3 +28,14 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+$factory->define(User::class, function (Faker $faker) {
+    return [
+        'name' => 'Daniel Pisati',
+        'type' => 'admin',
+        'franchise' => 'Christchurch',
+        'email' => 'dpisti@gmail.com',
+        'email_verified_at' => now(),
+        'password' => 'dani1234', // password
+        'remember_token' => Str::random(10),
+    ];
+});
