@@ -194,8 +194,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100px;
-  margin: 3vh 0px;
+  height: 80px;
+  margin: 4vh 0px;
   margin-top: 0px;
 }
 
@@ -204,12 +204,15 @@
   flex-direction: column;
   height: 100%;
   justify-content: space-between;
+  position: relative;
 }
 
 .product-container .product-right .product-price .price-number {
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-size: 3rem;
+  position: absolute;
+  top: 20px;
 }
 
 .product-container .product-right .product-price .quantity {
