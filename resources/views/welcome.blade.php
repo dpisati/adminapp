@@ -10,7 +10,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- Swiper Portfolio -->
-        <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
         <!-- Maps -->
         < <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -352,6 +352,24 @@
 @endauth -->
 
 </body>
-<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
-<script src="/js/swiper.js"></script>
+<!-- <script src="https://unpkg.com/swiper/js/swiper.min.js"></script> -->
+<script src="https://unpkg.com/swiper/swiper-bundle.esm.browser.min.js"></script>
+<!-- <script src="/js/swiper.js"></script> -->
+<script type="module">
+  import Swiper from 'https://unpkg.com/swiper/swiper-bundle.esm.browser.min.js'
+  var swiper = new Swiper(".swiper-container", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+        rotate: 20,
+        stretch: 0,
+        depth: 300,
+        modifier: 1,
+        slideShadows: false
+    },
+    loop: true
+});
+</script>
 </html>
