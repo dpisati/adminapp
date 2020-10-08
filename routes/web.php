@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Mail;
 Route::get('/', function () {
     return view('welcome');
 });
-// Auth::routes();
+Auth::routes();
 // Auth::routes([
 //     'register' => false, // Registration Routes...
 //     'reset' => false, // Password Reset Routes...
