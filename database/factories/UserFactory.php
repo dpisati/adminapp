@@ -23,7 +23,7 @@ $factory->define(User::class, function (Faker $faker) {
         'name' => 'Daniel Pisati',
         'type' => 'admin',
         'franchise' => 'Christchurch',
-        'email' => 'dpisti@gmail.com',
+        'email' => 'dpisati@gmail.com',
         'email_verified_at' => now(),
         'password' => Hash::make('dani1234'), // password
         'remember_token' => Str::random(10),
