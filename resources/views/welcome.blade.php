@@ -63,9 +63,9 @@
                     <li class="nav-link"><a href="{{ url('/home') }}">Home</a></li>
                 @else
                     <li class="nav-link last"><a href="{{ route('login') }}" class="last">Login</a></li>
-                <!-- @if (Route::has('register'))
+                @if (Route::has('register'))
                     <li class="nav-link"><a href="{{ route('register') }}">Register</a></li>
-                @endif -->
+                @endif
                 @endauth
             @endif            
         </ul>
